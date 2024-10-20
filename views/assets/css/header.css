@@ -1,29 +1,54 @@
-.navbarMain{
+.navbarMain {
     background-color: #331019 !important;
     text-decoration: none;
     padding-top: 0px;
     color: white !important;
 }
 
-.navbarMain input{
+.navbarMain hr{
+    color: black;
+    height: 20%;
+    margin: auto;
+}
+
+.navbarMain input {
     background-color: #d36905a1 !important;
     border-radius: 10px !important;
 }
 
-.navbarBTN:hover{
+.navbarBTN:hover {
     background-color: #d36905a1 !important;
 }
 
-.itemsNavbar a{
+.itemsNavbar a {
+    float: left;
+    position: relative;
+    padding-bottom: 5px;
+    overflow: hidden;
     font-size: 24px;
     text-decoration: none;
     color: white !important;
 }
 
-.opcionesPerfil{
+.opcionesPerfil {
     background-color: #b1b2b5c0 !important;
 }
 
-.opcionesPerfil button:hover{
+.opcionesPerfil button:hover {
     background-color: #b1b2b5de !important;
+}
+
+.itemsNavbar a::after {
+    background-color: white;
+    content: "";
+    width: 0;
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    transition: width 0.35s ease 0s;
+    position: absolute;
+}
+
+.itemsNavbar a:hover::after {
+    width: 100%;
 }
