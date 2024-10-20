@@ -1,0 +1,29 @@
+.navbarMain{
+    background-color: #331019 !important;
+    text-decoration: none;
+    padding-top: 0px;
+    color: white !important;
+}
+
+.navbarMain input{
+    background-color: #d36905a1 !important;
+    border-radius: 10px !important;
+}
+
+.navbarBTN:hover{
+    background-color: #d36905a1 !important;
+}
+
+.itemsNavbar a{
+    font-size: 24px;
+    text-decoration: none;
+    color: white !important;
+}
+
+.opcionesPerfil{
+    background-color: #b1b2b5c0 !important;
+}
+
+.opcionesPerfil button:hover{
+    background-color: #b1b2b5de !important;
+}
