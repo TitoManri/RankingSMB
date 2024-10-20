@@ -1,0 +1,62 @@
+.caja-login {
+    margin-top: 80px;
+    color: var(--text-color);
+    background: rgba(93, 6, 12, 0.55);
+    border-radius: 50px;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}  
+
+/* Source */
+/* https://codepen.io/stanko/pen/wvQoWdj?editors=1100*/
+
+.input-wrapper {
+    position: relative;
+    margin-top: 30px; 
+    margin-inline: auto;
+    max-width: 400px;
+  }
+  
+  .input {
+    font-size: 20px;
+    width: 100%;
+    padding: 8px 0;
+    padding-right: 30px; 
+    color: #ffffff;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    transition: border-color 250ms;
+    background-color: transparent;
+  
+    &:focus {
+      outline: none;
+      border-bottom-color: #777;
+    }
+  
+    &::placeholder {
+      color: transparent;
+    }
+    
+    &::-webkit-contacts-auto-fill-button {
+      visibility: hidden;
+      pointer-events: none;
+      position: absolute;
+    }
+  }
+  
+  .label {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    color: #ffffff;
+    pointer-events: none;
+    transform-origin: left center;
+    transition: transform 250ms;
+  }
+  
+  .input:focus + .label,
+  .input:not(:placeholder-shown) + .label {
+    transform: translateY(-100%) scale(0.75);
+  }
+  .input:placeholder-shown + .label + .clear {
+    display: none;
+  }
