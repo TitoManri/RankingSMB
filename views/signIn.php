@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="./assets/general.css">
     <link rel="stylesheet" href="./assets/header-footer/headerFooter.css">
     <link rel="stylesheet" href="./assets/signIn/signIn.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <title>LogIn</title>
 </head>
 
 <body>
     <!-- Header -->
     <?php
-    include './headerFooter/header.php';
+    include_once "./templates/Header_Footer/header.php"
     ?>
 
     <section id="contenido-principal">
@@ -122,7 +123,7 @@
 
     <!-- Footer -->
     <?php
-    include './headerFooter/footer.php';
+    include_once "./templates/Header_Footer/footer.php"
     ?>
 
 </body>
