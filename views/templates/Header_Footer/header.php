@@ -14,8 +14,10 @@
                             <i class="bi bi-person-circle h2"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end opcionesPerfil">
-                            <li><button class="dropdown-item" type="button" style="color:black !important">Perfil</button></li>
+                            <li class="px-1"><button class="dropdown-item" type="button" style="color:black !important">Perfil</button></li>
+                            <hr>
                             <li><button class="dropdown-item" type="button" style="color:black !important">Notificaciones</button></li>
+                            <hr>
                             <li><button class="dropdown-item" type="button" style="color:black !important">Cerrar Sesion</button></li>
                         </ul>
                     </div>
