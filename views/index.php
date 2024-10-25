@@ -1,29 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+require '../vendor/autoload.php'; // Asegúrate de tener Composer instalado y MongoDB cliente instalado
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseñas</title>
+try {
+    // Crear una conexión a MongoDB
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    echo "Conexión a MongoDB establecida con éxito.<br>";
 
-    <!-- Links -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/header.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    // Seleccionar la base de datos
+    $database = $client->selectDatabase('HeladosMemphis');
 
-<body>
-    <?php
-    include_once "./templates/Header_Footer/header.php"
-    ?>
-
-    <div class="fixed-bottom">
-        <?php
-        include_once "./templates/Header_Footer/footer.php"
-        ?>
-    </div>
-</body>
-<!--Scripts-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-</html>
+    // Verificar las colecciones
+    $collections = $database->listCollections();
+    echo "Colecciones en 'HeladosMenphis':<br>";
+    foreach ($collections as $collection) {
+        echo $collection->getName() . "<br>";
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
