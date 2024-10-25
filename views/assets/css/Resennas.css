@@ -1,0 +1,19 @@
+.Poster{
+    background-color: #204443 !important;
+    box-shadow: 10px 10px 5px lightblue;
+}
+
+.btn-ver{
+    background-color: #003344 !important;
+    color: white;
+}
+
+.btn-ver:hover{
+    background-color: #01455c !important;   
+    transition: 0.3s;
+    color: white;
+}
+
+.comentarios{
+    background-color: #204443 !important;
+}
