@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', function() {
+    ScrollReveal().reveal('#contenido-frases', {
+        origin: 'top',
+        distance: '50px',
+        duration: 1000, 
+        delay: 300, 
+        reset: true 
+    });
+});
+
+
 function displaySelectedImage(event, elementId) {
     const selectedImage = document.getElementById(elementId);
     const fileInput = event.target;
@@ -12,3 +23,4 @@ function displaySelectedImage(event, elementId) {
         reader.readAsDataURL(fileInput.files[0]);
     }
 }
+

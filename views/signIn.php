@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./assets/header-footer/headerFooter.css">
     <link rel="stylesheet" href="./assets/signIn/signIn.css">
     <link rel="stylesheet" href="./assets/css/header.css">
-    <title>LogIn</title>
+    <title>Registro</title>
 </head>
 
 <body>
@@ -22,29 +22,39 @@
     ?>
 
     <section id="contenido-principal">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col ml-4">
+        <div class=" text-center">
+            <div class="row gx-5">
+                <div class="col-1 mx-auto"></div>
+                <div class="col-5">
+                    <section class="caja-logo">
+                        <div class="text-center">
+                            <h1 class="text-center">RankingSMB</h1>
+                            <img src="./assets/img/Logo_RankingSMB.png" alt="Logo_RankingSMB" height="256">
+                            <hr class="hr" />
+                            <h2>Bienvenido a RankingSMB, disfruta tu experiencia con nosotros</h2>
+                        </div>
+                        </section=>
+                </div>
+
+                <div class="col-6">
                     <section class="caja-login">
                         <div class="container">
                             <form>
+                                <br>
                                 <center>
                                     <h1>Registrarse</h1>
                                 </center>
                                 <hr class="hr" />
-                                <div>
                                     <div class="d-flex justify-content-center mb-4">
                                         <img id="selectedAvatar" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
                                             class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
                                     </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div data-mdb-ripple-init class="btn btn-primary btn-rounded">
-                                            <label class="form-label text-white m-1" for="customFile2">Choose file</label>
+                                    <div class="d-flex justify-content-center ">
+                                        <div data-mdb-ripple-init class="btn btn-light b-4 hvr-back-pulse ">
+                                            <label class="form-label text-black m-1" for="customFile2">Choose file</label>
                                             <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
                                         </div>
                                     </div>
-                                </div>
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <div class="input-wrapper">
@@ -103,14 +113,14 @@
                                             <label class="label" for="contrasena">Contraseña</label>
                                         </div>
                                     </div>
-                                    <div class="input-wrapper">
-                                        <input type="password" class="input" id="confirmarContrasena" placeholder=" " autocomplete="off" />
-                                        <label class="label" for="confirmarContrasena">Confirmar Contraseña</label>
+                                    <div class="col">
+                                        <div class="input-wrapper">
+                                            <input type="password" class="input" id="confirmarContrasena" placeholder=" " autocomplete="off" />
+                                            <label class="label" for="confirmarContrasena">Confirmar Contraseña</label>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                <button type="submit" class="btn btn-primary">Registrarse</button>
+                                <button type="submit" class="btn btn-light btn-lg mb-4 hvr-fade">Registrarse</button>
                             </form>
                         </div>
 
@@ -120,6 +130,26 @@
         </div>
     </section>
 
+    <section id="contenido-frases">
+        <div class=" text-center">
+            <div class="row gx-5 align-items-center">
+                <div class="col-5">
+                    <section class="">
+                        <div class="text-center">
+                            <img class="poster" src="https://cloudfront-us-east-1.images.arcpublishing.com/copesa/S4367N7H5VAYTB225C4GCG2ZHI.jpeg" alt="Logo_RankingSMB" height="700">
+                        </div>
+                    </section>
+                </div>
+                <div class="col-6">
+                    <section class="cita">
+                        <div class="text-center">
+                            <h2>"No es responsabilidad de los científicos decidir si se debe utilizar o no una bomba de hidrógeno. Esa responsabilidad corresponde al pueblo norteamericano y a los representantes por él elegidos"-Robert Oppenheimer</h2>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <?php
@@ -131,6 +161,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
+<script src="https://unpkg.com/scrollreveal"></script>
+
 <!-- Js Personalizado-->
 <script src="./assets/signIn/signIn.js"></script>
+
 </html>
