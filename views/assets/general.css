@@ -1,0 +1,12 @@
+:root {
+    --primary-color: #84ff88; /* Primary color (e.g., for header, buttons) */
+    --secondary-color: #333; /* Secondary color (e.g., footer, text) */
+    --background-color: #204443; /* General background color */
+    --header-color: #331019;
+    --text-color: #ffffff; /* General text color */
+    --accent-color: #f1f1f1; /* Accent color (e.g., section background) */
+  }
+
+  body{
+    background-color: #204443;
+  }
