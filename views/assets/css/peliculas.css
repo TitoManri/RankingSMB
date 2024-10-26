@@ -1,0 +1,9 @@
+body,
+html {
+    background: #003344;
+}
+
+#boton-busqueda{
+    background-color: #5d060c;
+    color: white;
+}
