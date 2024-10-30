@@ -22,7 +22,7 @@
     ?>
 
     <section id="contenido-principal">
-        <div class=" text-center">
+        <div class="text-center">
             <div class="row gx-5">
                 <div class="col-1 mx-auto"></div>
                 <div class="col-5">
@@ -33,7 +33,7 @@
                             <hr class="hr" />
                             <h2>Bienvenido a RankingSMB, disfruta tu experiencia con nosotros</h2>
                         </div>
-                        </section=>
+                    </section>
                 </div>
 
                 <div class="col-6">
@@ -45,30 +45,30 @@
                                     <h1>Registrarse</h1>
                                 </center>
                                 <hr class="hr" />
-                                    <div class="d-flex justify-content-center mb-4">
-                                        <img id="selectedAvatar" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
-                                            class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
+                                <div class="d-flex justify-content-center mb-4">
+                                    <img id="selectedAvatar" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                                         class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div data-mdb-ripple-init class="btn btn-light b-4 hvr-back-pulse">
+                                        <label class="form-label text-black m-1" for="customFile2">Choose file</label>
+                                        <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
                                     </div>
-                                    <div class="d-flex justify-content-center ">
-                                        <div data-mdb-ripple-init class="btn btn-light b-4 hvr-back-pulse ">
-                                            <label class="form-label text-black m-1" for="customFile2">Choose file</label>
-                                            <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
-                                        </div>
-                                    </div>
-                                <div class="mb-3 row">
-                                    <div class="col">
+                                </div>
+                                <div class="mb-3 row d-flex justify-content-center">
+                                    <div class="col-4">
                                         <div class="input-wrapper">
                                             <input type="text" class="input" id="nombre" placeholder=" " autocomplete="off" />
                                             <label class="label" for="nombre">Nombre</label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-3">
                                         <div class="input-wrapper">
                                             <input type="text" class="input" id="primerApellido" placeholder=" " autocomplete="off" />
                                             <label class="label" for="primerApellido">Primer Apellido</label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-4">
                                         <div class="input-wrapper">
                                             <input type="text" class="input" id="segundoApellido" placeholder=" " autocomplete="off" />
                                             <label class="label" for="segundoApellido">Segundo Apellido</label>
@@ -77,13 +77,13 @@
                                 </div>
 
                                 <div class="mb-3 row">
-                                    <div class="col">
+                                    <div class="col-6">
                                         <div class="input-wrapper">
                                             <input type="text" class="input" id="nombreUsuario" placeholder=" " autocomplete="off" />
                                             <label class="label" for="nombreUsuario">Nombre de Usuario</label>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-6">
                                         <div class="input-wrapper">
                                             <input type="email" class="input" id="correo" placeholder=" " autocomplete="off" />
                                             <label class="label" for="correo">Correo</label>
@@ -123,18 +123,17 @@
                                 <button type="submit" class="btn btn-light btn-lg mb-4 hvr-fade">Registrarse</button>
                             </form>
                         </div>
-
                     </section>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contenido-frases">
-        <div class=" text-center">
+    <!--<section id="contenido-frases">
+        <div class="text-center">
             <div class="row gx-5 align-items-center">
                 <div class="col-5">
-                    <section class="">
+                    <section>
                         <div class="text-center">
                             <img class="poster" src="https://cloudfront-us-east-1.images.arcpublishing.com/copesa/S4367N7H5VAYTB225C4GCG2ZHI.jpeg" alt="Logo_RankingSMB" height="700">
                         </div>
@@ -143,14 +142,15 @@
                 <div class="col-6">
                     <section class="cita">
                         <div class="text-center">
-                            <h2>"No es responsabilidad de los científicos decidir si se debe utilizar o no una bomba de hidrógeno. Esa responsabilidad corresponde al pueblo norteamericano y a los representantes por él elegidos"-Robert Oppenheimer</h2>
+                            <h2>"No es responsabilidad de los científicos decidir si se debe utilizar o no una bomba de hidrógeno. Esa responsabilidad corresponde al pueblo norteamericano y a los representantes por él elegidos" - Robert Oppenheimer</h2>
                         </div>
                     </section>
+                    <br><br>
                 </div>
             </div>
         </div>
-    </section>
-
+    </section>-->
+<br><br>
     <!-- Footer -->
     <?php
     include_once "./templates/Header_Footer/footer.php"

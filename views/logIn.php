@@ -67,7 +67,7 @@
             </div>
         </div>
     </section>
-    <section id="contenido-frases">
+    <!--<section id="contenido-frases">
         <div class=" text-center">
             <div class="row gx-5 align-items-center">
                 <div class="col-5">
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- Footer -->
     <?php
