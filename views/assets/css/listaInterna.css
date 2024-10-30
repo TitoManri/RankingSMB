@@ -1,0 +1,55 @@
+body{
+    background-color: #003344 !important;
+}
+
+.contenedor{
+    background-color:#017781;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.contenedor {
+    background-color: #017781;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-radius: 15px 15px 15px 15px;
+    margin-bottom: 15px;
+}
+
+.UnaLinea{
+    display: flex; 
+    align-items: center;
+}
+
+.Nombre_Grande{
+    color: white;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.imagen-1{
+    text-decoration: none; 
+    color: inherit;
+}
+
+.imagen-2{
+    margin-right: 10px; 
+    border-radius: 10px;
+}
+
+.todoBlanco{
+    color:white;
+}
+
+.filtro{
+    width: 400px;
+    height: 30px;
+}
+
+.space{
+    padding-bottom: 15px;
+}

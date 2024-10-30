@@ -1,0 +1,297 @@
+body{
+    background-color: #003344 !important;
+}
+
+.Nombre_Grande{
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-left: 150px; 
+    margin-top: 20px;
+}
+
+.cuadrado-MyS{
+    width: 160px;
+    height: 160px;
+    padding: 10px;
+}
+
+.cuadrado-L{
+    width: 160px;
+    height: 160px;
+    padding: 10px;
+}
+
+
+/*Para hacer que las esquinas se hagan redondas*/
+.hvr-round-corners {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: border-radius;
+    transition-property: border-radius;
+  }
+  .hvr-round-corners:hover, .hvr-round-corners:focus, .hvr-round-corners:active {
+    border-radius: 1em;
+  }
+
+
+/*Radial del icono de ver lista de peliculasFavoritos*/
+.hvr-radial-in-MyS-Favorito {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #790a0a;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-MyS-Favorito:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #017781;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-MyS-Favorito:hover, .hvr-radial-in-MyS-Favorito:focus, .hvr-radial-in-MyS-Favorito:active {
+    color: white;
+  }
+  .hvr-radial-in-MyS-Favorito:hover:before, .hvr-radial-in-MyS-Favorito:focus:before, .hvr-radial-in-MyS-Favorito:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+
+  /*Radial del icono de ver lista de peliculas por ver*/
+.hvr-radial-in-MyS-PorVer {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #b99221;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-MyS-PorVer:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #017781;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-MyS-PorVer:hover, .hvr-radial-in-MyS-PorVer:focus, .hvr-radial-in-MyS-PorVer:active {
+    color: white;
+  }
+  .hvr-radial-in-MyS-PorVer:hover:before, .hvr-radial-in-MyS-PorVer:focus:before, .hvr-radial-in-MyS-PorVer:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+
+/*Radial del icono de ver lista de peliculas ya vistas*/
+.hvr-radial-in-MyS-Visto {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #3f8622;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-MyS-Visto:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #017781;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-MyS-Visto:hover, .hvr-radial-in-MyS-Visto:focus, .hvr-radial-in-MyS-Visto:active {
+    color: white;
+  }
+  .hvr-radial-in-MyS-Visto:hover:before, .hvr-radial-in-MyS-Visto:focus:before, .hvr-radial-in-MyS-Visto:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+
+/*Radial del icono de ver lista de Libros Favoritos*/
+.hvr-radial-in-L-Favorito {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #790a0a;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-L-Favorito:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #86541c;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-L-Favorito:hover, .hvr-radial-in-L-Favorito:focus, .hvr-radial-in-L-Favorito:active {
+    color: white;
+  }
+  .hvr-radial-in-L-Favorito:hover:before, .hvr-radial-in-L-Favorito:focus:before, .hvr-radial-in-L-Favorito:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+
+/*Radial del icono de ver lista de libros por ver*/
+  .hvr-radial-in-L-PorVer {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #b99221;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-L-PorVer:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #86541c;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-L-PorVer:hover, .hvr-radial-in-L-PorVer:focus, .hvr-radial-in-L-PorVer:active {
+    color: white;
+  }
+  .hvr-radial-in-L-PorVer:hover:before, .hvr-radial-in-L-PorVer:focus:before, .hvr-radial-in-L-PorVer:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  .hvr-radial-in-L-Visto {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+    background: #3f8622;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-radial-in-L-Visto:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #86541c;
+    border-radius: 100%;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-radial-in-L-Visto:hover, .hvr-radial-in-L-Visto:focus, .hvr-radial-in-L-Visto:active {
+    color: white;
+  }
+  .hvr-radial-in-L-Visto:hover:before, .hvr-radial-in-L-Visto:focus:before, .hvr-radial-in-L-Visto:active:before {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
