@@ -1,0 +1,148 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.caja-login {
+  margin-top: 80px;
+  margin-right: 150px;
+  color: var(--text-color);
+  background: #331019;
+
+  border-radius: 50px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.caja-logo {
+  margin-top: 240px;
+  margin-left: 150px;
+  margin-right: 350px;
+  color: var(--text-color);
+}
+
+@-webkit-keyframes hvr-back-pulse {
+  50% {
+    background-color: rgba(167, 167, 167, 0.75);
+  }
+}
+@keyframes hvr-back-pulse {
+  50% {
+    background-color: rgba(233, 233, 233, 0.75);
+  }
+}
+
+/* Boton Pulse */
+.hvr-back-pulse {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-back-pulse:hover, .hvr-back-pulse:focus, .hvr-back-pulse:active {
+  -webkit-animation-name: hvr-back-pulse;
+  animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  background-color: white;
+  background-color: white;
+  color: white;
+}
+
+/*Boton Fade*/
+.hvr-fade {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
+  background-color: #28a745;
+  color: white;
+}
+
+
+/* Source */
+/* https://codepen.io/stanko/pen/wvQoWdj?editors=1100*/
+
+.input-wrapper {
+  position: relative;
+  margin-top: 30px;
+  margin-inline: auto;
+  max-width: 400px;
+}
+
+.input {
+  font-size: 20px;
+  width: 100%;
+  padding: 8px 0;
+  padding-right: 30px;
+  color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  transition: border-color 250ms;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: #777;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #ffffff;
+  pointer-events: none;
+  transform-origin: left center;
+  transition: transform 250ms;
+}
+
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  transform: translateY(-100%) scale(0.75);
+}
+.input:placeholder-shown + .label + .clear {
+  display: none;
+}
+#contenido-frases {
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.poster {
+  border-radius: 20px;
+}
+.cita {
+  font-style: italic;
+  color: var(--text-color);
+}
