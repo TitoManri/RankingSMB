@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="container container-fluid contenedor">
+  <div class="container contenedor">
     <div class="row">
       <div class="col-12 "> 
         <div class="UnaLinea">
