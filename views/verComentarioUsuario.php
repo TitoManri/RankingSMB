@@ -62,7 +62,7 @@ if ($Tipo == 1) {
         </section>
 
         <?php
-        if (!$iniciado) {
+        if ($iniciado) {
         ?>
             <section class="col-6 pt-3">
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
