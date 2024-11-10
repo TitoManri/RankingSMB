@@ -7,7 +7,7 @@
                     RankingSMB
                 </a>
             </div>
-            <div class="d-flex justify-content-end col-4">
+            <div class="d-flex justify-content-end col-3">
                 <div class="justify-content-end">
                     <div class="dropdown">
                         <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">

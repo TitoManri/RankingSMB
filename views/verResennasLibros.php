@@ -50,7 +50,7 @@ if (empty($_SESSION['NombreUsuario'])) {
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Informacion de la pelicula</h1>
+                                    <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Informacion del libro</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" id="infoModal">
@@ -66,11 +66,10 @@ if (empty($_SESSION['NombreUsuario'])) {
             </div>
             <br><br><br>
         </section>
-
         <?php
-        if (!$iniciado) {
+        if ($iniciado) {
         ?>
-            <section class="col-5 pt-3">
+            <section class="col-6 pt-3">
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
                     <form action="" method="post" id="enviarOpinion" class="pt-4 ps-5 ">
                         <?php
@@ -121,7 +120,7 @@ if (empty($_SESSION['NombreUsuario'])) {
         <?php
         } else {
         ?>
-            <section class="col-5 pt-3">
+            <section class="col-6 pt-3">
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
                     <div class="pt-4">
                         <h3 class="text-center">Inicia sesion para enviar tu opinion sobre la pelicula!</h3>
@@ -134,7 +133,7 @@ if (empty($_SESSION['NombreUsuario'])) {
                     <hr>
                     <section id="opiniones" style="margin-bottom: 15px;">
                         <h3 class="text-center">Opiniones</h3>
-                        <div class="border10 comentarios" id="comentariosUsuarios">
+                        <div class="border10 comentarios" id="comentariosUsuarios" style="height: 55vh !important;">
 
                         </div>
                     </section>
@@ -146,11 +145,6 @@ if (empty($_SESSION['NombreUsuario'])) {
         }
         ?>
         
-        <section class="col-2 pt-3" id="recomendados" style="margin-left: 5rem !important">
-            <h4 class="text-center">Recomendados</h4>
-            <br>
-
-        </section>
     </div>
     <div>
 
@@ -161,12 +155,11 @@ if (empty($_SESSION['NombreUsuario'])) {
 </body>
 <!--Scripts-->
 <script>
-    let omdbAPI = '<?php echo $omdb ?>'
-    let tmdbAPI = '<?php echo $tmdbAPI ?>'
+    let googleAPI = '<?php echo $googleBooks ?>'
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-<script src="./assets/js/ResennasPeliculas.js"></script>
+<script src="./assets/js/ResennasLibros.js"></script>
 
 </html>

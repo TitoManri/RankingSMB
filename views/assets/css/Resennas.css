@@ -1,19 +1,98 @@
-.Poster{
-    background-color: #204443 !important;
-    box-shadow: 10px 10px 5px lightblue;
+body{
+    color: white;
 }
 
-.btn-ver{
+.FondoVerde {
+    background-color: #204443 !important;
+}
+
+.border10{
+    border-radius: 10px;
+}
+
+#enviarOpinion input[type=radio]{
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.btn-ver {
     background-color: #003344 !important;
     color: white;
 }
 
-.btn-ver:hover{
-    background-color: #01455c !important;   
+.btn-ver:hover {
+    background-color: #01455c !important;
     transition: 0.3s;
-    color: white;
 }
 
 .comentarios{
-    background-color: #204443 !important;
+    background-color: #B1B2B5; 
+    overflow: auto; 
+    height: 40vh;
+    
 }
+
+.bi-star{
+    transition: all 1s ease !important;
+}
+
+.estrellaRellena {
+    color: #ecab0f;
+    transition: all 1s ease;
+}
+
+.imgPerfil{
+    border-radius: 100%;
+    width: 55px;
+    height: 60px;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+.opinionUsuario{
+    padding: 10px;
+    background-color: #dcdde5;
+    border: 1px solid black;
+    color: black;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.PosterRecomendados {
+    flex: 1 1 45%;
+    position: relative;
+    max-width: 45%;
+    margin: 0 auto;
+}
+
+.PosterRecomendados a{
+    text-decoration: none;
+    color: white;
+}
+
+.nombrePosterRecomendados {
+    position: absolute;
+    top: 0;
+    left: 0.75rem;
+    width: 83%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.PosterRecomendados:hover .nombrePosterRecomendados {
+    opacity: 1;
+}
+
+
