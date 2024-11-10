@@ -473,5 +473,10 @@ composer.lock
 *.sass.map
 *.scss.map
 
+*.env
+*.env.example
+*.env.local
+*.env.staging
+
 ###API Keys
 /config/apikey.php
