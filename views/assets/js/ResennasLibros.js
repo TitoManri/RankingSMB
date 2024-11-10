@@ -99,7 +99,7 @@ function agregarComentarios() {
                 <form action="./verComentarioUsuario.php?idComentario=1" method="POST">
                 <div class="opinionUsuario">
                 <input type="hidden" name="IDTipo" value="${id}">
-                <input type="hidden" name="Tipo" value="1">
+                <input type="hidden" name="Tipo" value="3">
                 <button class="text-start" style="
                 	background: none;
                     color: inherit;
