@@ -480,3 +480,4 @@ composer.lock
 
 ###API Keys
 /config/apikey.php
+env
