@@ -25,58 +25,68 @@
         <div class="col-12 "> 
           <h3 class="Blanco">Actividad Reciente</h3>
             <div id="contenedor-externo">
-            <article class="text contenedor-interno">
-              <img src="./assets/img/estrella.png" class="img" alt="...">
-              <h5 class="text-strong">Tienes una nueva recomendacion</h5>
-            </article>
-            <article class="text contenedor-interno">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5 class="text-strong">El_Topito quiere ser tu amigo</h5>  
-            </article>
-            <article class="text contenedor-interno">
-              <img src="./assets/img/like.png" class="img" alt="...">
-              <h5 class="text-strong">Parece que te gusta mucho el genero <em>Fantasia</em> hemos encontrado algo que podria gustarte</h5>
-            </article>
-            
-              <hr>
 
-            <article class="text contenedor-interno">
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/estrella.png" class="img" alt="...">
               <h5>Tienes una nueva recomendacion</h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
+              <img src="./assets/img/user_friends.png" class="img" alt="...">
+              <h5>El_Topito quiere ser tu amigo</h5>  
+            </article>
+
+            <article class="text contenedor-interno notification unreaded">
+              <img src="./assets/img/like.png" class="img" alt="...">
+              <h5>Parece que te gusta mucho el genero <em>Fantasia</em> hemos encontrado algo que podria gustarte</h5>
+            </article>
+
+            <article class="text contenedor-interno notification unreaded">
+              <img src="./assets/img/estrella.png" class="img" alt="...">
+              <h5>Tienes una nueva recomendacion</h5>
+            </article>
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/user_friends.png" class="img" alt="...">
               <h5>Patito quiere ser tu amigo </h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/estrella.png" class="img" alt="...">
               <h5>Tienes una nueva recomendacion</h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/user_friends.png" class="img" alt="...">
               <h5>Scara14 quiere ser tu amigo </h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/like.png" class="img" alt="...">
               <h5>Parece que te gusta mucho el genero <em>Horror</em> hemos encontrado algo que podria gustarte</h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/user_friends.png" class="img" alt="...">
               <h5>TitoManri quiere ser tu amigo </h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/estrella.png" class="img" alt="...">
               <h5>Tienes una nueva recomendacion</h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/user_friends.png" class="img" alt="...">
               <h5>Yorsh quiere ser tu amigo </h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/like.png" class="img" alt="...">
               <h5>Parece que te gusta mucho el genero <em>Terror</em> hemos encontrado algo que podria gustarte</h5>
             </article>
-            <article class="text contenedor-interno">
+
+            <article class="text contenedor-interno notification unreaded">
               <img src="./assets/img/user_friends.png" class="img" alt="...">
               <h5>Venado_Cola_Blanca quiere ser tu amigo </h5>
             </article>
