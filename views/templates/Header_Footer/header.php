@@ -7,7 +7,7 @@
                     RankingSMB
                 </a>
             </div>
-            <div class="d-flex justify-content-end col-4">
+            <div class="d-flex justify-content-end col-3">
                 <div class="justify-content-end">
                     <div class="dropdown">
                         <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,7 +27,7 @@
         </div>
         <div class="container-fluid row">
             <div class="itemsNavbar">
-                <a href="" class="ps-3 pe-2">Peliculas</a>
+                <a href="../views/peliculas.php" class="ps-3 pe-2">Peliculas</a>
                 <a href="" class="ps-3 pe-2">Series</a>
                 <a href="" class="ps-3 pe-2">Libros</a>
                 <a href="" class="ps-3 pe-2">Listas</a>
