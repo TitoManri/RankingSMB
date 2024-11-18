@@ -10,3 +10,7 @@
   body{
     background-color: #204443;
   }
+
+.texto-negrita{
+  font-weight: bold;
+}
