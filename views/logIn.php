@@ -29,22 +29,22 @@
                 <div class="col-7">
                     <section class="caja-login">
                         <div class="container">
-                            <form>
+                            <form id="formIniciarSesion">
                                 <br>
                                 <center>
                                     <h1>Iniciar Sesión</h1>
                                 </center>
                                 <hr class="hr" />
                                 <div class="input-wrapper">
-                                    <input type="email" class="input" id="correo" placeholder=" " autocomplete="off" />
+                                    <input type="email" class="input" name="nombreUsuario" id="correo" placeholder=" " autocomplete="off" />
                                     <label class="label" for="correo">Nombre de Usuario o correo</label>
                                     <div class="input-wrapper">
-                                        <input type="password" class="input" id="contrasena" placeholder=" " autocomplete="off" />
+                                        <input type="password" class="input" name="contrasena" id="contrasena" placeholder=" " autocomplete="off" />
                                         <label class="label" for="contrasena">Contraseña</label>
                                     </div>
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+                                <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
                                 <br>
                                 <br>
                             </form>
@@ -97,11 +97,11 @@
 <!-- Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
 
 <!-- Js Personalizado-->
-<script src="./assets/signIn/signIn.js"></script>
+<script src="./assets/js/InicioSesion.js"></script>
 
 
 </html>
