@@ -1,29 +1,27 @@
 <?php
 require_once '../models/Usuarios.php';
 
-header('Content-Type: application/json');
 
-$nombreUsuario = $_POST['nombreUsuario'];
-$contrasena = $_POST['contrasena'];
+$correo = $_POST['correo'] ?? null;
+$contrasena = $_POST['contrasena'] ?? null;
 
 $usuarioModel = new UsuarioModel();
-$usuarioModel->setNombreUsuario($nombreUsuario);
-$usuarioModel->setContrasena($contrasena);
+$usuarioModel->setCorreo($correo);
 
 try {
     $usuario = $usuarioModel->obtenerUsuario($usuarioModel);
     if ($usuario) {
-        if ( $usuario->contrasena == $contrasena ) {
-            $response = array("exito" => true, "msg" => "Inicio de sesión exitoso");
+        if (password_verify($contrasena, $usuario->contrasena)) {
+            $respuesta = array("exito" => true, "msg" => "Inicio de sesión exitoso");
         } else {
-            $response = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
+            $respuesta = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
         }
     } else {
-        $response = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
+        $respuesta = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
     }
 } catch (Exception $e) {
-    $response = array("exito" => false, "msg" => "Error al intentar iniciar sesión: " . $e->getMessage());
+    $respuesta = array("exito" => false, "msg" => "Error al intentar iniciar sesión: " . $e->getMessage());
 }
 
-echo json_encode($response);
+echo json_encode($respuesta);
 ?>

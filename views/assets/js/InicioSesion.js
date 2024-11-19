@@ -11,7 +11,8 @@ $(document).ready(function() {
             processData: false,
             dataType: 'json', 
             success: function(data) {
-                if (data.exito) {
+                var jsonResponse = JSON.parse(data);
+                if (jsonResponse.exito) {
                     $('#formIniciarSesion').hide();
                     $('#response').html('<div class="alert alert-success">' + data.msg + '</div>');
                     $(location).attr('href', 'index.php');

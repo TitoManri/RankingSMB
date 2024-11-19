@@ -1,6 +1,18 @@
 $(document).ready(function() {   
     $('#formRegistro').on('submit', function(e) {
         e.preventDefault();
+        
+        const contrasena = $('#contrasena').val();
+        const confirmarContrasena = $('#confirmarContrasena').val();
+        
+        if (contrasena !== confirmarContrasena) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Las contraseñas no coinciden'
+            });
+            return;
+        }
         const formData = new FormData(this);
         
         $.ajax({
@@ -13,14 +25,36 @@ $(document).ready(function() {
             success: function(data) {
                 if (data.exito) {
                     $('#formRegistro').hide();
-                    $('#response').html('<div class="alert alert-success">' + data.msg + '</div>');
-                    $(location).attr('href', 'index.php');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registro exitoso',
+                        text: data.msg,
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.href = 'index.php';
+                    });
                 } else {
-                    $('#response').html('<div class="alert alert-danger">' + data.msg + '</div>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.msg
+                    });
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {                
-                $('#response').html('<div class="alert alert-danger">Ocurrió un error al intentar registrar. Inténtalo de nuevo.: </div>' + errorThrown);
+                let errorMsg = 'Ocurrió un error al intentar registrar. Inténtalo de nuevo.';
+                try {
+                    let responseJson = JSON.parse(jqXHR.responseText);
+                    errorMsg += ': ' + responseJson.msg;
+                } catch (e) {
+                    errorMsg += ': ' + errorThrown;
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMsg
+                });
             }
         });
     });

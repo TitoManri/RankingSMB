@@ -21,7 +21,7 @@
     <?php
     include_once "./templates/Header_Footer/header.php"
     ?>
-
+    <div id="response"></div>
     <section id="contenido-principal">
         <div class=" text-center">
             <div class="row gx-5">
@@ -36,7 +36,7 @@
                                 </center>
                                 <hr class="hr" />
                                 <div class="input-wrapper">
-                                    <input type="email" class="input" name="nombreUsuario" id="correo" placeholder=" " autocomplete="off" />
+                                    <input type="email" class="input" name="correo" id="correo" placeholder=" " autocomplete="off" />
                                     <label class="label" for="correo">Nombre de Usuario o correo</label>
                                     <div class="input-wrapper">
                                         <input type="password" class="input" name="contrasena" id="contrasena" placeholder=" " autocomplete="off" />
