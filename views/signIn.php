@@ -7,6 +7,7 @@
     <!-- Bootstrap Icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="./assets/general.css">
     <link rel="stylesheet" href="./assets/header-footer/headerFooter.css">
@@ -20,7 +21,7 @@
     <?php
     include_once "./templates/Header_Footer/header.php"
     ?>
-
+    <div id="response"></div>
     <section id="contenido-principal">
         <div class="text-center">
             <div class="row gx-5">
@@ -39,13 +40,13 @@
                 <div class="col-6">
                     <section class="caja-login">
                         <div class="container">
-                            <form>
+                            <form id="formRegistro">
                                 <br>
                                 <center>
                                     <h1>Registrarse</h1>
                                 </center>
                                 <hr class="hr" />
-                                <div class="d-flex justify-content-center mb-4">
+                                <!--<div class="d-flex justify-content-center mb-4">
                                     <img id="selectedAvatar" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
                                          class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
                                 </div>
@@ -54,68 +55,63 @@
                                         <label class="form-label text-black m-1" for="customFile2">Choose file</label>
                                         <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="mb-3 row d-flex justify-content-center">
                                     <div class="col-4">
                                         <div class="input-wrapper">
-                                            <input type="text" class="input" id="nombre" placeholder=" " autocomplete="off" />
+                                            <input type="text" class="input" id="nombre" name="nombre" placeholder=" " autocomplete="off" />
                                             <label class="label" for="nombre">Nombre</label>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="input-wrapper">
-                                            <input type="text" class="input" id="primerApellido" placeholder=" " autocomplete="off" />
+                                            <input type="text" class="input" id="primerApellido" name="primerApellido" placeholder=" " autocomplete="off" />
                                             <label class="label" for="primerApellido">Primer Apellido</label>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="input-wrapper">
-                                            <input type="text" class="input" id="segundoApellido" placeholder=" " autocomplete="off" />
+                                            <input type="text" class="input" id="segundoApellido" name="segundoApellido" placeholder=" " autocomplete="off" />
                                             <label class="label" for="segundoApellido">Segundo Apellido</label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mb-3 row">
-                                    <div class="col-6">
+                                <div class="mb-3 row d-flex justify-content-center">
+                                    <div class="col-4">
                                         <div class="input-wrapper">
-                                            <input type="text" class="input" id="nombreUsuario" placeholder=" " autocomplete="off" />
+                                            <input type="text" class="input" id="nombreUsuario" name="nombreUsuario" placeholder=" " autocomplete="off" />
                                             <label class="label" for="nombreUsuario">Nombre de Usuario</label>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-3">
                                         <div class="input-wrapper">
-                                            <input type="email" class="input" id="correo" placeholder=" " autocomplete="off" />
+                                            <input type="email" class="input" id="correo" name="correo" placeholder=" " autocomplete="off" />
                                             <label class="label" for="correo">Correo</label>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="mb-3 row">
-                                    <div class="col">
+                                    <div class="col-4">
                                         <div class="input-wrapper">
-                                            <input type="text" class="input" id="codigoPais" placeholder=" " autocomplete="off" />
-                                            <label class="label" for="codigoPais">Código País</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-wrapper">
-                                            <input type="text" class="input" id="telefono" placeholder=" " autocomplete="off" />
+                                            <input type="text" class="input" id="telefono" name="telefono" placeholder=" " autocomplete="off" />
                                             <label class="label" for="telefono">Teléfono</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3 row">
+                                    
+                                </div>
+
+                                <div class="mb-3 row">
                                     <div class="col">
                                         <div class="input-wrapper">
-                                            <input type="password" class="input" id="contrasena" placeholder=" " autocomplete="off" />
+                                            <input type="password" class="input" id="contrasena" name="contrasena" placeholder=" " autocomplete="off" />
                                             <label class="label" for="contrasena">Contraseña</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="input-wrapper">
-                                            <input type="password" class="input" id="confirmarContrasena" placeholder=" " autocomplete="off" />
+                                            <input type="password" class="input" id="confirmarContrasena" name="confirmarContrasena" placeholder=" " autocomplete="off" />
                                             <label class="label" for="confirmarContrasena">Confirmar Contraseña</label>
                                         </div>
                                     </div>
@@ -160,10 +156,11 @@
 <!-- Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
 <!-- Js Personalizado-->
-<script src="./assets/signIn/signIn.js"></script>
+
+<script src="./assets/js/signIn.js"></script>
 
 </html>
