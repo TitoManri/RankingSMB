@@ -28,11 +28,14 @@ function conectarBaseMongo($datosMongo) {
 
         $client = new MongoDB\Client($uri);
         $basededatos = $client->selectDatabase($datosMongo['basededatos']);
-
+        
         return $basededatos;
     } catch (Exception $e) {
         die("Error al conectar con MongoDB: " . $e->getMessage());
     }
 }
 }
+
 ?>
+
+
