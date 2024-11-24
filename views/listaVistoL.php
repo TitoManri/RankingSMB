@@ -17,28 +17,25 @@
       <?php include './templates/Header_Footer/header.php' ?>
     </header>
 
-    <h1 class="text-center Nombre_Grande">Libros Ya Leidos</h1>
+    <article class="container">
+    <div class="row">
+      <div class="col-6">
+        <h1 class="text-center Nombre_Grande">Libros Ya Leidos</h1>
+      </div>
 
-    <div class="container ">
-      <div class="row">
-        <div class="col">
-          <form class="d-flex space" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>  
-
-        <div class="col">
-
-        </div>
-
-        <div class="col">
-          <label for="id_label_multiple">
-            <select class="js-example-basic-multiple js-states form-control filtro" id="id_label_multiple" multiple="multiple"></select>
-          </label>
-        </div>
+      <div class="col-6 d-flex align-items-center">
+        <label for="genero" style="margin: 5px;">
+          <select class="genero js-states form-control filtro" id="genero"></select>
+        </label>
+        <label for="anos" style="margin: 5px;">
+          <select class="anos js-states form-control filtro" id="anos"></select>
+        </label>
+        <label for="general" style="margin: 5px;">
+          <select class="general js-states form-control filtro" id="general"></select>
+        </label>
       </div>
     </div>
+  </article>
 
     <div class="container contenedor container-YV">
       <div class="row">
@@ -95,5 +92,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="../assets/js/Listas/ListaInterna.js"></script>
+<script src="./assets/js/Listas/ListaInterna.js"></script>
 </html>

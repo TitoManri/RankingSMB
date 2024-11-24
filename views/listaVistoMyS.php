@@ -17,28 +17,25 @@
       <?php include './templates/Header_Footer/header.php' ?>
     </header>
 
-    <h1 class="text-center Nombre_Grande">Peliculas y Series Ya vistas</h1>
-
-    <div class="container">
+    <article class="container">
     <div class="row">
-      <div class="col">
-        <form class="d-flex space" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>  
-
-      <div class="col">
-
+      <div class="col-6">
+        <h1 class="text-center Nombre_Grande">Peliculas y Series Ya vistas</h1>
       </div>
 
-      <div class="col">
-        <label for="id_label_multiple">
-          <select class="js-example-basic-multiple js-states form-control filtro" id="id_label_multiple" multiple="multiple"></select>
+      <div class="col-6 d-flex align-items-center">
+        <label for="genero" style="margin: 5px;">
+          <select class="genero js-states form-control filtro" id="genero"></select>
+        </label>
+        <label for="anos" style="margin: 5px;">
+          <select class="anos js-states form-control filtro" id="anos"></select>
+        </label>
+        <label for="general" style="margin: 5px;">
+          <select class="general js-states form-control filtro" id="general"></select>
         </label>
       </div>
     </div>
-    </div>
+  </article>
 
     <div class="container contenedor container-YV">
       <div class="row">
