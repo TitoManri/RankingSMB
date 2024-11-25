@@ -21,6 +21,7 @@ function verInfoMedioCompleto(id) {
             document.title = responseInfo.original_name + " - Reseñas"
             //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
             let escribir = $("#infoPeli");
+            console.log(responseInfo)
             datos = `
                 <h4 class="text-center">${responseInfo.original_name}</h4>
                 <h6 class="text-center">(${responseInfo.name})</h6>
@@ -36,7 +37,8 @@ function verInfoMedioCompleto(id) {
             //Recomendar la pelicula en base a la ID
             recomendarEnBaseAPelicula();
             //Informacion del modal, ubicado en 'Ver Mas'
-            agregarInfoModal(responseInfo);
+            agregarInfoModal(responseInfo, false);
+            subirSerieEnBD(responseInfo, id);
         },
         error: function (error) {
             console.error('Error al obtener las opciones:', error);
@@ -44,6 +46,94 @@ function verInfoMedioCompleto(id) {
             vaciarHTML();
         }
     });
+}
+
+function confirmarSiExisteSerieEnBD(id) {
+    $.ajax({
+        url: `../controllers/seriesController.php?op=existeSerieEnBD`,
+        type: 'POST',
+        data: {
+            ID_Serie: id
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo.msg)
+            let existe = responseInfo.exito;
+            if (existe) {
+                verInfoMedioCompletoDesdeBD(responseInfo.object);
+            } else {
+                verInfoMedioCompleto(id);
+            }
+            return existe;
+        },
+        error: function (error) {
+            console.error('Error al obtener las opciones:', error);
+            //Poner un error 404 en caso de algun error
+            return false;
+        }
+    });
+}
+
+function subirSerieEnBD(serie, id) {
+    let generos = serie.genres;
+    let estado = ""
+    if(serie.status == "Returning Series") estado = "Serie de regreso"
+    else if(serie.status == "Ended") estado = "Finalizada"
+    else if(serie.status == "Canceled") estado = "Cancelada"
+    else estado = "Estado desconocido"
+    $.ajax({
+        url: `../controllers/seriesController.php?op=SubirSerie`,
+        type: 'POST',
+        data: {
+            ID_Serie: id,
+            TituloOriginal: serie.original_name,
+            TituloTraducido: serie.name,
+            Generos: generos,
+            Lanzamiento: serie.first_air_date,
+            Sinopsis: serie.overview,
+            Poster: `https://image.tmdb.org/t/p/original/${serie.poster_path}`,
+            Temporadas: serie.number_of_seasons,
+            CapitulosTotales: serie.number_of_episodes,
+            CalificacionGeneral: serie.vote_average,
+            Estado: estado,
+            Publico: serie.adult,
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo)
+        },
+        error: function (error) {
+            console.error('Error al obtener la pelicula:', error);
+        }
+    });
+}
+
+//Agregar al HTML la informacion del medio de entretenimiento aka Pelicula o Serie
+function verInfoMedioCompletoDesdeBD(serie) {
+    //Llamado a API de TMDB
+    //Info de la API: https://developer.themoviedb.org/docs/getting-started
+    //Authorization hace referencia a la llave de API de TMDB
+
+    //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
+    document.title = serie.TituloTraducido + " - Reseñas"
+    let escribir = $("#infoPeli");
+    datos = `
+                <h4 class="text-center">${serie.TituloOriginal}</h4>
+                <h6 class="text-center">(${serie.TituloTraducido})</h6>
+                <div class="d-flex justify-content-center">
+                    <img src="${serie.Poster}" alt="Poster_${serie.TituloOriginal}" data-fancybox data-caption="Poster de ${serie.TituloOriginal}" width="275px">
+                </div>
+                <br>
+                <p class="text-center">Cantidad de episodios: ${serie.CapitulosTotales} <br> Cantidad de temporadas: ${serie.Temporadas}</p>
+                <p class="text-center">${serie.Sinopsis}</p>`
+    //Agregar FancyBox para poder ver la imagen en grande
+    Fancybox.bind("[data-fancybox]")
+    escribir.append(datos);
+    //Recomendar la pelicula en base a la ID
+    recomendarEnBaseAPelicula();
+    //Informacion del modal, ubicado en 'Ver Mas'
+    agregarInfoModal(serie, true);
+
 }
 
 //Recomendar titulos similares en base a la pelicula de la review
@@ -59,7 +149,6 @@ function recomendarEnBaseAPelicula() {
             Authorization: `Bearer ${tmdbAPI}`
         },
         success: function (responseInfo) {
-            console.log(responseInfo)
             //Iniciar codigo en null
             let codigo = "";
             //Mostrar solo 6 peliculas, series, etc.
@@ -96,21 +185,75 @@ function recomendarEnBaseAPelicula() {
 }
 
 //Agregar info con respecto a info brindada. Se le pasa un JSON con la info
-function agregarInfoModal(responseModal) {
+
+function agregarInfoModal(responseModal, tipo) {
     let agregarCodigo = $("#infoModal")
-    let adulto = responseModal.adult ? "Si" : "No"
-    let produccion = responseModal.in_production ? "Si" : "No"
-    let codigoModal = `
-    <div class="text-dark">
-    <p>Es solo para adultos? ${adulto}</p>
-    <p>Primera vez que se emitió: ${responseModal.first_air_date}</p>
-    <p>Se sigue produciendo? ${produccion}</p>
-    <p>Lenguaje original: ${responseModal.original_language}</p>
-    <p>Pais de Origen: ${responseModal.origin_country[0]}</p>
-    <p>Estado de la serie: ${responseModal.status}</p>
-    <p>Calificacion general: ${responseModal.vote_average}</p>
-    </div>
-    `
+    let codigoModal = ``;
+    
+    if (tipo) {
+        const timestamp = parseInt(responseModal.Lanzamiento.$date.$numberLong, 10);
+        const jsDate = new Date(timestamp);
+        
+        const day = String(jsDate.getDate()).padStart(2, '0');
+        const month = String(jsDate.getMonth() + 1).padStart(2, '0');
+        const year = jsDate.getFullYear();
+        
+        const fechaFinal = `${year}-${month}-${day}`;
+
+        let adulto = ""
+        if(responseModal.Publico === "true") adulto = "Si"
+        else adulto = "No"
+
+        let estado = ""
+        if(responseModal.status == "Returning Series") estado = "Serie de regreso"
+        else if(responseModal.status == "Ended") estado = "Finalizada"
+        else if(responseModal.status == "Canceled") estado = "Cancelada"
+        else estado = "Estado desconocido"
+
+        let generos = ""
+        let cantidadGeneros = 0;
+        responseModal.Generos.forEach(genero => {
+            cantidadGeneros++;
+            generos += genero.name
+            if (responseModal.Generos.length != cantidadGeneros) generos += ", ";
+            else generos += ".";
+        });
+
+        codigoModal = `
+        <div class="text-dark">
+        <p>Es solo para adultos? ${adulto}</p>
+        <p>Primera vez que se emitió: ${fechaFinal}</p>
+        <p>Estado de la serie: ${estado}</p>
+        <p>Calificacion general: ${responseModal.CalificacionGeneral}</p>
+        </div>
+        `
+    } else {
+        let estado = ""
+        if(responseModal.status == "Returning Series") estado = "Serie de regreso"
+        else if(responseModal.status == "Ended") estado = "Finalizada"
+        else if(responseModal.status == "Canceled") estado = "Cancelada"
+        else estado = "Estado desconocido"
+
+        let adulto = responseModal.adult ? "Si" : "No"
+        let generos = ""
+        let cantidadGeneros = 0;
+        responseModal.genres.forEach(genero => {
+            cantidadGeneros++;
+            generos += genero.name
+            if (responseModal.genres.length != cantidadGeneros) generos += ", ";
+            else generos += ".";
+        });
+
+        codigoModal = `
+        <div class="text-dark">
+        <p>Es solo para adultos? ${adulto}</p>
+        <p>Primera vez que se emitió: ${responseModal.first_air_date}</p>
+        <p>Estado de la serie: ${responseModal.status}</p>
+        <p>Calificacion general: ${responseModal.vote_average}</p>
+        </div>
+        `
+    }
+
     agregarCodigo.append(codigoModal);
 }
 
@@ -207,7 +350,7 @@ $(function () {
         vaciarHTML();
     } else {
         //Buscar informacion con la ID brindada
-        verInfoMedioCompleto(id);
+        confirmarSiExisteSerieEnBD(id)
         agregarComentarios();
     }
 });
@@ -246,4 +389,31 @@ $('#enviarOpinion').submit(function (event) {
         //Seguir codigo de insercion dentro de controller de PHP
     }
     console.log(document.querySelector("input[type=radio][name=calificacion]:checked").value);
+});
+
+$("#Favorito").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#PorVer").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").removeClass("boton-Opciones");
+    $("#Favorito").addClass("boton-active");
+});
+
+$("#Visto").click(function (e) {
+    $("#PorVer").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#Visto").removeClass("boton-Opciones");
+    $("#Visto").addClass("boton-active");
+});
+
+$("#PorVer").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#PorVer").removeClass("boton-Opciones");
+    $("#PorVer").addClass("boton-active");
 });

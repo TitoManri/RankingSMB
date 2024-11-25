@@ -1,4 +1,4 @@
-body{
+body {
     color: white;
 }
 
@@ -6,11 +6,11 @@ body{
     background-color: #204443 !important;
 }
 
-.border10{
+.border10 {
     border-radius: 10px;
 }
 
-#enviarOpinion input[type=radio]{
+#enviarOpinion input[type=radio] {
     position: fixed;
     opacity: 0;
     pointer-events: none;
@@ -26,14 +26,20 @@ body{
     transition: 0.3s;
 }
 
-.comentarios{
-    background-color: #B1B2B5; 
-    overflow: auto; 
+.comentarios {
+    background-color: #B1B2B5;
+    overflow: auto;
     height: 40vh;
-    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
 }
 
-.bi-star{
+.comentarios::-webkit-scrollbar {
+    display: none;
+}
+
+.bi-star {
     transition: all 1s ease !important;
 }
 
@@ -42,7 +48,7 @@ body{
     transition: all 1s ease;
 }
 
-.imgPerfil{
+.imgPerfil {
     border-radius: 100%;
     width: 55px;
     height: 60px;
@@ -50,7 +56,7 @@ body{
     margin-left: 25px;
 }
 
-.opinionUsuario{
+.opinionUsuario {
     padding: 10px;
     background-color: #dcdde5;
     border: 1px solid black;
@@ -72,7 +78,7 @@ body{
     margin: 0 auto;
 }
 
-.PosterRecomendados a{
+.PosterRecomendados a {
     text-decoration: none;
     color: white;
 }
@@ -95,4 +101,47 @@ body{
     opacity: 1;
 }
 
+.boton-Opciones {
+    background-color: #017781;
+    border: 0.5px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    transition: transform 0.1s ease, background-color 1s ease !important;
+}
 
+.boton-Opciones#Favorito:hover {
+    background-color: #790a0a;
+}
+
+.boton-Opciones#PorVer:hover{
+    background-color: #b99221;;
+}
+
+.boton-Opciones#Visto:hover{
+    background-color: #3f8622;;
+}
+
+.boton-active#Favorito{
+    background-color: #790a0a;
+    border: 0.5px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.boton-active#PorVer{
+    background-color: #b99221;
+    border: 0.5px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.boton-active#Visto{
+    background-color: #3f8622;
+    border: 0.5px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}

@@ -77,21 +77,40 @@ if (empty($_SESSION['NombreUsuario'])) {
                         <?php
                         echo '<input name="Nombre_Usuario" id="Nombre_Usuario" class="form-control" type="hidden" value="', "Jorge", '" required>';
                         ?>
-                        <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 50%">
-                            <input type="radio" name="calificacion" id="calificacion1" value="1">
-                            <label for="calificacion1" class="me-2"><i class="bi bi-star h3" id="estrella0"></i></label>
+                        <div class="row">
+                            <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 50%">
+                                <input type="radio" name="calificacion" id="calificacion1" value="1">
+                                <label for="calificacion1" class="me-2"><i class="bi bi-star h3" id="estrella0"></i></label>
 
-                            <input type="radio" name="calificacion" id="calificacion2" value="2">
-                            <label for="calificacion2" class="me-2"><i class="bi bi-star h3" id="estrella1"></i></label>
+                                <input type="radio" name="calificacion" id="calificacion2" value="2">
+                                <label for="calificacion2" class="me-2"><i class="bi bi-star h3" id="estrella1"></i></label>
 
-                            <input type="radio" name="calificacion" id="calificacion3" value="3">
-                            <label for="calificacion3" class="me-2"><i class="bi bi-star h3" id="estrella2"></i></label>
+                                <input type="radio" name="calificacion" id="calificacion3" value="3">
+                                <label for="calificacion3" class="me-2"><i class="bi bi-star h3" id="estrella2"></i></label>
 
-                            <input type="radio" name="calificacion" id="calificacion4" value="4">
-                            <label for="calificacion4" class="me-2"><i class="bi bi-star h3" id="estrella3"></i></label>
+                                <input type="radio" name="calificacion" id="calificacion4" value="4">
+                                <label for="calificacion4" class="me-2"><i class="bi bi-star h3" id="estrella3"></i></label>
 
-                            <input type="radio" name="calificacion" id="calificacion5" value="5">
-                            <label for="calificacion5" class="me-2"><i class="bi bi-star h3" id="estrella4"></i></label>
+                                <input type="radio" name="calificacion" id="calificacion5" value="5">
+                                <label for="calificacion5" class="me-2"><i class="bi bi-star h3" id="estrella4"></i></label>
+                            </div>
+                            <div class="d-flex justify-content-center col">
+                                <div class="col-3 animate__animated animate__heartBeat">
+                                    <button type="button" class="boton-Opciones" name="BotonLista" id="Favorito">
+                                        <img src="./assets/img/heart.png" class="rounded" alt="" style="height: auto; width: 3rem;">
+                                    </button>
+                                </div>
+                                <div class="col-3 animate__animated animate__heartBeat">
+                                    <button type="button" class="boton-Opciones" name="BotonLista" id="PorVer">
+                                        <img src="./assets/img/vision (1).png" class="rounded" alt="" style="height: auto; width: 3rem;">
+                                    </button>
+                                </div>
+                                <div class="col-3  animate__animated animate__heartBeat cuadrado">
+                                    <button type="button" class="boton-Opciones" name="BotonLista" id="Visto">
+                                        <img src="./assets/img/verified (2).png" class="rounded" alt="" style="height: auto; width: 3rem;">
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <div style="width: 85%">
@@ -146,7 +165,7 @@ if (empty($_SESSION['NombreUsuario'])) {
         <?php
         }
         ?>
-        
+
     </div>
     <div>
 
