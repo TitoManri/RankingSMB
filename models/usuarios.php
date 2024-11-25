@@ -1,12 +1,12 @@
 <?php
 
-require_once '../config/Conexion.php'; // Ensure the Conexion class is included
+require_once '../config/Conexion.php'; 
 use Dotenv\Dotenv;
 
 class UsuarioModel extends Conexion
 {
     private $coleccion;
-    private $nombreUsuario;
+    private $correo;
     private $contrasena;
 
     public function __construct()
@@ -24,9 +24,9 @@ class UsuarioModel extends Conexion
     }
 
     // Getters
-    public function getNombreUsuario()
+    public function getCorreo()
     {
-        return $this->nombreUsuario;
+        return $this->correo;
     }
 
     public function getContrasena()
@@ -35,9 +35,9 @@ class UsuarioModel extends Conexion
     }
 
     // Setters
-    public function setNombreUsuario($nombreUsuario)
+    public function setCorreo($correo)
     {
-        $this->nombreUsuario = $nombreUsuario;
+        $this->correo = $correo;
     }
 
     public function setContrasena($contrasena)
@@ -52,9 +52,14 @@ class UsuarioModel extends Conexion
         return $resultado->getInsertedId();
     }
     //Obtener Usuario por Correo
-    public function obtenerUsuariosPorEmail($email)
+    public function obtenerUsuariosPorEmail($correo)
     {
-        $resultado = $this->coleccion->findOne(['email' => $email]);
+        $resultado = $this->coleccion->findOne(['Correo' => $correo]);
+        return $resultado;
+    }
+    public function obtenerUsuariosPorNombreDeUsuario($NombreDeUsuario)
+    {
+        $resultado = $this->coleccion->findOne(['NombredeUsuario' => $NombreDeUsuario]);
         return $resultado;
     }
     //Obtener el Usuario por medio del id

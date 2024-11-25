@@ -14,7 +14,7 @@
                             <i class="bi bi-person-circle h2"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end opcionesPerfil">
-                            <li class="px-1"><button class="dropdown-item" type="button" style="color:black !important">Perfil</button></li>
+                            <li class="px-1"><a href="./perfil.php" class="dropdown-item" type="button" style="color:black !important">Perfil</a></li>
                             <hr>
                             <li><button class="dropdown-item" type="button" style="color:black !important">Notificaciones</button></li>
                             <hr>

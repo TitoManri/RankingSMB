@@ -17,6 +17,8 @@ $SegundoApellido = isset($_POST['segundoApellido']) ? $_POST['segundoApellido'] 
 $NombredeUsuario = isset($_POST['nombreUsuario']) ? $_POST['nombreUsuario'] : null;
 $Correo = isset($_POST['correo']) ? filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL) : null;
 $Telefono = isset($_POST['telefono']) ? intval($_POST['telefono']) : null;
+
+
 $Contraseña = isset($_POST['contrasena']) ? password_hash($_POST['contrasena'], PASSWORD_BCRYPT) : null;
 $fechadeCreacion = new MongoUTCDateTime();
 $fechaModificacion = new MongoUTCDateTime();
@@ -36,10 +38,19 @@ $usuarioModel = new UsuarioModel();
 
 try {
     // Verificar si el usuario ya existe por correo
-    $usuarioExistente = $usuarioModel->obtenerUsuariosPorEmail($Correo);
-    if ($usuarioExistente) {
+    $emailExistente = $usuarioModel->obtenerUsuariosPorEmail($Correo);
+    // Verificar si el usuario ya existe por nombre de usuario
+    $nombreUsuarioExistente = $usuarioModel->obtenerUsuariosPorNombreDeUsuario($NombredeUsuario);
+    if ($emailExistente) {
         $response = ["exito" => false, "msg" => "El correo electrónico ya está registrado"];
-    } else {
+        echo json_encode($response);
+        exit;
+    } 
+    if ($nombreUsuarioExistente) {
+        $response = ["exito" => false, "msg" => "El nombre de usuario ya está registrado"];
+        echo json_encode($response);
+        exit;
+    }
         //Arreglo con los datos del Usuario
         $usuario = [
             'id_nivel' => $id_nivel,
@@ -62,9 +73,9 @@ try {
         } else {
             $response = ["exito" => false, "msg" => "Error al registrar el usuario"];
         }
-    }
 } catch (Exception $e) {
     $response = ["exito" => false, "msg" => "Error al intentar registrar: " . $e->getMessage()];
 }
 
 echo json_encode($response);
+exit;

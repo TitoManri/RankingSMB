@@ -20,23 +20,25 @@ function verInfoMedioCompleto(id) {
         success: function (responseInfo) {
             //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
             document.title = responseInfo.title + " - Reseñas"
-                let escribir = $("#infoPeli");
-                datos = `
+            let escribir = $("#infoPeli");
+            datos = `
                 <h4 class="text-center">${responseInfo.original_title}</h4>
                 <h6 class="text-center">(${responseInfo.title})</h6>
+                <h6 class="text-center">Fecha de salida: ${responseInfo.release_date}</h6>
                 <div class="d-flex justify-content-center">
                     <img src="https://image.tmdb.org/t/p/original/${responseInfo.poster_path}" alt="Poster_${responseInfo.original_title}" data-fancybox data-caption="Poster de ${responseInfo.original_title}" width="275px">
                 </div>
                 <br>
                 <p class="text-center">Duracion: ${responseInfo.runtime} minutos</p>
                 <p class="text-center">${responseInfo.overview}</p>`
-                //Agregar FancyBox para poder ver la imagen en grande
-                Fancybox.bind("[data-fancybox]")
-                escribir.append(datos);
-                //Recomendar la pelicula en base a la ID
-                recomendarEnBaseAPelicula();
-                //Informacion del modal, ubicado en 'Ver Mas'
-                agregarInfoModal(responseInfo);
+            //Agregar FancyBox para poder ver la imagen en grande
+            Fancybox.bind("[data-fancybox]")
+            escribir.append(datos);
+            //Recomendar la pelicula en base a la ID
+            recomendarEnBaseAPelicula();
+            //Informacion del modal, ubicado en 'Ver Mas'
+            agregarInfoModal(responseInfo, false);
+            subirPeliculaEnBD(responseInfo, id)
         },
         error: function (error) {
             console.error('Error al obtener las opciones:', error);
@@ -44,6 +46,103 @@ function verInfoMedioCompleto(id) {
             vaciarHTML();
         }
     });
+}
+
+function confirmarSiExistePeliculaEnBD(id) {
+    $.ajax({
+        url: `../controllers/peliculasController.php?op=existePeliculaEnBD`,
+        type: 'POST',
+        data: {
+            ID_Pelicula: id
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo.msg)
+            let existe = responseInfo.exito;
+            if (existe) {
+                verInfoMedioCompletoDesdeBD(responseInfo.object);
+            } else {
+                verInfoMedioCompleto(id);
+            }
+            return existe;
+        },
+        error: function (error) {
+            console.error('Error al obtener las opciones:', error);
+            //Poner un error 404 en caso de algun error
+            return false;
+        }
+    });
+}
+
+function subirPeliculaEnBD(pelicula, id) {
+    let generos = pelicula.genres;
+    let estado = ""
+    if(pelicula.status == "Released") estado = "Lanzada"
+    else if(pelicula.status == "In Production") estado = "En produccion"
+    else estado = "Estado desconocido"
+    $.ajax({
+        url: `../controllers/peliculasController.php?op=SubirPelicula`,
+        type: 'POST',
+        data: {
+            ID_Pelicula: id,
+            TituloOriginal: pelicula.original_title,
+            TituloTraducido: pelicula.title,
+            Generos: generos,
+            Lanzamiento: pelicula.release_date,
+            Sinopsis: pelicula.overview,
+            Duracion: pelicula.runtime,
+            Poster: `https://image.tmdb.org/t/p/original/${pelicula.poster_path}`,
+            CostoPelicula: pelicula.budget,
+            RecaudacionPelicula: pelicula.revenue,
+            CalificacionGeneral: pelicula.vote_average,
+            Estado: estado,
+            Publico: pelicula.adult,
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo)
+        },
+        error: function (error) {
+            console.error('Error al obtener la pelicula:', error);
+        }
+    });
+}
+
+//Agregar al HTML la informacion del medio de entretenimiento aka Pelicula o Serie
+function verInfoMedioCompletoDesdeBD(pelicula) {
+    //Llamado a API de TMDB
+    //Info de la API: https://developer.themoviedb.org/docs/getting-started
+    //Authorization hace referencia a la llave de API de TMDB
+
+    //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
+    document.title = pelicula.TituloTraducido + " - Reseñas"
+    const timestamp = parseInt(pelicula.Lanzamiento.$date.$numberLong, 10);
+    const jsDate = new Date(timestamp);
+    
+    const day = String(jsDate.getDate()).padStart(2, '0');
+    const month = String(jsDate.getMonth() + 1).padStart(2, '0');
+    const year = jsDate.getFullYear();
+    
+    const fechaFinal = `${year}-${month}-${day}`;
+    let escribir = $("#infoPeli");
+    datos = `
+                <h4 class="text-center">${pelicula.TituloOriginal}</h4>
+                <h6 class="text-center">(${pelicula.TituloTraducido})</h6>
+                <h6 class="text-center">Fecha de salida: ${fechaFinal}</h6>
+                <div class="d-flex justify-content-center">
+                    <img src="${pelicula.Poster}" alt="Poster_${pelicula.TituloOriginal}" data-fancybox data-caption="Poster de ${pelicula.TituloOriginal}" width="275px">
+                </div>
+                <br>
+                <p class="text-center">Duracion: ${pelicula.Duracion} minutos</p>
+                <p class="text-center">${pelicula.Sinopsis}</p>`
+    //Agregar FancyBox para poder ver la imagen en grande
+    Fancybox.bind("[data-fancybox]")
+    escribir.append(datos);
+    //Recomendar la pelicula en base a la ID
+    recomendarEnBaseAPelicula();
+    //Informacion del modal, ubicado en 'Ver Mas'
+    agregarInfoModal(pelicula, true);
+
 }
 
 //Recomendar titulos similares en base a la pelicula de la review
@@ -95,20 +194,60 @@ function recomendarEnBaseAPelicula() {
 }
 
 //Agregar info con respecto a info brindada. Se le pasa un JSON con la info
-function agregarInfoModal(responseModal){
+function agregarInfoModal(responseModal, tipo) {
     let agregarCodigo = $("#infoModal")
-    let adulto = responseModal.adult ? "Si" : "No"
-    let codigoModal = `
-    <div class="text-dark">
-    <p>Es solo para adultos? ${adulto}</p>
-    <p>Costo de la pelicula: ${responseModal.budget} USD$</p>
-    <p>Recaudacion de la pelicula: ${responseModal.revenue} USD$</p>
-    <p>Lenguaje original: ${responseModal.original_language}</p>
-    <p>Pais de Origen: ${responseModal.origin_country[0]}</p>
-    <p>Estado de la pelicula: ${responseModal.status}</p>
-    <p>Calificacion general: ${responseModal.vote_average}</p>
-    </div>
-    `
+    let codigoModal = ``;
+
+    if (tipo) {
+        let adulto = ""
+        if(responseModal.Publico === "true") adulto = "Si"
+        else adulto = "No"
+        let generos = ""
+        let cantidadGeneros = 0;
+        responseModal.Generos.forEach(genero => {
+            cantidadGeneros++;
+            generos += genero.name
+            if (responseModal.Generos.length != cantidadGeneros) generos += ", ";
+            else generos += ".";
+        });
+
+        codigoModal = `
+        <div class="text-dark">
+        <p>Es solo para adultos? ${adulto}</p>
+        <p>Costo de la pelicula: ${responseModal.CostoPelicula} USD$</p>
+        <p>Recaudacion de la pelicula: ${responseModal.RecaudacionPelicula} USD$</p>
+        <p>Calificacion general: ${responseModal.CalificacionGeneral}</p>
+        <p>Generos: ${generos}</p>
+        <p>Estado de la pelicula: ${responseModal.Estado}</p>
+        </div>
+        `
+    } else {
+        let estado = ""
+        if(responseModal.status == "Released") estado = "Lanzada"
+        else if(responseModal.status == "In Production") estado = "En produccion"
+        else estado = "Estado desconocido"
+        let adulto = responseModal.adult ? "Si" : "No"
+        let generos = ""
+        let cantidadGeneros = 0;
+        responseModal.genres.forEach(genero => {
+            cantidadGeneros++;
+            generos += genero.name
+            if (responseModal.genres.length != cantidadGeneros) generos += ", ";
+            else generos += ".";
+        });
+
+        codigoModal = `
+        <div class="text-dark">
+        <p>Es solo para adultos? ${adulto}</p>
+        <p>Costo de la pelicula: ${responseModal.budget} USD$</p>
+        <p>Recaudacion de la pelicula: ${responseModal.revenue} USD$</p>
+        <p>Calificacion general: ${responseModal.vote_average}</p>
+        <p>Generos: ${generos}</p>
+        <p>Estado de la pelicula: ${estado}</p>
+        </div>
+        `
+    }
+
     agregarCodigo.append(codigoModal);
 }
 
@@ -130,18 +269,18 @@ function agregarComentarios() {
             let comentario = `
                 <section class="row" style="width: 100%; margin-bottom: 25px">
                 <div class="col-2">`
-                //Imagen
-                comentario +=`
+            //Imagen
+            comentario += `
                 <img src="./assets/img/ImagenPerfil.jpg" alt="" class="imgPerfil">
                 </div>
                 <div class="col" style="margin-top: 15px;">
                 <p style="margin-bottom: 0px !important">`
-                //Nombre de usuario
-                comentario +=`
+            //Nombre de usuario
+            comentario += `
                 <span class="FondoVerde border10" style="padding: 5px; margin-bottom: 0px !important" id="nombreUsuario1">Usuario1</span>
                 <br>`
-                //Hora de creacion
-                comentario +=`
+            //Hora de creacion
+            comentario += `
                 <span class="form-text">Hace X tiempo</span>
                 <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 10rem">`;
             let estrellas = Math.random() * (5 - 1) + 1;
@@ -164,8 +303,8 @@ function agregarComentarios() {
                     cursor: pointer;
                     outline: inherit;
                 ">`
-                //Opinion
-                comentario +=`
+            //Opinion
+            comentario += `
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem nostrum laboriosam optio veritatis,
                 nobis, facilis autem quibusdam commodi earum saepe corrupti possimus exercitationem sint totam aliquid
                 doloremque porro cupiditate quisquam.
@@ -195,7 +334,7 @@ function vaciarHTML() {
         <div class="d-flex justify-content-center pt-5">
             <h1 class="text-light">Error 404. No se encontro ninguna pelicula ;(</h1>
         </div>`)
-        document.title = "Error 404."
+    document.title = "Error 404."
 }
 
 //Cuando la pagina carga, ejecutar llamados
@@ -205,7 +344,7 @@ $(function () {
         vaciarHTML();
     } else {
         //Buscar informacion con la ID brindada
-        verInfoMedioCompleto(id);
+        confirmarSiExistePeliculaEnBD(id)
         agregarComentarios();
     }
 });
@@ -244,4 +383,33 @@ $('#enviarOpinion').submit(function (event) {
         //Seguir codigo de insercion dentro de controller de PHP
     }
     console.log(document.querySelector("input[type=radio][name=calificacion]:checked").value);
+});
+
+//Cambiar clases, seguro hay una forma mas facil de hacerlo pero quiero dormir
+//2:12 AM 21/11/24
+$("#Favorito").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#PorVer").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").removeClass("boton-Opciones");
+    $("#Favorito").addClass("boton-active");
+});
+
+$("#Visto").click(function (e) {
+    $("#PorVer").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#Visto").removeClass("boton-Opciones");
+    $("#Visto").addClass("boton-active");
+});
+
+$("#PorVer").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#PorVer").removeClass("boton-Opciones");
+    $("#PorVer").addClass("boton-active");
 });

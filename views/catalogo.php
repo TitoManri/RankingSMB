@@ -1,3 +1,14 @@
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
+
+session_start();
+$iniciado = true;
+if (empty($_SESSION['NombreUsuario'])) {
+    $iniciado = false;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
