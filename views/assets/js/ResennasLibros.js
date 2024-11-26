@@ -14,13 +14,14 @@ function verInfoMedioCompleto(id) {
         url: `https://www.googleapis.com/books/v1/volumes/${id}?key=${googleAPI}&langRestrict=es-CR`,
         type: 'GET',
         success: function (responseInfo) {
+            console.log(responseInfo)
             document.title = responseInfo.volumeInfo.title + ". Reseñas"
             //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
             let escribir = $("#infoPeli");
             datos = `
                         <h4 class="text-center">${responseInfo.volumeInfo.title}</h4>
                         <div class="d-flex justify-content-center">
-                            <img src="${responseInfo.volumeInfo.imageLinks.smallThumbnail}" alt="Poster_${responseInfo.volumeInfo.title}" data-fancybox data-caption="Poster de ${responseInfo.volumeInfo.title}" width="275px">
+                            <img src="https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w400-h600&source=gbs_api" alt="Poster_${responseInfo.volumeInfo.title}" data-fancybox data-caption="Poster de ${responseInfo.volumeInfo.title}" width="275px">
                         </div>
                         <br>
                         <p class="text-center">Cantidad de paginas: ${responseInfo.volumeInfo.pageCount} paginas</p>
@@ -31,7 +32,8 @@ function verInfoMedioCompleto(id) {
             //Agregar FancyBox para poder ver la imagen en grande
             Fancybox.bind("[data-fancybox]")
             escribir.append(datos);
-            agregarInfoModal(responseInfo)
+            agregarInfoModal(responseInfo, false)
+            subirLibroEnBD(responseInfo, id);
         },
         error: function (error) {
             console.error('Error al obtener las opciones:', error);
@@ -41,20 +43,124 @@ function verInfoMedioCompleto(id) {
     });
 }
 
+function verLibroDesdeBD(libro) {
+
+    document.title = libro.Titulo + ". Reseñas"
+    //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
+    let escribir = $("#infoPeli");
+    datos = `
+                        <h4 class="text-center">${libro.Titulo}</h4>
+                        <div class="d-flex justify-content-center">
+                            <img src="https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w400-h600&source=gbs_api" alt="Poster_${libro.Titulo}" data-fancybox data-caption="Poster de ${libro.Titulo}" width="275px">
+                        </div>
+                        <br>
+                        <p class="text-center">Cantidad de paginas: ${libro.TotalPaginas} paginas</p>
+                        <p class="text-center">Autor: ${libro.Autor}</p>
+                        <div style="font-size: 14px;">
+                        <p class="text-center">${libro.Sinopsis}</p>
+                        </div>`
+    //Agregar FancyBox para poder ver la imagen en grande
+    Fancybox.bind("[data-fancybox]")
+    escribir.append(datos);
+    agregarInfoModal(libro, true)
+}
+
+function confirmarSiExisteLibroEnBD(id) {
+    $.ajax({
+        url: `../controllers/librosController.php?op=existeLibroEnBD`,
+        type: 'POST',
+        data: {
+            ID_Libro: id
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo.msg)
+            let existe = responseInfo.exito;
+            if (existe) {
+                verLibroDesdeBD(responseInfo.object);
+            } else {
+                verInfoMedioCompleto(id);
+            }
+            return existe;
+        },
+        error: function (error) {
+            console.error('Error al obtener las opciones:', error);
+            //Poner un error 404 en caso de algun error
+            return false;
+        }
+    });
+}
+
 //Agregar info con respecto a info brindada. Se le pasa un JSON con la info
-function agregarInfoModal(responseModal) {
+function agregarInfoModal(responseModal, tipo) {
     let agregarCodigo = $("#infoModal")
-    let adulto = "Error"
-    if(responseModal.volumeInfo.maturityRating == "NOT_MATURE") adulto = "Para todo mundo"
-    else adulto = "Para mayores de edad"
-    let codigoModal = `
+    let codigoModal = '';
+    if (tipo) {
+        const timestamp = parseInt(responseModal.Lanzamiento.$date.$numberLong, 10);
+        const jsDate = new Date(timestamp);
+        
+        const day = String(jsDate.getDate()).padStart(2, '0');
+        const month = String(jsDate.getMonth() + 1).padStart(2, '0');
+        const year = jsDate.getFullYear();
+        
+        const fechaFinal = `${year}-${month}-${day}`;
+
+        let adulto = "Error"
+        if (responseModal.Publico == "NOT_MATURE") adulto = "Para todo mundo"
+        else adulto = "Para mayores de edad"
+        codigoModal = `
+    <div class="text-dark">
+    <p>Fecha de salida: ${fechaFinal}</p>
+    <p>Para que público es? ${adulto}</p>
+    <p>Link de compra: <a target="_blank" href="${responseModal.LinkCompraGoogle}">Google</a></p>
+    <p>Publicante: ${responseModal.Publicante}</p>
+    </div>
+    `
+    } else {
+        let adulto = "Error"
+        if (responseModal.volumeInfo.maturityRating == "NOT_MATURE") adulto = "Para todo mundo"
+        else adulto = "Para mayores de edad"
+        codigoModal = `
     <div class="text-dark">
     <p>Fecha de salida: ${responseModal.volumeInfo.publishedDate}</p>
     <p>Para que público es? ${adulto}</p>
-    <p>Link de compra: <a href="${responseModal.saleInfo.buyLink}">Google</a></p>
+    <p>Link de compra: <a target="_blank" href="${responseModal.saleInfo.buyLink}">Google</a></p>
+    <p>Publicante: ${responseModal.volumeInfo.publisher}</p>
     </div>
     `
+    }
     agregarCodigo.append(codigoModal);
+}
+
+function subirLibroEnBD(libro, id) {
+
+    let adulto = "Error"
+    if (libro.volumeInfo.maturityRating == "NOT_MATURE") adulto = "Para todo mundo"
+    else adulto = "Para mayores de edad"
+
+    $.ajax({
+        url: `../controllers/librosController.php?op=SubirLibro`,
+        type: 'POST',
+        data: {
+            ID_Libro: id,
+            Titulo: libro.volumeInfo.title,
+            Publicante: libro.volumeInfo.publisher,
+            Autor: libro.volumeInfo.authors[0],
+            Lanzamiento: libro.volumeInfo.publishedDate,
+            Publico: adulto,
+            Sinopsis: libro.volumeInfo.description,
+            Poster: `https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w400-h600&source=gbs_api`,
+            TotalPaginas: libro.volumeInfo.pageCount,
+            LinkCompraGoogle: libro.saleInfo.buyLink
+        },
+        dataType: 'json',
+        success: function (responseInfo) {
+            console.log(responseInfo)
+        },
+        error: function (error) {
+            console.error('Error al obtener la pelicula:', error);
+        }
+    });
 }
 
 //Funcion de como funcionaria en el futuro el tema de los comentarios
@@ -75,18 +181,18 @@ function agregarComentarios() {
             let comentario = `
                 <section class="row" style="width: 100%; margin-bottom: 25px">
                 <div class="col-2">`
-                //Imagen
-                comentario +=`
+            //Imagen
+            comentario += `
                 <img src="./assets/img/ImagenPerfil.jpg" alt="" class="imgPerfil">
                 </div>
                 <div class="col" style="margin-top: 15px;">
                 <p style="margin-bottom: 0px !important">`
-                //Nombre de usuario
-                comentario +=`
+            //Nombre de usuario
+            comentario += `
                 <span class="FondoVerde border10" style="padding: 5px; margin-bottom: 0px !important" id="nombreUsuario1">Usuario1</span>
                 <br>`
-                //Hora de creacion
-                comentario +=`
+            //Hora de creacion
+            comentario += `
                 <span class="form-text">Hace X tiempo</span>
                 <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 10rem">`;
             let estrellas = Math.random() * (5 - 1) + 1;
@@ -109,8 +215,8 @@ function agregarComentarios() {
                     cursor: pointer;
                     outline: inherit;
                 ">`
-                //Opinion
-                comentario +=`
+            //Opinion
+            comentario += `
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem nostrum laboriosam optio veritatis,
                 nobis, facilis autem quibusdam commodi earum saepe corrupti possimus exercitationem sint totam aliquid
                 doloremque porro cupiditate quisquam.
@@ -150,7 +256,7 @@ $(function () {
         vaciarHTML();
     } else {
         //Buscar informacion con la ID brindada
-        verInfoMedioCompleto(id);
+        confirmarSiExisteLibroEnBD(id)
         agregarComentarios();
     }
 });
@@ -189,4 +295,31 @@ $('#enviarOpinion').submit(function (event) {
         //Seguir codigo de insercion dentro de controller de PHP
     }
     console.log(document.querySelector("input[type=radio][name=calificacion]:checked").value);
+});
+
+$("#Favorito").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#PorVer").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").removeClass("boton-Opciones");
+    $("#Favorito").addClass("boton-active");
+});
+
+$("#Visto").click(function (e) {
+    $("#PorVer").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#PorVer").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#Visto").removeClass("boton-Opciones");
+    $("#Visto").addClass("boton-active");
+});
+
+$("#PorVer").click(function (e) {
+    $("#Visto").removeClass("boton-active");
+    $("#Favorito").removeClass("boton-active");
+    $("#Visto").addClass("boton-Opciones");
+    $("#Favorito").addClass("boton-Opciones");
+    $("#PorVer").removeClass("boton-Opciones");
+    $("#PorVer").addClass("boton-active");
 });

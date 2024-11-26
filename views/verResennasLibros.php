@@ -26,6 +26,30 @@ if (empty($_SESSION['NombreUsuario'])) {
         body {
             background-color: #01455c;
         }
+
+        .boton-active#Favorito {
+            background-color: #87541c !important;
+        }
+
+        .boton-active#PorVer {
+            background-color: #87541c !important;
+        }
+
+        .boton-active#Visto {
+            background-color: #87541c !important;
+        }
+
+        .boton-Opciones#Favorito:hover {
+            background-color: #87541c !important;
+        }
+
+        .boton-Opciones#PorVer:hover {
+            background-color: #87541c !important;
+        }
+
+        .boton-Opciones#Visto:hover {
+            background-color: #87541c !important;
+        }
     </style>
     <link
         rel="stylesheet"
@@ -69,7 +93,7 @@ if (empty($_SESSION['NombreUsuario'])) {
             <br><br><br>
         </section>
         <?php
-        if ($iniciado) {
+        if (!$iniciado) {
         ?>
             <section class="col-6 pt-3">
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
