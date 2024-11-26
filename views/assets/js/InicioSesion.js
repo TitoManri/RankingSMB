@@ -1,7 +1,13 @@
 $(document).ready(function() {   
     $('#formIniciarSesion').on('submit', function(e) {
         e.preventDefault();
+        $('#hiddenContrasena').val($('#contrasena').val());
         const formData = new FormData(this);
+
+        // Print the form data
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
         
         $.ajax({
             url: '../controllers/inicioSesion.php',
@@ -9,19 +15,32 @@ $(document).ready(function() {
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json', 
+            dataType: 'json',  
             success: function(data) {
-                var jsonResponse = JSON.parse(data);
-                if (jsonResponse.exito) {
+                if (data.exito) {
                     $('#formIniciarSesion').hide();
-                    $('#response').html('<div class="alert alert-success">' + data.msg + '</div>');
-                    $(location).attr('href', 'index.php');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: data.msg,
+                    }).then(() => {
+                        $(location).attr('href', 'perfil.php');
+                    });
                 } else {
-                    $('#response').html('<div class="alert alert-danger">' + data.msg + '</div>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.msg,
+                    });
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {                
-                $('#response').html('<div class="alert alert-danger">Ocurrió un error al intentar iniciar sesión. Inténtalo de nuevo.: </div>' + errorThrown);
+            error: function(jqXHR, textStatus, errorThrown) {   
+                console.log(jqXHR.responseText);             
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al intentar iniciar sesión. Inténtalo de nuevo.',
+                });
             }
         });
     });
