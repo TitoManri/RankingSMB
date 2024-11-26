@@ -1,3 +1,23 @@
+<?php
+//Inicio de la sesión
+session_start();
+if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
+    $id = $_SESSION['id'];
+    $nombre = $_SESSION['nombre'];
+    $primerApellido = $_SESSION['primerApellido'];
+    $SegundoApellido = $_SESSION['segundoApellido'];
+    $nombreUsuario = $_SESSION['nombreUsuario'];
+    $correo = $_SESSION['correo'];
+    $telefono = $_SESSION['telefono'];
+    $fotoPerfil = $_SESSION['fotoPerfil'];
+
+}else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
+    header('Location: ./inicioSesion.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,35 +47,48 @@
                 <div class="row mt-5">
                     <div class="col-6 d-flex flex-column align-items-center">
                         <div class="d-flex justify-content-center mb-4">
-                            <img id="selectedAvatar" src="https://i.pinimg.com/originals/9b/aa/62/9baa62b8c23ec8d7c622038ce13d0519.jpg"
-                                class="rounded-circle foto-perfil" style="width: 300px; height: 300px; object-fit: cover;" alt="example placeholder" />
+                            <img id="pfp" src="./assets/img/<?php echo $fotoPerfil?>"
+                                class="rounded-circle foto-perfil" style="width: 300px; height: 300px; object-fit: cover;"/>
                         </div>
-                        <button type="button" class="btn btn-primary btn-lg d-flex align-items-center">
+                        <button type="button" class="btn btn-light btn-lg d-flex align-items-center">
                             <span class="game-icons--rank-1 me-2"></span>
                             Nivel: Rookie n.10
                         </button>
                     </div>
 
                     <div class="col-6">
-                        <h1 class="mt-3">Nombre de la Persona</h1>
+                        <h1 class="caja-perfil-datos p-3 mt-3" id="nombreCompleto" name="nombreCompleto"><?php echo $nombre.$primerApellido.$SegundoApellido?></h1>
                         <br>
-                        <h5>Vivamus feugiat lacus sed suscipit sollicitudin. Nulla quam nibh, porta ac eleifend pharetra, egestas eget dolor. Aliquam pellentesque consectetur ullamcorper. Pellentesque tincidunt leo augue, ac tincidunt quam pellentesque sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut consectetur justo. Quisque venenatis eget est ut vulputate. Proin interdum odio sem, quis commodo lacus egestas ut. Proin ut convallis massa. Integer maximus leo nec nunc faucibus mollis. Sed fermentum metus vel ligula commodo, vitae ultrices risus pulvinar. Vestibulum ac tempor purus, in ornare ligula. Maecenas sit amet vulputate metus, in commodo nulla. Proin consequat imperdiet velit, in consectetur nisi cursus ac.</h5>
                         <br>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <div class="row mt-4">
+                        <div class="col">
+                                <h2 class="caja-perfil-datos">Usuario</h2>
+                                <h3 id="nombreUsuario" name="nombreUsuario"><?php echo $nombreUsuario ?></h3>
+                            </div>
+                            <div class="col">
+                                <h2 class="caja-perfil-datos">Correo</h2>
+                                <h3 id="correo" name="correo"><?php echo $correo ?></h3>
+                            </div>
+                            <div class="col">
+                                <h2 class="caja-perfil-datos">Telefono</h2>
+                                <h3 id="telefono" name="telefono"><?php echo $telefono ?></h3>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <button type="button" class="btn btn btn-outline-light mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <h3>Editar Perfil</h3>
                         </button>
                     </div>
                 </div>
-                <br>
-                <hr>
-                <br>
-                <h1 class="titulo">Listas</h1>
+                <br><hr><br><br>
+                <h1 class="titulo ">Listas</h1>
                 <div class="row mb-5">
                     <div class="col">
                         <h1 class="subtitulo">Peliculas y Series</h1>
                     </div>
                     <div class="col">
-                        <h1 class="subtitulo">Libros</h1>
+                        <h1 class="subtitulo ">Libros</h1>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -117,7 +150,7 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.hero.page/pfp/daca14e0-298a-4675-a868-7a0308d6edc1-neko-girl-pfp-anime-cute-pfp-from-popular-shows-1.png"
+                                            <img id="no" src="https://cdn.hero.page/pfp/daca14e0-298a-4675-a868-7a0308d6edc1-neko-girl-pfp-anime-cute-pfp-from-popular-shows-1.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -131,7 +164,7 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.imgchest.com/files/l7lxcgnrl57.png"
+                                            <img id="no" src="https://cdn.imgchest.com/files/l7lxcgnrl57.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -145,7 +178,7 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.hero.page/pfp/59a0bbc4-5aa5-4a60-85fc-74a52ad1a89f-schoolgirl-with-pink-hair-cute-anime-pfp-girl-styles-1.png"
+                                            <img id="no" src="https://cdn.hero.page/pfp/59a0bbc4-5aa5-4a60-85fc-74a52ad1a89f-schoolgirl-with-pink-hair-cute-anime-pfp-girl-styles-1.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -159,7 +192,7 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -169,25 +202,16 @@
                                 </div>
                             </a>
 
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="col animate__animated animate__bounceInUp">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                <h1>Actividad Reciente</h1>
-                            </a>
-
                             <a href="#" class="list-group-item list-group-item-action amigos-caja" aria-current="true">
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MEldN3QAarU4EydTIY1JCRJhv83VFSffg&s"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-9 d-flex align-items-center">
+                                        <h2 class="texto-negrita">Yorsh</h2>
                                     </div>
                                 </div>
                             </a>
@@ -196,11 +220,12 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/97f5e2de-0a65-4192-a65b-5f265139e2fb/dhpk887-30b845ac-235e-46c3-8099-87b5eb566890.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk3ZjVlMmRlLTBhNjUtNDE5Mi1hNjViLTVmMjY1MTM5ZTJmYlwvZGhwazg4Ny0zMGI4NDVhYy0yMzVlLTQ2YzMtODA5OS04N2I1ZWI1NjY4OTAuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.NtQOwlx3uMf38hVqpE-16QrYoJqNKk_dMdaJPqrT0RE"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-9 d-flex align-items-center">
+                                        <h2 class="texto-negrita">Yorsh</h2>
                                     </div>
                                 </div>
                             </a>
@@ -209,26 +234,46 @@
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://manybackgrounds.com/images/hd/aesthetic-anime-pfp-ken-kaneki-i9e6lrp51a1jitjf.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-9 d-flex align-items-center">
+                                        <h2 class="texto-negrita">Yorsh</h2>
                                     </div>
                                 </div>
                             </a>
+
                             <a href="#" class="list-group-item list-group-item-action amigos-caja" aria-current="true">
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://manybackgrounds.com/images/hd/aesthetic-anime-pfp-ken-kaneki-i9e6lrp51a1jitjf.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-9 d-flex align-items-center">
+                                        <h2 class="texto-negrita">Yorsh</h2>
                                     </div>
                                 </div>
                             </a>
+
+                            <a href="#" class="list-group-item list-group-item-action amigos-caja" aria-current="true">
+                                <div class="row">
+                                    <div class="col-3 d-flex align-items-center">
+                                        <div class="d-flex justify-content-center align-items-center w-100">
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                                class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
+                                        </div>
+                                    </div>
+                                    <div class="col-9 d-flex align-items-center">
+                                        <h2 class="texto-negrita">Yorsh</h2>
+                                    </div>
+                                </div>
+                            </a>
+
+                            
+
                         </div>
                     </div>
                 </div>
@@ -247,13 +292,13 @@
                     <form>
                         <div>
                             <div class="d-flex justify-content-center mb-4">
-                                <img id="selectedAvatar" src="https://i.pinimg.com/originals/9b/aa/62/9baa62b8c23ec8d7c622038ce13d0519.jpg"
+                                <img id="selectedAvatar" src="./assets/img/<?php echo $fotoPerfil?>"
                                     class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
                             </div>
                             <div class="d-flex justify-content-center">
-                                <div data-mdb-ripple-init class="btn btn-primary btn-rounded">
+                                <div data-mdb-ripple-init class="btn btn-secondary btn-rounded">
                                     <label class="form-label text-white m-1" for="customFile2">Choose file</label>
-                                    <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
+                                    <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'no')" />
                                 </div>
                             </div>
                         </div>
@@ -261,41 +306,41 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nombre" class="col-form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre">
+                                <input type="text" class="form-control" id="nombre" value="<?php echo $nombre?>">
                             </div>
                             <div class="col">
                                 <label for="primer-apellido" class="col-form-label">Primer Apellido</label>
-                                <input type="text" class="form-control" id="primer-apellido">
+                                <input type="text" class="form-control" id="primer-apellido" value="<?php echo $primerApellido?>">
                             </div>
                             <div class="col">
                                 <label for="segundo-apellido" class="col-form-label">Segundo Apellido</label>
-                                <input type="text" class="form-control" id="segundo-apellido">
+                                <input type="text" class="form-control" id="segundo-apellido" value="<?php echo $SegundoApellido?>">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nombre" class="col-form-label">Correo</label>
-                                <input type="text" class="form-control" id="nombre">
+                                <input type="text" class="form-control" id="correo" value="<?php echo $correo?>">
                             </div>
                             <div class="col">
-                                <label for="primer-apellido" class="col-form-label">Telefono</label>
-                                <input type="text" class="form-control" id="primer-apellido">
+                                <label for="telefono" class="col-form-label">Telefono</label>
+                                <input type="text" class="form-control" id="telefono" value="<?php echo $telefono?>">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Editar</button>
+                    <button type="button" class="btn btn-success">Editar</button>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <footer class="navbarMain fixed-bottom">
     <!-- Footer -->
     <?php include_once "./templates/Header_Footer/footer.php"; ?>
-
+    </footer>
 </body>
 
 <!-- Bootstrap -->
