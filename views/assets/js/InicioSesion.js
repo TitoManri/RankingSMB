@@ -1,14 +1,10 @@
+//Ajax que tira sweet alert si el inicio de sesion fue exitoso o no
+
 $(document).ready(function() {   
     $('#formIniciarSesion').on('submit', function(e) {
         e.preventDefault();
-        $('#hiddenContrasena').val($('#contrasena').val());
         const formData = new FormData(this);
 
-        // Print the form data
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-        
         $.ajax({
             url: '../controllers/inicioSesion.php',
             type: 'POST',
@@ -18,13 +14,12 @@ $(document).ready(function() {
             dataType: 'json',  
             success: function(data) {
                 if (data.exito) {
-                    $('#formIniciarSesion').hide();
                     Swal.fire({
                         icon: 'success',
                         title: 'Éxito',
                         text: data.msg,
                     }).then(() => {
-                        $(location).attr('href', 'perfil.php');
+                        $(location).attr('href', 'index.php');
                     });
                 } else {
                     Swal.fire({

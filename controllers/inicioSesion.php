@@ -9,10 +9,13 @@ $contrasenaHashed = password_hash($contrasenaVerificar, PASSWORD_DEFAULT);
 $usuarioModel = new UsuarioModel();
 
 try {
+    // Verificar si el usuario ya existe por correo
     $usuario = $usuarioModel->obtenerUsuarioPorCorreo($correo);
     
     if ($usuario) {
+        //Verificar si la contraseña es correcta con el hash
         if (password_verify($contrasenaVerificar, $usuario->Contraseña)) {
+            // Iniciar sesión con el session start
             session_start();
             $_SESSION['id'] = $usuario->_id;
             $_SESSION['idNivel'] = $usuario->id_nivel ?? null;

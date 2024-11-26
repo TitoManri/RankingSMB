@@ -1,6 +1,8 @@
 <?php
+//Inicio de la sesión
 session_start();
 if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
     $id = $_SESSION['id'];
     $nombre = $_SESSION['nombre'];
     $primerApellido = $_SESSION['primerApellido'];
@@ -11,6 +13,7 @@ if (!empty($_SESSION['correo'])) {
     $fotoPerfil = $_SESSION['fotoPerfil'];
 
 }else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
     header('Location: ./inicioSesion.php');
 }
 ?>
@@ -147,7 +150,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.hero.page/pfp/daca14e0-298a-4675-a868-7a0308d6edc1-neko-girl-pfp-anime-cute-pfp-from-popular-shows-1.png"
+                                            <img id="no" src="https://cdn.hero.page/pfp/daca14e0-298a-4675-a868-7a0308d6edc1-neko-girl-pfp-anime-cute-pfp-from-popular-shows-1.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -161,7 +164,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.imgchest.com/files/l7lxcgnrl57.png"
+                                            <img id="no" src="https://cdn.imgchest.com/files/l7lxcgnrl57.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -175,7 +178,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://cdn.hero.page/pfp/59a0bbc4-5aa5-4a60-85fc-74a52ad1a89f-schoolgirl-with-pink-hair-cute-anime-pfp-girl-styles-1.png"
+                                            <img id="no" src="https://cdn.hero.page/pfp/59a0bbc4-5aa5-4a60-85fc-74a52ad1a89f-schoolgirl-with-pink-hair-cute-anime-pfp-girl-styles-1.png"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -189,7 +192,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -203,7 +206,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -217,7 +220,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -231,7 +234,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -245,7 +248,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -259,7 +262,7 @@ if (!empty($_SESSION['correo'])) {
                                 <div class="row">
                                     <div class="col-3 d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center w-100">
-                                            <img id="selectedAvatar" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
+                                            <img id="no" src="https://pbs.twimg.com/media/F-28_vlXcAAcJFP.jpg"
                                                 class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" alt="example placeholder" />
                                         </div>
                                     </div>
@@ -295,7 +298,7 @@ if (!empty($_SESSION['correo'])) {
                             <div class="d-flex justify-content-center">
                                 <div data-mdb-ripple-init class="btn btn-secondary btn-rounded">
                                     <label class="form-label text-white m-1" for="customFile2">Choose file</label>
-                                    <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
+                                    <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'no')" />
                                 </div>
                             </div>
                         </div>
