@@ -49,8 +49,6 @@
                                     <label class="label" for="contrasena">Contraseña</label>
                                 </div>
 
-                                <input type="hidden" name="contrasena" id="hiddenContrasena">
-
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
                                 <br>
