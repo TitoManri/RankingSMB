@@ -21,7 +21,7 @@ function __construct() {
 function conectarBaseMongo($datosMongo) {
     try {
         if (!empty($datosMongo['usuario']) && !empty($datosMongo['contrasena'])) {
-            $uri = "mongodb://{$datosMongo['usuario']}:{$datosMongo['contrasena']}@{$datosMongo['host']}:{$datosMongo['port']}";
+            $uri = "mongodb+srv://{$datosMongo['usuario']}:{$datosMongo['contrasena']}@{$datosMongo['host']}";
         } else {
             $uri = "mongodb://{$datosMongo['host']}:{$datosMongo['port']}";
         }
