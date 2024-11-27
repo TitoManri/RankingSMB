@@ -1,27 +1,41 @@
+//Ajax que tira sweet alert si el inicio de sesion fue exitoso o no
+
 $(document).ready(function() {   
     $('#formIniciarSesion').on('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
-        
+
         $.ajax({
             url: '../controllers/inicioSesion.php',
             type: 'POST',
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json', 
+            dataType: 'json',  
             success: function(data) {
-                var jsonResponse = JSON.parse(data);
-                if (jsonResponse.exito) {
-                    $('#formIniciarSesion').hide();
-                    $('#response').html('<div class="alert alert-success">' + data.msg + '</div>');
-                    $(location).attr('href', 'index.php');
+                if (data.exito) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: data.msg,
+                    }).then(() => {
+                        $(location).attr('href', 'index.php');
+                    });
                 } else {
-                    $('#response').html('<div class="alert alert-danger">' + data.msg + '</div>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.msg,
+                    });
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {                
-                $('#response').html('<div class="alert alert-danger">Ocurrió un error al intentar iniciar sesión. Inténtalo de nuevo.: </div>' + errorThrown);
+            error: function(jqXHR, textStatus, errorThrown) {   
+                console.log(jqXHR.responseText);             
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al intentar iniciar sesión. Inténtalo de nuevo.',
+                });
             }
         });
     });

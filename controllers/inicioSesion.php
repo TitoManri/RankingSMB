@@ -1,26 +1,41 @@
 <?php
 require_once '../models/Usuarios.php';
 
-
+// Capturar valores enviados por el formulario
 $correo = $_POST['correo'] ?? null;
-$contrasena = $_POST['contrasena'] ?? null;
+$contrasenaVerificar = $_POST['contrasena'] ?? null;
+$contrasenaHashed = password_hash($contrasenaVerificar, PASSWORD_DEFAULT);
 
 $usuarioModel = new UsuarioModel();
-$usuarioModel->setCorreo($correo);
 
 try {
-    $usuario = $usuarioModel->obtenerUsuario($usuarioModel);
+    // Verificar si el usuario ya existe por correo
+    $usuario = $usuarioModel->obtenerUsuarioPorCorreo($correo);
+    
     if ($usuario) {
-        if (password_verify($contrasena, $usuario->contrasena)) {
-            $respuesta = array("exito" => true, "msg" => "Inicio de sesión exitoso");
+        //Verificar si la contraseña es correcta con el hash
+        if (password_verify($contrasenaVerificar, $usuario->Contraseña)) {
+            // Iniciar sesión con el session start
+            session_start();
+            $_SESSION['id'] = $usuario->_id;
+            $_SESSION['idNivel'] = $usuario->id_nivel ?? null;
+            $_SESSION['nombre'] = $usuario->Nombre;
+            $_SESSION['primerApellido'] = $usuario->PrimerApellido;
+            $_SESSION['segundoApellido'] = $usuario->SegundoApellido;
+            $_SESSION['nombreUsuario'] = $usuario->NombredeUsuario;
+            $_SESSION['correo'] = $usuario->Correo;
+            $_SESSION['telefono'] = $usuario->Telefono;
+            $_SESSION['fotoPerfil'] = $usuario->FotodePerfil;
+            $_SESSION['fechaCreacion'] = $usuario->FechadeCreacion;
+            $respuesta = ["exito" => true, "msg" => "Inicio de sesión exitoso"];
         } else {
-            $respuesta = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
+            $respuesta = ["exito" => false, "msg" => "Usuario o contraseña incorrectos"];
         }
     } else {
-        $respuesta = array("exito" => false, "msg" => "Usuario o contraseña incorrectos");
+        $respuesta = ["exito" => false, "msg" => "Usuario o contraseña incorrectos"];
     }
 } catch (Exception $e) {
-    $respuesta = array("exito" => false, "msg" => "Error al intentar iniciar sesión: " . $e->getMessage());
+    $respuesta = ["exito" => false, "msg" => "Error al intentar iniciar sesión: " . $e->getMessage()];
 }
 
 echo json_encode($respuesta);
