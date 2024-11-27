@@ -104,69 +104,84 @@ class ListasMySModel extends Conexion
     public function obtenerPeliculasySeries($listaUsuario,$IdContenidoAgregado)
     {
         foreach ($listaUsuario as $contenido) {
-            if ($contenido['id'] === $IdContenidoAgregado) { //Cambiar 'id' por el codigo de la pelicula
+            if ($contenido['ID_Pelicula'] === $IdContenidoAgregado) { //Cambiar 'id' por el codigo de la pelicula
                 return $contenido;
             }
         }
         return null;  
     }
 
-    //----Eliminar Peliculass dentro del Array----//
-    public function eliminarPeliculaDeLista($idUsuario,$nombre)
+    //----Eliminar Peliculass dentro del Array----// 
+    // [No tengo muy bien pensado como se puede hacer] //
+    public function eliminarPeliculaDeLista($idUsuario, $nombre)
     {
-        //Buscamos la lista 
-        //Eliminamos la lista
+        if (!isset($this->listas[$idUsuario])) {
+            return "La lista del usuario no existe.";
+        }
+
+        // Si no se encontró el contenido
+        return "El contenido no se encontró en la lista.";
     }
+
 
     //------Filtros------//
 
-    public function filtroDeGenero($idUsuario,$nombre,$IdContenidoAgregado,$genero)
+    public function filtroDeGenero($idUsuario, $nombreLista, $genero)
     {
-        //Conseguir la lista de usuario
-        $listaUsuario = $this->obtenerListaPorVerPorUsuario($idUsuario,$nombre);
-        //Conseguimos la lista de peliculas y series 
-        //Si en el array de $listaUsuario se encuentra que nombre es Favorito o PorVer o Visto
-        if($listaUsuario){//Favorito
-            $listaMyS = $this->obtenerListaFavPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0; //Devolvemos el find filtrado
-        }else if($listaUsuario){ // Por Ver
-            $listaMyS = $this->obtenerListaPorVerPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0; //Devolvemos el find filtrado
-        }else if ($listaUsuario){ // Vistos
-            $listaMyS = $this->obtenerListaVistosPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0;//Devolvemos el find filtrado
-        }else{
-            //Mande un Error
-            return 0; //Devolvemos el error
+        $listaUsuario = null;
+
+        // Obtener la lista correspondiente según el nombre
+        if ($nombreLista === 'Favoritos') {
+            $listaUsuario = $this->obtenerListaFavPorUsuario($idUsuario, $nombreLista);
+        } elseif ($nombreLista === 'Por Ver') {
+            $listaUsuario = $this->obtenerListaPorVerPorUsuario($idUsuario, $nombreLista);
+        } elseif ($nombreLista === 'Vistos') {
+            $listaUsuario = $this->obtenerListaVistosPorUsuario($idUsuario, $nombreLista);
+        } else {
+            throw new Exception("Nombre de lista no válido: '$nombreLista'");
         }
+
+        // Validar si la lista se encontró
+        if (!$listaUsuario || !isset($listaUsuario['contenidos'])) {
+            throw new Exception("No se encontró la lista '$nombreLista' para el usuario con ID $idUsuario");
+        }
+
+        //filtra los contenidos por genero con el "array filter"
+        $contenidoFiltrado = array_filter($listaUsuario['contenidos'], function ($contenido) use ($genero) {
+            return in_array($genero, $contenido['generos']);
+        });
+    
+        return $contenidoFiltrado;
     }
 
-    public function filtroAnio($idUsuario,$nombre,$IdContenidoAgregado,$anio)
-    {
-        //Conseguir la lista de usuario
-        $listaUsuario = $this->obtenerListaPorVerPorUsuario($idUsuario,$nombre);
-        //Conseguimos la lista de peliculas y series 
-        //Si en el array de $listaUsuario se encuentra que nombre es Favorito o PorVer o Visto
-        if($listaUsuario){//Favorito
-            $listaMyS = $this->obtenerListaFavPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0; //Devolvemos el find filtrado
-        }else if($listaUsuario){ // Por Ver
-            $listaMyS = $this->obtenerListaPorVerPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0; //Devolvemos el find filtrado
-        }else if ($listaUsuario){ // Vistos
-            $listaMyS = $this->obtenerListaVistosPorUsuario($listaUsuario,$IdContenidoAgregado);
-            //Filtramos el find por el genero seleccionado
-            return 0;//Devolvemos el find filtrado
-        }else{
-            //Mande un Error
-            return 0; //Devolvemos el error
-        }
+
+    public function filtroAnio($idUsuario, $nombreLista, $IdContenidoAgregado, $anio = null)
+{
+    $listaUsuario = null;
+
+    // Obtener la lista correspondiente según el nombre
+    if ($nombreLista === 'Favoritos') {
+        $listaUsuario = $this->obtenerListaFavPorUsuario($idUsuario, $nombreLista);
+    } elseif ($nombreLista === 'Por Ver') {
+        $listaUsuario = $this->obtenerListaPorVerPorUsuario($idUsuario, $nombreLista);
+    } elseif ($nombreLista === 'Vistos') {
+        $listaUsuario = $this->obtenerListaVistosPorUsuario($idUsuario, $nombreLista);
+    } else {
+        throw new Exception("Nombre de lista no válido: '$nombreLista'");
     }
+
+    // Filtrar por año si se proporciona un año válido
+    if ($anio) {
+        $listaFiltrada = array_filter($listaUsuario, function($contenido) use ($anio) {
+            return isset($contenido['anio']) && $contenido['anio'] == $anio;
+        });
+
+        return $listaFiltrada;
+    } else {
+        // Si no se especifica un año, devolver toda la lista
+        return $listaUsuario;
+    }
+}
 
     public function filtroPorNombre($IdContenidoAgregado,$anio)
     {
