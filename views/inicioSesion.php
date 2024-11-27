@@ -7,6 +7,8 @@
     <!-- Bootstrap Icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="./assets/general.css">
     <link rel="stylesheet" href="./assets/header-footer/headerFooter.css">
@@ -35,24 +37,29 @@
                                     <h1>Iniciar Sesión</h1>
                                 </center>
                                 <hr class="hr" />
+                                <!-- Campo de correo -->
                                 <div class="input-wrapper">
-                                    <input type="email" class="input" name="correo" id="correo" placeholder=" " autocomplete="off" />
-                                    <label class="label" for="correo">Nombre de Usuario o correo</label>
-                                    <div class="input-wrapper">
-                                        <input type="password" class="input" name="contrasena" id="contrasena" placeholder=" " autocomplete="off" />
-                                        <label class="label" for="contrasena">Contraseña</label>
-                                    </div>
+                                    <input type="email" class="input" name="correo" id="correo" placeholder=" " autocomplete="off" required />
+                                    <label class="label" for="correo">Correo</label>
                                 </div>
+
+                                <!-- Campo de contraseña -->
+                                <div class="input-wrapper">
+                                    <input type="password" class="input" name="contrasena" id="contrasena" placeholder=" " autocomplete="off" required />
+                                    <label class="label" for="contrasena">Contraseña</label>
+                                </div>
+
                                 <br>
                                 <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
                                 <br>
                                 <br>
                             </form>
+
                         </div>
 
                     </section>
                 </div>
-                
+
                 <div class="col-4">
                     <section class="caja-logo">
                         <div class="text-center">
@@ -99,6 +106,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
 
 <!-- Js Personalizado-->
 <script src="./assets/js/InicioSesion.js"></script>

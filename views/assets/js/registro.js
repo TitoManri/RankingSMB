@@ -1,3 +1,4 @@
+//Ajax que tira sweet alert si el registro fue exitoso o no
 
 $(document).ready(function() {   
     $('#formRegistro').on('submit', function(e) {
@@ -13,7 +14,6 @@ $(document).ready(function() {
             dataType: 'json', 
             success: function(data) {
                 if (data.exito) {
-                    $('#formRegistro').hide();
                     $('#response').html('<div class="alert alert-success">' + data.msg + '</div>');
                     $(location).attr('href', 'logIn.php');
                 } else {
