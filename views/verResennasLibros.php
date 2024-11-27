@@ -4,7 +4,7 @@ Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
 session_start();
 $iniciado = true;
-if (empty($_SESSION['NombreUsuario'])) {
+if (empty($_SESSION['id'])) {
     $iniciado = false;
 }
 ?>
