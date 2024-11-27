@@ -1,4 +1,4 @@
-//Cargar películas y series en el div de arriba
+//Cargar películas y libros en el div de arriba y abajo
 $.ajax({
     url: 'https://api.themoviedb.org/3/movie/popular?language=es-CR&page=1',
     type: 'GET',
@@ -7,11 +7,15 @@ $.ajax({
         Authorization: `Bearer ${tmdbAPI}`
     },
     success: function (response) {
-        //seleccionar donde se escribirá, en este caso en el div con id peliculasSeries
+        //seleccionar donde se escribirá, en este caso en el div con id peliculas1
         let divPeliculasArriba = $("#peliculas1");
 
         //limitar los resultados a las primeras 4 películas arriba
         response.results.slice(0, 4).forEach(movie => {
+            
+            //verificar existencia en bd
+            
+            
             //crear html con la información de cada película
             let datos = `
                 <div class="column is-one-quarter">
@@ -27,7 +31,7 @@ $.ajax({
             divPeliculasArriba.append(datos);
         });
 
-        //seleccionar donde se escribirá, en este caso en el div con id 
+        //seleccionar donde se escribirá, en este caso en el div con id peliculas2
         let divPeliculasAbajo = $("#peliculas2");
 
         //limitar los resultados a las segundas 4 películas abajo
@@ -51,8 +55,6 @@ $.ajax({
         console.error(error);
     }
 });
-
-
 
 // Obtener géneros y duración de las películas
 async function verRuntime(idPelicula) {
@@ -93,7 +95,7 @@ function truncarTexto(texto) {
     return texto.length > 273 ? texto.substring(0, 273) + "..." : texto;
 }
 
-// Cargar películas al final --> ratings más altos
+// Cargar series al final --> ratings más altos
 $.ajax({
     url: 'https://api.themoviedb.org/3/movie/top_rated?language=es-CR&page=1',
     type: 'GET',
@@ -149,5 +151,3 @@ $.ajax({
         console.error(error);
     }
 });
-
-

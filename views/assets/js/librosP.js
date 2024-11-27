@@ -9,8 +9,9 @@ $.ajax({
         //limitar los resultados a los primeros 5 libros
         response.items.slice(0, 4).forEach(book => {
             // Verificar si hay una imagen disponible
-            let imagen1 = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen1 = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
+            
             //crear html con la información de cada libro
             let datos = `
                 <div class="column is-one-quarter">
@@ -32,7 +33,7 @@ $.ajax({
         //limitar los resultados a los primeros 5 libros
         response.items.slice(4, 8).forEach(book => {
             // Verificar si hay una imagen disponible
-            let imagen2 = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen2 = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
             //crear html con la información de cada libro
             let datos = `
@@ -69,7 +70,7 @@ $.ajax({
 
         for (const libro of response.items.slice(0, 3)) {
             // Acceder a los autores y título del libro
-            const imagen = libro.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            const imagen = `https://books.google.com/books/publisher/content/images/frontcover/${libro.id}?fife=w400-h600&source=gbs_api`;
             const titulo = libro.volumeInfo.title || "Título desconocido";
             const autores = libro.volumeInfo.authors ? libro.volumeInfo.authors.join(', ') : "Autor desconocido";
             const descripcion = libro.volumeInfo.description ? truncarTexto(libro.volumeInfo.description) : "Descripción no disponible.";

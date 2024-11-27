@@ -2,10 +2,17 @@
 require __DIR__ . '/../vendor/autoload.php';
 Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
+//Inicio de la sesión
 session_start();
-$iniciado = true;
-if (empty($_SESSION['NombreUsuario'])) {
-    $iniciado = false;
+if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
+    $id = $_SESSION['id'];
+    $nombreUsuario = $_SESSION['nombreUsuario'];
+    $correo = $_SESSION['correo'];
+
+}else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
+    header('Location: ./inicioSesion.php');
 }
 ?>
 
@@ -39,60 +46,6 @@ if (empty($_SESSION['NombreUsuario'])) {
     <!-- HEADER-->
     <?php include_once "./templates/Header_Footer/header.php" ?>
 
-    <!-- Barra de Filtros y Búsqueda -->
-    <nav class="navbar navbar-expand-lg mb-5" id="filtros">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="row w-100">
-                    <!-- Filtros -->
-                    <div class="col-md-6">
-                        <h4 class="mx-5 my-2 title is-4 has-text-white">Filtros</h4>
-                        <div class="row ml-2">
-                            <div class="col-md-4 my-1">
-                                <!-- Filtro género -->
-                                <select id="genero" class="form-select m-3" aria-label="Default select example">
-                                    <option selected>Género</option>
-                                    <option value="Terror">Terror</option>
-                                    <option value="Comedia">Comedia</option>
-                                    <option value="Acción">Acción</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 my-1">
-                                <!-- Filtro calificación -->
-                                <select id="calificacion" class="form-select m-3" aria-label="Default select example">
-                                    <option selected>Calificación</option>
-                                    <option value="5">5</option>
-                                    <option value="4">4</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 my-1">
-                                <!-- Filtro año -->
-                                <select id="año" class="form-select m-3" aria-label="Default select example">
-                                    <option selected>Año</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2015">2015</option>
-                                    <option value="1990">1990</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Campo de búsqueda -->
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4 mt-5 pt-5">
-                        <form class="d-flex" role="search" id="busquedaSerie" method="post"
-                            action="./busquedaSeries.php">
-                            <input class="form-control me-2 mb-3" type="search" placeholder="Descubre contenido"
-                                aria-label="Buscar" id="busquedaSerieText" name="busquedaSerieText" required>
-                            <button class="btn btn-primary" id="boton-busqueda" type="submit">Buscar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-
     <!-- #PARTE DE CATÁLOGO -->
     <!-- Parte de netflix -->
     <div class="top">
@@ -113,8 +66,27 @@ if (empty($_SESSION['NombreUsuario'])) {
         </div>
     </div>
 
+    <!-- Barra de Búsqueda -->
+    <nav class="navbar navbar-expand-lg ml-5" id="filtros">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="row w-100 ml-5">
+                    <div class="col-md-7"></div>
+                    <div class="col-md-4 mt-5 pt-5">
+                        <form class="d-flex" role="search" id="busquedaSerie" method="post"
+                            action="./busquedaSeries.php">
+                            <input class="form-control me-2 mb-3" type="search" placeholder="Descubre contenido"
+                                aria-label="Buscar" id="busquedaSerieText" name="busquedaSerieText" required>
+                            <button class="btn btn-primary" id="boton-busqueda" type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <div class="container p-0 pt-6 last">
+
+    <div class="container p-0 last">
         <div id="series1" class="columns is-multiline ">
             <div class="column is-full">
                 <h1 class="title is-3 has-text-white">Popular esta semana</h1>
@@ -168,13 +140,6 @@ if (empty($_SESSION['NombreUsuario'])) {
         </div>
         <!-- aquí se insertan las cards desde el js-->
     </div>
-    <?php
-    /*} else {*/
-    ?>
-    <!-- Lo que pasa si no se ha iniciado sesión-->
-    <?php
-    /*}*/
-    ?>
 
     <div class="fixed-bottom">
         <?php include_once "./templates/Header_Footer/footer.php" ?>

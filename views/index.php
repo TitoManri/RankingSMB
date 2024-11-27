@@ -3,7 +3,7 @@ require '../vendor/autoload.php'; // Asegúrate de tener Composer instalado y Mo
 
 try {
     // Crear una conexión a MongoDB
-    $client = new MongoDB\Client("mongodb://localhost:27017");
+    $client = new MongoDB\Client("mongodb://admin:rankingSMBAMMJ8921@localhost:27017/");
     echo "Conexión a MongoDB establecida con éxito.<br>";
 
     // Seleccionar la base de datos

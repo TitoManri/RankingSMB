@@ -4,7 +4,7 @@
 const paramBusqueda = document.getElementById("busquedaParam").textContent;
 
 $.ajax({
-    url: `https://api.themoviedb.org/3/search/movie?query=${paramBusqueda}&include_adult=true&language=es-CR&page=1`,
+    url: `https://api.themoviedb.org/3/search/movie?query=${paramBusqueda}&include_adult=false&language=es-CR&page=1`,
     type: 'GET',
     headers: {
         accept: "application/json",
@@ -16,12 +16,12 @@ $.ajax({
         //limitar los resultados a las primeras 4 películas arriba
         response.results.slice(0, 4).forEach(movie => {
 
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
 
             //crear html con la información de cada película
             let datos = `
                 <div class="column is-one-quarter">
-                    <img src="https://image.tmdb.org/t/p/w500${imagen}" alt="${movie.original_title}" class="img-ajustada">
+                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${movie.original_title}</h1>
@@ -39,12 +39,12 @@ $.ajax({
         //limitar los resultados a las segundas 4 películas abajo
         response.results.slice(4, 8).forEach(movie => {
 
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
 
             //crear html con la información de cada película
             let datos = `
                 <div class="column is-one-quarter">
-                    <img src="https://image.tmdb.org/t/p/w500${imagen}" alt="${movie.original_title}" class="img-ajustada">
+                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${movie.original_title}</h1>
@@ -62,12 +62,12 @@ $.ajax({
         //limitar los resultados a las segundas 4 películas abajo
         response.results.slice(8, 12).forEach(movie => {
 
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
 
             //crear html con la información de cada película
             let datos = `
                 <div class="column is-one-quarter">
-                    <img src="https://image.tmdb.org/t/p/w500${imagen}" alt="${movie.original_title}" class="img-ajustada">
+                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${movie.original_title}</h1>

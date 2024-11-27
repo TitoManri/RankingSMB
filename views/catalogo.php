@@ -2,10 +2,17 @@
 require __DIR__ . '/../vendor/autoload.php';
 Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
+//Inicio de la sesión
 session_start();
-$iniciado = true;
-if (empty($_SESSION['NombreUsuario'])) {
-    $iniciado = false;
+if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
+    $id = $_SESSION['id'];
+    $nombreUsuario = $_SESSION['nombreUsuario'];
+    $correo = $_SESSION['correo'];
+
+}else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
+    header('Location: ./inicioSesion.php');
 }
 ?>
 
@@ -30,10 +37,6 @@ if (empty($_SESSION['NombreUsuario'])) {
 <body>
     <?php include_once "./templates/Header_Footer/header.php" ?>
 
-    <? php/*
-if (!$iniciado) {*/
-        ?>
-    <!-- Esto se muestra si la sesión está iniciada-->
     <!-- Parte de netflix -->
     <div class="top">
         <div class="columns">
@@ -104,13 +107,6 @@ if (!$iniciado) {*/
         </div>
         <!-- aquí se insertan las cards desde el js-->
     </div>
-    <?php
-    /*} else {*/
-    ?>
-    <!-- Lo que pasa si no se ha iniciado sesión-->
-    <?php
-    /*}*/
-    ?>
 
     <div class="fixed-bottom">
         <?php include_once "./templates/Header_Footer/footer.php" ?>

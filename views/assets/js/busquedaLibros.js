@@ -12,7 +12,7 @@ $.ajax({
         //limitar los resultados a las primeras 4 películas arriba
         response.items.slice(0, 4).forEach(book => {
 
-            let imagen1 = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen1 = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
             //crear html con la información de cada libro
             let datos = `
@@ -35,7 +35,7 @@ $.ajax({
         //limitar los resultados a las segundas 4 películas abajo
         response.items.slice(4, 8).forEach(book => {
 
-            let imagen1 = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen1 = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
             //crear html con la información de cada libro
             let datos = `
@@ -58,7 +58,7 @@ $.ajax({
         //limitar los resultados a las segundas 4 películas abajo
         response.items.slice(8, 12).forEach(book => {
 
-            let imagen1 = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen1 = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
             //crear html con la información de cada libro
             let datos = `

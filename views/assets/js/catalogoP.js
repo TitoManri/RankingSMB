@@ -43,7 +43,7 @@ $.ajax({
         //limitar los resultados a los primeros 5 libros
         response.items.slice(0, 4).forEach(book => {
             // Verificar si hay una imagen disponible
-            let imagen = book.volumeInfo.imageLinks?.thumbnail || 'https://static.wikia.nocookie.net/cityofdevils/images/3/30/Image-not-available.jpg/revision/latest?cb=20200325180534';
+            let imagen = `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w400-h600&source=gbs_api`;
 
             //crear html con la información de cada libro
             let datos = `
