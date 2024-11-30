@@ -16,7 +16,6 @@ if (!empty($_SESSION['correo'])) {
     header('Location: ./inicioSesion.php');
 }
 ?>
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -156,6 +155,6 @@ if (!empty($_SESSION['correo'])) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="./assets/js/peliculasP.js"></script>
+<script src="./assets/js/peliculas.js"></script>
 
 </html>

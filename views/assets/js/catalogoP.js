@@ -15,10 +15,10 @@ $.ajax({
             //crear html con la información de cada película
             let datos = `
                 <div class="column is-one-quarter">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.original_title}" class="img-ajustada">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
-                        <h1 class="has-text-white">${movie.original_title}</h1>
+                        <h1 class="has-text-white">${movie.title}</h1>
                     </div>
                 </div>
             `;
