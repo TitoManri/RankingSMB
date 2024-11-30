@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="./assets/css/header.css" >
 </head>
 <body>
-  <header>
-    <?php include './templates/Header_Footer/header.php' ?>
-  </header>
+  <?php include_once "./templates/Header_Footer/header.php" ?>
 
   <p class="Nombre_Grande">Peliculas Y Series</p>
     <div class="container container-fluid contenedor">

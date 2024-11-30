@@ -4,7 +4,7 @@ Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
 session_start();
 $iniciado = true;
-if (empty($_SESSION['NombreUsuario'])) {
+if (empty($_SESSION['id'])) {
     $iniciado = false;
 }
 ?>
@@ -27,27 +27,15 @@ if (empty($_SESSION['NombreUsuario'])) {
             background-color: #01455c;
         }
 
-        .boton-active#Favorito {
+        .boton-Opciones#Favorito {
             background-color: #87541c !important;
         }
 
-        .boton-active#PorVer {
+        .boton-Opciones#PorVer {
             background-color: #87541c !important;
         }
 
-        .boton-active#Visto {
-            background-color: #87541c !important;
-        }
-
-        .boton-Opciones#Favorito:hover {
-            background-color: #87541c !important;
-        }
-
-        .boton-Opciones#PorVer:hover {
-            background-color: #87541c !important;
-        }
-
-        .boton-Opciones#Visto:hover {
+        .boton-Opciones#Visto {
             background-color: #87541c !important;
         }
     </style>
