@@ -54,28 +54,30 @@ async function guardarPeliculaEnBD(pelicula, id) {
             pelicula.status === "In Production" ? "En producción" :
                 "Estado desconocido";
 
+    let nuevaPelicula = {
+        ID_Pelicula: id,
+        TituloOriginal: pelicula.original_title,
+        TituloTraducido: pelicula.title,
+        Generos: generos,
+        Lanzamiento: pelicula.release_date,
+        Sinopsis: pelicula.overview,
+        Duracion: pelicula.runtime,
+        Poster: `https://image.tmdb.org/t/p/original/${pelicula.poster_path}`,
+        CostoPelicula: pelicula.budget,
+        RecaudacionPelicula: pelicula.revenue,
+        CalificacionGeneral: pelicula.vote_average,
+        Estado: estado,
+        Publico: pelicula.adult
+    };
+
     try {
         const response = await $.ajax({
             url: `../controllers/peliculasController.php?op=SubirPelicula`,
             type: 'POST',
-            data: {
-                ID_Pelicula: id,
-                TituloOriginal: pelicula.original_title,
-                TituloTraducido: pelicula.title,
-                Generos: generos,
-                Lanzamiento: pelicula.release_date,
-                Sinopsis: pelicula.overview,
-                Duracion: pelicula.runtime,
-                Poster: `https://image.tmdb.org/t/p/original/${pelicula.poster_path}`,
-                CostoPelicula: pelicula.budget,
-                RecaudacionPelicula: pelicula.revenue,
-                CalificacionGeneral: pelicula.vote_average,
-                Estado: estado,
-                Publico: pelicula.adult,
-            },
+            data: nuevaPelicula,
             dataType: 'json'
         });
-        return response.object; // Devuelve la película guardada
+        return nuevaPelicula; 
     } catch (error) {
         console.error('Error al guardar la película en BD:', error);
         throw error;
@@ -162,15 +164,15 @@ async function cargarPeliculasAbajo() {
         let divRatingsAltos = $("#RatingsAltos");
 
         // Limitar los resultados a las primeras 8 películas
-        const peliculas = response.results.slice(0, 4);
+        const peliculas = response.results.slice(0, 3);
 
         for (const movie of peliculas) {
             // Verificar existencia en la base de datos
             const peliculaEnBD = await BuscarPeliculaEnBD(movie.id);
             const generos = peliculaEnBD.Generos.map(genero => genero.name).join(", ");
             const sinopsisTruncada = truncarTexto(peliculaEnBD.Sinopsis);
-            let timestamp = peliculaEnBD.Lanzamiento.$date.$numberLong; 
-            let fechaLanzamiento = new Date(parseInt(timestamp)); 
+            let timestamp = peliculaEnBD.Lanzamiento.$date.$numberLong;
+            let fechaLanzamiento = new Date(parseInt(timestamp));
             let fechaFormateada = fechaLanzamiento.toLocaleDateString('es-CR', {
                 year: 'numeric',
                 month: 'long',
