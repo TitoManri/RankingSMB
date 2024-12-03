@@ -1,85 +1,152 @@
+// Función para buscar detalles de una película
+async function buscarDetallesPelícula(idPelicula) {
+    try {
+        const response = await $.ajax({
+            url: `https://api.themoviedb.org/3/movie/${idPelicula}?language=es-CR`,
+            type: 'GET',
+            headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${tmdbAPI}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error('Error al buscar detalles de la película:', error);
+        throw error;
+    }
+}
+
+// Función para buscar una película en la base de datos
+async function BuscarPeliculaEnBD(idPelicula) {
+    try {
+        const response = await $.ajax({
+            url: `../controllers/peliculasController.php?op=existePeliculaEnBD`,
+            type: 'POST',
+            data: { ID_Pelicula: idPelicula },
+            dataType: 'json'
+        });
+
+        if (response.exito) {
+            // Si existe la película en la BD, la devuelve
+            return response.object;
+        } else {
+            // Si no existe, buscar los detalles y guardarla
+            const detallesPelicula = await buscarDetallesPelícula(idPelicula);
+            const nuevaPelicula = await guardarPeliculaEnBD(detallesPelicula, idPelicula);
+            return nuevaPelicula;
+        }
+    } catch (error) {
+        console.error('Error al buscar la película en BD:', error);
+        throw error;
+    }
+}
+
+// Función para guardar una película en la base de datos
+async function guardarPeliculaEnBD(pelicula, id) {
+    const generos = pelicula.genres;
+    const estado =
+        pelicula.status === "Released" ? "Lanzada" :
+            pelicula.status === "In Production" ? "En producción" :
+                "Estado desconocido";
+
+    let nuevaPelicula = {
+        ID_Pelicula: id,
+        TituloOriginal: pelicula.original_title,
+        TituloTraducido: pelicula.title,
+        Generos: generos,
+        Lanzamiento: pelicula.release_date,
+        Sinopsis: pelicula.overview,
+        Duracion: pelicula.runtime,
+        Poster: `https://image.tmdb.org/t/p/original/${pelicula.poster_path}`,
+        CostoPelicula: pelicula.budget,
+        RecaudacionPelicula: pelicula.revenue,
+        CalificacionGeneral: pelicula.vote_average,
+        Estado: estado,
+        Publico: pelicula.adult
+    };
+
+    try {
+        const response = await $.ajax({
+            url: `../controllers/peliculasController.php?op=SubirPelicula`,
+            type: 'POST',
+            data: nuevaPelicula,
+            dataType: 'json'
+        });
+        return nuevaPelicula; 
+    } catch (error) {
+        console.error('Error al guardar la película en BD:', error);
+        throw error;
+    }
+}
+
 //búsqueda
-
-//selecciona el input por su atributo 'name'
-const paramBusqueda = document.getElementById("busquedaParam").textContent;
-
-$.ajax({
-    url: `https://api.themoviedb.org/3/search/movie?query=${paramBusqueda}&include_adult=false&language=es-CR&page=1`,
-    type: 'GET',
-    headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${tmdbAPI}`
-    },
-    success: function (response) {
-        let divPeliculas1 = $("#peliculas1");
-
-        //limitar los resultados a las primeras 4 películas arriba
-        response.results.slice(0, 4).forEach(movie => {
-
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
-
-            //crear html con la información de cada película
-            let datos = `
-                <div class="column is-one-quarter">
-                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
-                    <br>
-                    <div class="column is-full">
-                        <h1 class="has-text-white">${movie.original_title}</h1>
-                    </div>
-                </div>
-            `;
-
-            //agrega el contenido generado al contenedor principal
-            divPeliculas1.append(datos);
+async function busqueda(paramBusqueda) {
+    try {
+        const response = await $.ajax({
+            url: `https://api.themoviedb.org/3/search/movie?query=${paramBusqueda}&include_adult=false&language=es-CR&page=1`,
+            type: 'GET',
+            headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${tmdbAPI}`
+            }
         });
 
         //seleccionar donde se escribirá, en este caso en el div con id 
+        let divPeliculas1 = $("#peliculas1");
         let divPeliculas2 = $("#peliculas2");
 
-        //limitar los resultados a las segundas 4 películas abajo
-        response.results.slice(4, 8).forEach(movie => {
+        //limitar los resultados a las primeras 8 películas
+        const peliculas = response.results;
 
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
+        //agregar las primeras 4 películas al div superior
+        for (const movie of peliculas.slice(0, 4)) {
+            //verificar existencia en la base de datos
+            const peliculaEnBD = await BuscarPeliculaEnBD(movie.id);
+            const poster = peliculaEnBD ? peliculaEnBD.Poster : movie.poster_path;
+            const titulo = peliculaEnBD ? peliculaEnBD.TituloTraducido : movie.title;
 
-            //crear html con la información de cada película
+            //crear el HTML con la información de la película
             let datos = `
                 <div class="column is-one-quarter">
-                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
+                    <img src="https://image.tmdb.org/t/p/w500${poster}" alt="${titulo}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
-                        <h1 class="has-text-white">${movie.original_title}</h1>
+                        <h1 class="has-text-white">${titulo}</h1>
                     </div>
                 </div>
             `;
 
-            //agrega el contenido generado al contenedor principal
+            //agregar el contenido generado al contenedor principal
+            divPeliculas1.append(datos);
+        }
+
+        //agregar las siguientes 4 películas al div inferior
+        for (const movie of peliculas.slice(4, 8)) {
+            const peliculaEnBD = await BuscarPeliculaEnBD(movie.id);
+            const poster = peliculaEnBD ? peliculaEnBD.Poster : movie.poster_path;
+            const titulo = peliculaEnBD ? peliculaEnBD.TituloTraducido : movie.title;
+
+            let datos = `
+                <div class="column is-one-quarter">
+                    <img src="https://image.tmdb.org/t/p/w500${poster}" alt="${titulo}" class="img-ajustada">
+                    <br>
+                    <div class="column is-full">
+                        <h1 class="has-text-white">${titulo}</h1>
+                    </div>
+                </div>
+            `;
+
             divPeliculas2.append(datos);
-        });
+        }
 
-        //seleccionar donde se escribirá, en este caso en el div con id 
-        let divPeliculas3 = $("#peliculas2");
-
-        //limitar los resultados a las segundas 4 películas abajo
-        response.results.slice(8, 12).forEach(movie => {
-
-            let imagen = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://www.mockofun.com/wp-content/uploads/2019/10/movie-poster-credits-178.jpg';
-
-            //crear html con la información de cada película
-            let datos = `
-                <div class="column is-one-quarter">
-                    <img src="${imagen}" alt="${movie.original_title}" class="img-ajustada">
-                    <br>
-                    <div class="column is-full">
-                        <h1 class="has-text-white">${movie.original_title}</h1>
-                    </div>
-                </div>
-            `;
-
-            //agrega el contenido generado al contenedor principal
-            divPeliculas3.append(datos);
-        });
-    },
-    error: function (error) {
-        console.error(error);
+    } catch (error) {
+        console.error("Error al cargar las películas:", error);
     }
+}
+
+// Ejecutar prueba al cargar la página
+$(function () {
+    //selecciona el input por su atributo 'name'
+    const paramBusqueda = document.getElementById("busquedaParam").textContent;
+    busqueda(paramBusqueda);
 });
