@@ -1,3 +1,22 @@
+<?php
+//Inicio de la sesión
+session_start();
+if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
+    $id = $_SESSION['id'];
+    $nombre = $_SESSION['nombre'];
+    $primerApellido = $_SESSION['primerApellido'];
+    $SegundoApellido = $_SESSION['segundoApellido'];
+    $nombreUsuario = $_SESSION['nombreUsuario'];
+    $correo = $_SESSION['correo'];
+    $telefono = $_SESSION['telefono'];
+    $fotoPerfil = $_SESSION['fotoPerfil'];
+
+}else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
+    header('Location: ./inicioSesion.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,88 +37,21 @@
   </header>
 
   <h1 class="text-center Nombre_Grande">Notificaciones</h1>
-
+  <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $id ?>">
   <div class="container contenedor-externo">
     <div class="container">
-      <div class="row">
-        <div class="col-12 "> 
           <h3 class="Blanco">Actividad Reciente</h3>
             <div id="contenedor-externo">
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/estrella.png" class="img" alt="...">
-              <h5>Tienes una nueva recomendacion</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>El_Topito quiere ser tu amigo</h5>  
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/like.png" class="img" alt="...">
-              <h5>Parece que te gusta mucho el genero <em>Fantasia</em> hemos encontrado algo que podria gustarte</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/estrella.png" class="img" alt="...">
-              <h5>Tienes una nueva recomendacion</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>Patito quiere ser tu amigo </h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/estrella.png" class="img" alt="...">
-              <h5>Tienes una nueva recomendacion</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>Scara14 quiere ser tu amigo </h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/like.png" class="img" alt="...">
-              <h5>Parece que te gusta mucho el genero <em>Horror</em> hemos encontrado algo que podria gustarte</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>TitoManri quiere ser tu amigo </h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/estrella.png" class="img" alt="...">
-              <h5>Tienes una nueva recomendacion</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>Yorsh quiere ser tu amigo </h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/like.png" class="img" alt="...">
-              <h5>Parece que te gusta mucho el genero <em>Terror</em> hemos encontrado algo que podria gustarte</h5>
-            </article>
-
-            <article class="text contenedor-interno notification unreaded">
-              <img src="./assets/img/user_friends.png" class="img" alt="...">
-              <h5>Venado_Cola_Blanca quiere ser tu amigo </h5>
-            </article>
-
+              <div id="listaDeNotificaciones"> </div>
           </div>
         </div>          
-      </div>
-    </div>
   </div>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="./assets/js/notificaciones.js"></script>
+<script src="./assets/js/notificaciones/cargarNotificaciones.js"></script>
+<script src="./assets/js/notificaciones/leerNotificacion.js"></script>
 </html>
