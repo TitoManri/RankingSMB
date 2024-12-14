@@ -5,6 +5,9 @@ let estrellasForm = 0
 let params = new URLSearchParams(location.search);
 let id = params.get("id");
 
+//ObjectID
+let IDContenido = "";
+
 //Agregar al HTML la informacion del medio de entretenimiento aka Pelicula o Serie
 function verInfoMedioCompleto(id) {
     //Llamado a API de TMDB
@@ -62,6 +65,8 @@ function verLibroDesdeBD(libro) {
     //Agregar FancyBox para poder ver la imagen en grande
     Fancybox.bind("[data-fancybox]")
     escribir.append(datos);
+    IDContenido = libro._id.$oid;
+    $("#IdContenido").val(libro._id.$oid);
     agregarInfoModal(libro, true)
 }
 
@@ -81,6 +86,7 @@ function confirmarSiExisteLibroEnBD(id) {
             } else {
                 verInfoMedioCompleto(id);
             }
+            agregarComentarios();
             return existe;
         },
         error: function (error) {
@@ -155,7 +161,8 @@ function subirLibroEnBD(libro, id) {
         },
         dataType: 'json',
         success: function (responseInfo) {
-            console.log(responseInfo)
+            IDContenido = libro._id.$oid;
+            $("#IdContenido").val(libro._id.$oid);
         },
         error: function (error) {
             console.error('Error al obtener la pelicula:', error);
@@ -174,7 +181,7 @@ function agregarComentarios() {
     if (comentarios == 0) {
         $("#comentariosUsuarios").append(`
             <div class="d-flex justify-content-center pt-5">
-                <h1 class="text-light text-center">Todavia no hay opiniones sobre la pelicula. Escribe una reseña!</h1>
+                <h1 class="text-light text-center">Todavia no hay opiniones sobre el libro. Escribe una reseña!</h1>
             </div>`)
     } else {
         for (let index = 0; index < comentarios; index++) {
@@ -257,6 +264,5 @@ $(function () {
     } else {
         //Buscar informacion con la ID brindada
         confirmarSiExisteLibroEnBD(id)
-        agregarComentarios();
     }
 });

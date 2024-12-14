@@ -5,23 +5,24 @@
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
                     <form action="" method="post" id="enviarOpinion" class="pt-4 ps-5 ">
                         <?php
-                        echo '<input name="ID_Usuario" id="ID_Usuario" class="form-control" type="hidden" value="', $_SESSION['id'], '" required>';
+                        echo '<input name="IdUsuario" id="IdUsuario" class="form-control" type="hidden" value="', $_SESSION['id'], '" required>';
+                        echo '<input name="IdContenido" id="IdContenido" class="form-control" type="hidden" value="" required>';
                         ?>
                         <div class="row">
                             <div class="d-flex justify-content-center border10 pt-1 col" style="background-color: #003344; width: 50%">
-                                <input type="radio" name="calificacion" id="calificacion1" value="1">
+                                <input type="radio" name="Calificacion" id="calificacion1" value="1">
                                 <label for="calificacion1" class="me-2"><i class="bi bi-star h3" id="estrella0"></i></label>
 
-                                <input type="radio" name="calificacion" id="calificacion2" value="2">
+                                <input type="radio" name="Calificacion" id="calificacion2" value="2">
                                 <label for="calificacion2" class="me-2"><i class="bi bi-star h3" id="estrella1"></i></label>
 
-                                <input type="radio" name="calificacion" id="calificacion3" value="3">
+                                <input type="radio" name="Calificacion" id="calificacion3" value="3">
                                 <label for="calificacion3" class="me-2"><i class="bi bi-star h3" id="estrella2"></i></label>
 
-                                <input type="radio" name="calificacion" id="calificacion4" value="4">
+                                <input type="radio" name="Calificacion" id="calificacion4" value="4">
                                 <label for="calificacion4" class="me-2"><i class="bi bi-star h3" id="estrella3"></i></label>
 
-                                <input type="radio" name="calificacion" id="calificacion5" value="5">
+                                <input type="radio" name="Calificacion" id="calificacion5" value="5">
                                 <label for="calificacion5" class="me-2"><i class="bi bi-star h3" id="estrella4"></i></label>
                             </div>
                             <div class="d-flex justify-content-center col">
@@ -45,7 +46,7 @@
                         <br>
                         <div style="width: 85%">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Escribe tu opinion" name="opinion" id="opinion" style="resize: none;" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                                <textarea class="form-control" placeholder="Escribe tu opinion" name="Opinion" id="opinion" style="resize: none;" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                                 <label for="floatingTextarea2" style="color: black !important">Escribe tu opinion</label>
                             </div>
                             <div id="validarCalificacion">
