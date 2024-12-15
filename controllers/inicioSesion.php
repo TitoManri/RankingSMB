@@ -4,7 +4,6 @@ require_once '../models/Usuarios.php';
 // Capturar valores enviados por el formulario
 $correo = $_POST['correo'] ?? null;
 $contrasenaVerificar = $_POST['contrasena'] ?? null;
-$contrasenaHashed = password_hash($contrasenaVerificar, PASSWORD_DEFAULT);
 
 $usuarioModel = new UsuarioModel();
 
@@ -15,19 +14,29 @@ try {
     if ($usuario) {
         //Verificar si la contraseña es correcta con el hash
         if (password_verify($contrasenaVerificar, $usuario->Contraseña)) {
-            // Iniciar sesión con el session start
-            session_start();
-            $_SESSION['id'] = $usuario->_id;
-            $_SESSION['idNivel'] = $usuario->id_nivel ?? null;
-            $_SESSION['nombre'] = $usuario->Nombre;
-            $_SESSION['primerApellido'] = $usuario->PrimerApellido;
-            $_SESSION['segundoApellido'] = $usuario->SegundoApellido;
-            $_SESSION['nombreUsuario'] = $usuario->NombredeUsuario;
-            $_SESSION['correo'] = $usuario->Correo;
-            $_SESSION['telefono'] = $usuario->Telefono;
-            $_SESSION['fotoPerfil'] = $usuario->FotodePerfil;
-            $_SESSION['fechaCreacion'] = $usuario->FechadeCreacion;
-            $respuesta = ["exito" => true, "msg" => "Inicio de sesión exitoso"];
+            // Obtener el usuario con el nivel
+            $usuarioConNivel = $usuarioModel->obtenerUsuarioConNivel($usuario->_id);
+            if ($usuarioConNivel && isset($usuarioConNivel['nivel'])) {
+                $nivel = $usuarioConNivel['nivel']; // Access the 'nivel' object directly
+                $nombreNivel = $nivel['Nombre']; // Ensure the correct field name is used
+
+                // Iniciar sesión
+                session_start();
+                $_SESSION['id'] = (string) $usuario->_id;
+                $_SESSION['nivel'] = $nombreNivel;
+                $_SESSION['nombre'] = $usuario->Nombre;
+                $_SESSION['primerApellido'] = $usuario->PrimerApellido;
+                $_SESSION['segundoApellido'] = $usuario->SegundoApellido;
+                $_SESSION['nombreUsuario'] = $usuario->NombredeUsuario;
+                $_SESSION['correo'] = $usuario->Correo;
+                $_SESSION['telefono'] = $usuario->Telefono;
+                $_SESSION['fotoPerfil'] = $usuario->FotodePerfil;
+                $_SESSION['fechaCreacion'] = $usuario->FechadeCreacion;
+                
+                $respuesta = ["exito" => true, "msg" => "Inicio de sesión exitoso"];
+            } else {
+                $respuesta = ["exito" => false, "msg" => "No se pudo obtener el nivel del usuario"];
+            }
         } else {
             $respuesta = ["exito" => false, "msg" => "Usuario o contraseña incorrectos"];
         }
@@ -39,4 +48,3 @@ try {
 }
 
 echo json_encode($respuesta);
-?>

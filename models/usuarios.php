@@ -165,6 +165,43 @@ class UsuarioModel extends Conexion
         $resultado = $this->coleccion->findOne(['NombredeUsuario' => $NombreDeUsuario]);
         return $resultado;
     }
+
+    public function obtenerUsuarioConNivel($usuarioId)
+    {
+        // Pipeline de agregación
+        $pipeline = [
+            [
+                '$match' => ['_id' => new \MongoDB\BSON\ObjectId($usuarioId)] 
+            ],
+            [
+                '$lookup' => [
+                    'from' => 'niveles',
+                    'localField' => 'id_nivel',
+                    'foreignField' => '_id',
+                    'as' => 'nivel'
+                ]
+            ],
+            [
+                '$unwind' => [
+                    'path' => '$nivel',
+                    'preserveNullAndEmptyArrays' => true
+                ]
+            ],
+            [
+                '$limit' => 1 
+            ]
+        ];
+
+        // Ejecutar la agregación
+        $resultado = $this->coleccion->aggregate($pipeline);
+
+        // Convertir el resultado en un arreglo
+        $usuario = iterator_to_array($resultado);
+
+        return !empty($usuario) ? $usuario[0] : null;
+    }
+
+
     //Obtener el Usuario por medio del correo y la contraseña
     public function obtenerUsuarioPorCorreo($correo)
     {
@@ -172,10 +209,19 @@ class UsuarioModel extends Conexion
         return $resultado;
     }
 
-    //Actualizar los datos del Usuario
-    public function actualizarUsuario($usuario, $nuevosDatos)
+    public function obtenerUsuarioPorNombreDeUsuario($nombreUsuario)
     {
-        $resultado = $this->coleccion->updateOne($usuario, ['$set' => $nuevosDatos]);
+        $resultado = $this->coleccion->findOne(['NombredeUsuario' => $nombreUsuario]);
+        return $resultado;
+    }
+
+    //Actualizar los datos del Usuario
+    public function actualizarUsuario($nombreUsuario, $nuevosDatos)
+    {
+        $resultado = $this->coleccion->updateOne(
+            ['NombredeUsuario' => $nombreUsuario], 
+            ['$set' => $nuevosDatos]
+        );
         return $resultado->getModifiedCount();
     }
 }
