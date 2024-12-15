@@ -121,11 +121,13 @@ async function cargarSeriesArriba() {
             //crear el HTML con la información de la película
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasSeries.php?id=${serie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${serieEnBD.Poster}" alt="${serieEnBD.TituloTraducido}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${serieEnBD.TituloTraducido}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -140,11 +142,13 @@ async function cargarSeriesArriba() {
 
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasSeries.php?id=${serie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${serieEnBD.Poster}" alt="${serieEnBD.TituloTraducido}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${serieEnBD.TituloTraducido}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -189,6 +193,7 @@ async function cargarSeriesAbajo() {
             // Crear HTML con la información de cada película
             let datos = `
                     <div class="movie_card" id="peliculaCard">
+                    <a href="verResennasSeries.php?id=${serie.id}">
                         <div class="info_section">
                             <div class="movie_header">
                                 <img class="locandina"
@@ -212,7 +217,8 @@ async function cargarSeriesAbajo() {
                             </div>
                         </div>
                         <div class="blur_back" style="background-image: url('https://image.tmdb.org/t/p/w500${serie.backdrop_path}');"></div>
-                    </div>
+                    </a>
+                        </div>
                 `;
 
             // Agregar el contenido generado al contenedor principal

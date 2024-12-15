@@ -117,11 +117,13 @@ async function cargarLibrosArriba() {
             //crear el HTML con la información del libro
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasLibros.php?id=${book.id}">
                     <img src="${imagen}" alt="${titulo}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${titulo}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -139,11 +141,13 @@ async function cargarLibrosArriba() {
             //crear el HTML con la información del libro
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasLibros.php?id=${book.id}">
                     <img src="${imagen}" alt="${titulo}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${titulo}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -188,6 +192,7 @@ async function cargarLibrosAbajo() {
             // Crear HTML
             let datos = `
                 <div class="movie_card" id="peliculaCard">
+                <a href="verResennasLibros.php?id=${libro.id}">
                     <div class="info_section">
                         <div class="movie_header">
                             <img class="locandina" src="${libroEnBD.Poster}" alt="Poster del libro" />
@@ -208,7 +213,8 @@ async function cargarLibrosAbajo() {
                         </div>
                     </div>
                     <div class="blur_back" style="background-image: url('https://www.readingrockets.org/sites/default/files/styles/share_image/public/2023-05/a-z-about-reading-2.jpg?itok=0_SUq0LQ');"></div>
-                </div>
+                </a>
+                    </div>
             `;
 
             // Agregar al div
