@@ -4,6 +4,7 @@ session_start();
 if (!empty($_SESSION['correo'])) {
     //Variables del usuario
     $id = $_SESSION['id'];
+    $nivel = $_SESSION['nivel'];
     $nombre = $_SESSION['nombre'];
     $primerApellido = $_SESSION['primerApellido'];
     $SegundoApellido = $_SESSION['segundoApellido'];
@@ -47,17 +48,17 @@ if (!empty($_SESSION['correo'])) {
                 <div class="row mt-5">
                     <div class="col-6 d-flex flex-column align-items-center">
                         <div class="d-flex justify-content-center mb-4">
-                            <img id="pfp" src="./assets/img/<?php echo $fotoPerfil?>"
+                            <img id="pfp" src="<?php echo $fotoPerfil?>"
                                 class="rounded-circle foto-perfil" style="width: 300px; height: 300px; object-fit: cover;"/>
                         </div>
                         <button type="button" class="btn btn-light btn-lg d-flex align-items-center">
                             <span class="game-icons--rank-1 me-2"></span>
-                            Nivel: Rookie n.10
+                            Nivel: <?php echo $nivel?>
                         </button>
                     </div>
 
                     <div class="col-6">
-                        <h1 class="caja-perfil-datos p-3 mt-3" id="nombreCompleto" name="nombreCompleto"><?php echo $nombre.$primerApellido.$SegundoApellido?></h1>
+                        <h1 class="caja-perfil-datos p-3 mt-3" id="nombreCompleto" name="nombreCompleto"><?php echo $nombre." ".$primerApellido." ".$SegundoApellido?></h1>
                         <br>
                         <br>
                         <div class="row mt-4">
@@ -285,53 +286,50 @@ if (!empty($_SESSION['correo'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content" style="color: black;">
                 <div class="modal-header">
-                    <h3 class="modal-title">Modal title</h3>
+                    <h3 class="modal-title">Edit Profile</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="actualizarPerfil">
                         <div>
                             <div class="d-flex justify-content-center mb-4">
-                                <img id="selectedAvatar" src="./assets/img/<?php echo $fotoPerfil?>"
+                                <img id="selectedAvatar" src="<?php echo $fotoPerfil?>"
                                     class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
                             </div>
                             <div class="d-flex justify-content-center">
-                                <div data-mdb-ripple-init class="btn btn-secondary btn-rounded">
-                                    <label class="form-label text-white m-1" for="customFile2">Choose file</label>
-                                    <input type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'no')" />
-                                </div>
+                                    <input type="text" class="form-control" id="FotodePerfil" name="FotodePerfil" value="<?php echo $fotoPerfil?>">
                             </div>
                         </div>
                         <br>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nombre" class="col-form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" value="<?php echo $nombre?>">
+                                <label for="Nombre" class="col-form-label">Nombre</label>
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" value="<?php echo $nombre?>">
                             </div>
                             <div class="col">
-                                <label for="primer-apellido" class="col-form-label">Primer Apellido</label>
-                                <input type="text" class="form-control" id="primer-apellido" value="<?php echo $primerApellido?>">
+                                <label for="PrimerApellido" class="col-form-label">Primer Apellido</label>
+                                <input type="text" class="form-control" id="PrimerApellido" name="PrimerApellido" value="<?php echo $primerApellido?>">
                             </div>
                             <div class="col">
-                                <label for="segundo-apellido" class="col-form-label">Segundo Apellido</label>
-                                <input type="text" class="form-control" id="segundo-apellido" value="<?php echo $SegundoApellido?>">
+                                <label for="SegundoApellido" class="col-form-label">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="SegundoApellido" name="SegundoApellido" value="<?php echo $SegundoApellido?>">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nombre" class="col-form-label">Correo</label>
-                                <input type="text" class="form-control" id="correo" value="<?php echo $correo?>">
+                                <label for="Correo" class="col-form-label">Correo</label>
+                                <input type="text" class="form-control" id="Correo" name="Correo" value="<?php echo $correo?>">
                             </div>
                             <div class="col">
-                                <label for="telefono" class="col-form-label">Telefono</label>
-                                <input type="text" class="form-control" id="telefono" value="<?php echo $telefono?>">
+                                <label for="Telefono" class="col-form-label">Telefono</label>
+                                <input type="text" class="form-control" id="Telefono" name="Telefono" value="<?php echo $telefono?>">
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success">Editar</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success">Editar</button>
                 </div>
             </div>
         </div>
@@ -344,12 +342,17 @@ if (!empty($_SESSION['correo'])) {
 </body>
 
 <!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script src="https://unpkg.com/scrollreveal"></script>
 
 <!-- JS Personalizado -->
 <script src="./assets/signIn/signIn.js"></script>
+<script src="./assets/js/ActualizarPerfil.js"></script>
+
+
 
 </html>

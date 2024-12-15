@@ -31,7 +31,7 @@ if (!$Nombre || !$PrimerApellido || !$SegundoApellido || !$NombredeUsuario || !$
 }
 
 //Agregamos el nivel noob 1 al usuario
-$id_nivel = new MongoObjectId('67358c5f4d4777c9edc955e3');
+$id_nivel = new MongoObjectId('6746776c0845a114f268f8b3');
 
 //Llamamos al modelo
 $usuarioModel = new UsuarioModel();

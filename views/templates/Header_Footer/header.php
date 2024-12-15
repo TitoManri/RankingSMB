@@ -18,7 +18,7 @@
                             <hr>
                             <li><button class="dropdown-item" type="button" style="color:black !important">Notificaciones</button></li>
                             <hr>
-                            <li><button class="dropdown-item" type="button" style="color:black !important">Cerrar Sesion</button></li>
+                            <li><a href="./cerrarSesion.php" class="dropdown-item" type="button" style="color:black !important">Cerrar Sesion</a></li>
                         </ul>
                     </div>
 
