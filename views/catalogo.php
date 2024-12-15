@@ -54,11 +54,11 @@ if (!empty($_SESSION['correo'])) {
 
 
     <div class="container p-0 pt-6 last">
-        <div id="peliculasSeries" class="columns is-multiline ">
+        <div id="peliculas" class="columns is-multiline ">
             <div class="column is-full">
                 <h1 class="title is-3 has-text-white">Popular esta semana</h1>
             </div>
-            <!-- se insertan las películas usando js-->
+            <!-- se insertan los libros usando js-->
         </div>
 
         <!-- carousel-->
@@ -101,7 +101,7 @@ if (!empty($_SESSION['correo'])) {
 
     <!-- Parte de cartas-->
     <br>
-    <div id="RatingsAltos" class="container">
+    <div id="series" class="container">
         <div class="column is-full">
             <h1 class="title is-3 has-text-white">Series mejores rankeadas</h1>
         </div>
