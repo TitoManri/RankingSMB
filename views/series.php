@@ -56,7 +56,7 @@ if (!empty($_SESSION['correo'])) {
                     <span class="has-text-white">Comunidad para compartir opiniones sobre tus series, películas y libros
                         favoritos</span>
                         <h1 class="title is-1 has-text-white">
-                        <a href="./catalogo.php">
+                        <a href="./index.php">
                             Ranking SMB
                         </a>
                     </h1>

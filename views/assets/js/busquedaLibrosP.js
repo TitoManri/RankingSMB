@@ -83,7 +83,7 @@ async function guardarLibroEnBD(libro, id) {
 async function busquedaLibro(paramBusqueda) {
     try {
         const response = await $.ajax({
-            url: `https://www.googleapis.com/books/v1/volumes?q=*&orderBy=relevance&projection=lite&key=${googleAPI}&langRestrict=es-CR`,
+            url: `https://www.googleapis.com/books/v1/volumes?q=${paramBusqueda}&orderBy=relevance&projection=lite&key=${googleAPI}&langRestrict=es-CR`,
             type: 'GET'
         });
 

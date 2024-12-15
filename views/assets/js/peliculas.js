@@ -48,7 +48,7 @@ async function BuscarPeliculaEnBD(idPelicula) {
 
 // Función para guardar una película en la base de datos
 async function guardarPeliculaEnBD(pelicula, id) {
-    const generos = pelicula.genres;
+    const generos = pelicula.genres || [{ name: "No disponible" }];
     const estado =
         pelicula.status === "Released" ? "Lanzada" :
             pelicula.status === "In Production" ? "En producción" :
@@ -56,18 +56,18 @@ async function guardarPeliculaEnBD(pelicula, id) {
 
     let nuevaPelicula = {
         ID_Pelicula: id,
-        TituloOriginal: pelicula.original_title,
-        TituloTraducido: pelicula.title,
+        TituloOriginal: pelicula.original_title || "No disponible",
+        TituloTraducido: pelicula.title || "No disponible",
         Generos: generos,
-        Lanzamiento: pelicula.release_date,
-        Sinopsis: pelicula.overview,
-        Duracion: pelicula.runtime,
-        Poster: `https://image.tmdb.org/t/p/original/${pelicula.poster_path}`,
-        CostoPelicula: pelicula.budget,
-        RecaudacionPelicula: pelicula.revenue,
-        CalificacionGeneral: pelicula.vote_average,
+        Lanzamiento: pelicula.release_date || "No disponible",
+        Sinopsis: pelicula.overview || "No disponible",
+        Duracion: pelicula.runtime || "No disponible",
+        Poster: pelicula.poster_path ? `https://image.tmdb.org/t/p/original/${pelicula.poster_path}` : "No disponible",
+        CostoPelicula: pelicula.budget || "No disponible",
+        RecaudacionPelicula: pelicula.revenue || "No disponible",
+        CalificacionGeneral: pelicula.vote_average || "No disponible",
         Estado: estado,
-        Publico: pelicula.adult
+        Publico: pelicula.adult !== undefined ? pelicula.adult : "No disponible"
     };
 
     try {
@@ -167,7 +167,7 @@ async function cargarPeliculasAbajo() {
         // Seleccionar donde se escribirá, en este caso en el div con id RatingsAltos
         let divRatingsAltos = $("#RatingsAltos");
 
-        // Limitar los resultados a las primeras 8 películas
+        // Limitar los resultados a las primeras 3 películas
         const peliculas = response.results.slice(0, 3);
 
         for (const movie of peliculas) {
@@ -225,6 +225,13 @@ async function cargarPeliculasAbajo() {
 
 // Ejecutar prueba al cargar la página
 $(function () {
-    cargarPelículasArriba();
-    cargarPeliculasAbajo();
+    let refreshCount = localStorage.getItem('refreshCount') || 0;
+    if (refreshCount < 3) {
+        localStorage.setItem('refreshCount', ++refreshCount);
+        location.reload();
+    } else {
+        localStorage.removeItem('refreshCount');
+        cargarPelículasArriba();
+        cargarPeliculasAbajo();
+    }
 });

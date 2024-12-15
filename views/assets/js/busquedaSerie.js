@@ -90,7 +90,7 @@ async function BuscarSerieEnBD(idSerie) {
 }
 
 //búsqueda
-async function busquedaLibro(paramBusqueda) {
+async function busquedaSerie(paramBusqueda) {
     try {
         const response = await $.ajax({
             url: `https://api.themoviedb.org/3/search/tv?query=${paramBusqueda}&include_adult=false&language=es-CR&page=1`,
@@ -116,11 +116,13 @@ async function busquedaLibro(paramBusqueda) {
             //crear el HTML con la información de la película
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasSeries.php?id=${serie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${serieEnBD.Poster}" alt="${serieEnBD.TituloTraducido}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${serieEnBD.TituloTraducido}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -135,11 +137,13 @@ async function busquedaLibro(paramBusqueda) {
 
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasSeries.php?id=${serie.id}">
                     <img src="https://image.tmdb.org/t/p/w500${serieEnBD.Poster}" alt="${serieEnBD.TituloTraducido}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${serieEnBD.TituloTraducido}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -155,5 +159,5 @@ async function busquedaLibro(paramBusqueda) {
 $(function () {
     //selecciona el input 
     const paramBusqueda = document.getElementById("busquedaParam").textContent;
-    busquedaLibro(paramBusqueda);
+    busquedaSerie(paramBusqueda);
 });
