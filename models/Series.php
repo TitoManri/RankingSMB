@@ -3,6 +3,8 @@
 require_once '../config/Conexion.php'; 
 use Dotenv\Dotenv;
 
+use MongoDB\BSON\ObjectId;
+
 class Series extends Conexion{
 
     private $coleccion;
@@ -32,6 +34,12 @@ class Series extends Conexion{
 
     public function insertarSerie($data){
         $resultado = $this -> coleccion ->insertOne($data);
+        return $resultado->getInsertedId();
+    }
+
+    public function obtenerSerieDeOID($id){
+        $objectId = new ObjectId($id);
+        $resultado = $this->coleccion->findOne(['_id' => $objectId]);
         return $resultado;
     }
 }

@@ -4,6 +4,8 @@ require_once '../config/Conexion.php';
 use Dotenv\Dotenv;
 use MongoDB\BSON\ObjectId;
 
+use MongoDB\BSON\ObjectId;
+
 class Peliculas extends Conexion{
 
     private $coleccion;
@@ -34,7 +36,13 @@ class Peliculas extends Conexion{
     }
 
     public function insertarPelicula($data){
-        $resultado = $this -> coleccion ->insertOne($data);
+        $resultado = $this->coleccion->insertOne($data);
+        return $resultado->getInsertedId();
+    }
+
+    public function obtenerPeliculaDeOID($id){
+        $objectId = new ObjectId($id);
+        $resultado = $this->coleccion->findOne(['_id' => $objectId]);
         return $resultado;
     }
 
