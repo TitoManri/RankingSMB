@@ -22,10 +22,12 @@ class Peliculas extends Conexion{
         ];
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
-        $this-> coleccion = $this->conectarBaseMongo($datosmongo)->Peliculas;
+        $this->coleccion = $this->conectarBaseMongo($datosmongo)->Peliculas;
     }
 
     public function getPeliculaID($id){
+        // Log the ID being queried
+        error_log("Buscando película con ID: " . $id);
         $resultado = $this->coleccion->findOne(['ID_Pelicula' => $id]);
         return $resultado;
     }

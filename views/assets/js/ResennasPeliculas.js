@@ -22,7 +22,7 @@ function verInfoMedioCompleto(id) {
             document.title = responseInfo.title + " - Reseñas"
             let escribir = $("#infoPeli");
             datos = `
-                z<input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
+                <input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
                 <h4 class="text-center">${responseInfo.original_title}</h4>
                 <h6 class="text-center">(${responseInfo.title})</h6>
                 <h6 class="text-center">Fecha de salida: ${responseInfo.release_date}</h6>
