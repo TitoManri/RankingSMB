@@ -7,6 +7,7 @@ $iniciado = true;
 if (empty($_SESSION['id'])) {
     $iniciado = false;
 }
+$Tipo = 2;
 ?>
 
 <!DOCTYPE html>

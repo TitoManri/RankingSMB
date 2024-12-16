@@ -15,6 +15,7 @@ switch ($op) {
         $IdUsuario = isset($_POST['IdUsuario']) ? new MongoObjectId($_POST['IdUsuario']) : null;
         $IdContenido = isset($_POST['IdContenido']) ? new MongoObjectId($_POST['IdContenido']) : null;
         $Calificacion = isset($_POST['Calificacion']) ? intval($_POST['Calificacion']) : null;
+        $TipoContenido = isset($_POST['TipoContenido']) ? intval($_POST['TipoContenido']) : null;
         $Opinion = isset($_POST['Opinion']) ? $_POST['Opinion'] : null;
         $FechaCreacion = new MongoUTCDateTime();
         $FechaModificacion = new MongoUTCDateTime();
@@ -30,6 +31,7 @@ switch ($op) {
                 "IdUsuario" => $IdUsuario,
                 "IdContenido" => $IdContenido,
                 "Calificacion" => $Calificacion,
+                "TipoContenido" => $TipoContenido,
                 "FechaCreacion" => $FechaCreacion,
                 "FechaModificacion" => $FechaModificacion
             ];
@@ -67,6 +69,27 @@ switch ($op) {
             }
         } catch (Exception $e) {
             $response = ["exito" => false, "msg" => "Un error sucedió al obtener las reseñas: " . $e->getMessage()];
+        }
+        echo json_encode($response);
+        break;
+    }
+
+    case 'conseguirResennaPorID':{
+        $IdResenna = isset($_POST['IDResenna']) ? $_POST['IDResenna'] : null;
+        if (!$IdResenna) {
+            $response = ["exito" => false, "msg" => "Hubo un error al conseguir la información de la reseña."];
+            echo json_encode($response);
+            exit;
+        }
+        try {
+            $resultado = $resennas->obtenerResennaPorID($IdResenna);
+            if ($resultado) {
+                $response = ["exito" => true, "msg" => "Reseña obtenida con éxito.", "object" => $resultado];
+            } else {
+                $response = ["exito" => false, "msg" => "Hubo un error al obtener la reseña."];
+            }
+        } catch (Exception $e) {
+            $response = ["exito" => false, "msg" => "Un error sucedió al obtener la reseña: " . $e->getMessage()];
         }
         echo json_encode($response);
         break;

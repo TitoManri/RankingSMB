@@ -42,6 +42,10 @@ function verInfoMedioCompleto(id) {
             //Informacion del modal, ubicado en 'Ver Mas'
             agregarInfoModal(responseInfo, false);
             subirPeliculaEnBD(responseInfo, id)
+            $("#comentariosUsuarios").append(`
+                <div class="d-flex justify-content-center pt-5">
+                    <h1 class="text-light text-center">Todavia no hay opiniones sobre la pelicula. Escribe una reseña!</h1>
+                </div>`)
         },
         error: function (error) {
             console.error('Error al obtener las opciones:', error);
@@ -64,10 +68,10 @@ function confirmarSiExistePeliculaEnBD(id) {
             let existe = responseInfo.exito;
             if (existe) {
                 verInfoMedioCompletoDesdeBD(responseInfo.object);
+                agregarComentarios();
             } else {
                 verInfoMedioCompleto(id);
             }
-            agregarComentarios();
             return existe;
         },
         error: function (error) {
@@ -104,8 +108,10 @@ function subirPeliculaEnBD(pelicula, id) {
         },
         dataType: 'json',
         success: function (responseInfo) {
-            IDContenido = pelicula._id.$oid;
-            $("#IdContenido").val(responseInfo._id.$oid);
+            console.log(responseInfo)
+            let pelicula = responseInfo.object;
+            IDContenido = pelicula.$oid;
+            $("#IdContenido").val(pelicula.$oid);
         },
         error: function (error) {
             console.error('Error al obtener la pelicula:', error);

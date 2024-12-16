@@ -64,4 +64,40 @@ class Resennas extends Conexion{
             $resennasArray = iterator_to_array($resultado);
             return $resennasArray;
     }
+
+    public function obtenerResennaPorID($IdResenna){
+        $objectId = new ObjectId($IdResenna);
+        $pipeline = [
+            [
+                '$match' => ['_id' => $objectId]
+            ],
+            [
+                '$lookup' => [
+                    'from' => 'usuarios',
+                    'localField' => 'IdUsuario',
+                    'foreignField' => '_id',
+                    'as' => 'usuarioInfo'
+                ]
+            ],
+            [
+                '$unwind' => '$usuarioInfo'
+            ],
+            [
+                '$project' => [
+                    'Calificacion' => 1,
+                    'FechaCreacion' => 1,
+                    'FechaModificacion' => 1,
+                    'Opinion' => 1,
+                    'TipoContenido' => 1,
+                    'IdContenido' => 1,
+                    'usuarioInfo.NombredeUsuario' => 1,
+                    'usuarioInfo.FotodePerfil' => 1,
+                ]
+            ]
+        ];
+        $resultado = $this->coleccion->aggregate($pipeline);
+        
+        $resenna = iterator_to_array($resultado);
+        return !empty($resenna) ? $resenna[0] : null;
+    }
 }

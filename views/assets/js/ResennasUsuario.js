@@ -49,6 +49,7 @@ function enviarResenna(infoResenna) {
                     text: "Se envio la opinión!",
                     icon: "success"
                 });
+                $("#enviarOpinion")[0].reset();
                 $("#comentariosUsuarios").empty();
                 agregarComentarios();
             }
@@ -92,7 +93,7 @@ function tiempoDesde(current, previous) {
 
     else if (elapsed < msPerMonth) {
         if (Math.round(elapsed / msPerDay) == 1) {
-            return 'ayer';
+            return '1 día';
         }
         return 'aproximadamente ' + Math.round(elapsed / msPerDay) + ' días';
     }
@@ -111,6 +112,7 @@ function tiempoDesde(current, previous) {
         return 'aproximadamente ' + Math.round(elapsed / msPerYear) + ' años';
     }
 }
+
 function agregarComentarios() {
     $.ajax({
         url: `../controllers/resennasController.php?op=conseguirResennasDeContenido`,
@@ -156,26 +158,12 @@ function agregarComentarios() {
                     }
                     comentario += `</div>
                 </p>
-                <form action="./verComentarioUsuario.php?idComentario=1" method="POST">
-                <div class="opinionUsuario">
-                <input type="hidden" name="IDTipo" value="${id}">
-                <input type="hidden" name="Tipo" value="${Tipo}">`
+                <a href="./verComentarioUsuario.php?opinion=${opinion._id.$oid}" class="opinionUsuario d-flex" style="text-decoration: none; color: black; width: 32rem;">`
                     //Opinion
-                    comentario += `
-                    <button class="text-start" style="
-                	background: none;
-                    color: inherit;
-                    border: none;
-                    padding: 0;
-                    font: inherit;
-                    cursor: pointer;
-                    outline: inherit;">`
                     if(opinion.Opinion) comentario += opinion.Opinion
                     else comentario += "No hay opinion"
-                comentario += `</button>
-                </div>
-                </form>
-                </div>
+                comentario += `
+                </a>
                 </section>`;
                     $("#comentariosUsuarios").append(comentario);
                 });

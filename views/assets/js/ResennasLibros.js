@@ -37,6 +37,10 @@ function verInfoMedioCompleto(id) {
             escribir.append(datos);
             agregarInfoModal(responseInfo, false)
             subirLibroEnBD(responseInfo, id);
+            $("#comentariosUsuarios").append(`
+                <div class="d-flex justify-content-center pt-5">
+                    <h1 class="text-light text-center">Todavia no hay opiniones sobre la pelicula. Escribe una reseña!</h1>
+                </div>`)
         },
         error: function (error) {
             console.error('Error al obtener las opciones:', error);
@@ -83,10 +87,10 @@ function confirmarSiExisteLibroEnBD(id) {
             let existe = responseInfo.exito;
             if (existe) {
                 verLibroDesdeBD(responseInfo.object);
+                agregarComentarios();
             } else {
                 verInfoMedioCompleto(id);
             }
-            agregarComentarios();
             return existe;
         },
         error: function (error) {
@@ -161,88 +165,14 @@ function subirLibroEnBD(libro, id) {
         },
         dataType: 'json',
         success: function (responseInfo) {
-            IDContenido = libro._id.$oid;
-            $("#IdContenido").val(libro._id.$oid);
+            let libro = responseInfo.object;
+            IDContenido = libro.$oid;
+            $("#IdContenido").val(libro.$oid);
         },
         error: function (error) {
             console.error('Error al obtener la pelicula:', error);
         }
     });
-}
-
-//Funcion de como funcionaria en el futuro el tema de los comentarios
-function agregarComentarios() {
-    /*$.ajax({
-        url: ``,
-        type: 'GET',
-        success: function (comentarios) {*/
-    let comentarios = Math.random() * (4 - 0) + 0;
-    //En caso de no haber comentarios, escribir que no existe y alentar al usuario que escriba una reseña
-    if (comentarios == 0) {
-        $("#comentariosUsuarios").append(`
-            <div class="d-flex justify-content-center pt-5">
-                <h1 class="text-light text-center">Todavia no hay opiniones sobre el libro. Escribe una reseña!</h1>
-            </div>`)
-    } else {
-        for (let index = 0; index < comentarios; index++) {
-            let comentario = `
-                <section class="row" style="width: 100%; margin-bottom: 25px">
-                <div class="col-2">`
-            //Imagen
-            comentario += `
-                <img src="./assets/img/ImagenPerfil.jpg" alt="" class="imgPerfil">
-                </div>
-                <div class="col" style="margin-top: 15px;">
-                <p style="margin-bottom: 0px !important">`
-            //Nombre de usuario
-            comentario += `
-                <span class="FondoVerde border10" style="padding: 5px; margin-bottom: 0px !important" id="nombreUsuario1">Usuario1</span>
-                <br>`
-            //Hora de creacion
-            comentario += `
-                <span class="form-text">Hace X tiempo</span>
-                <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 10rem">`;
-            let estrellas = Math.random() * (5 - 1) + 1;
-            //Por la calificacion que le dio el usuario, agregarle las estrellas debajo de su opinion
-            for (let index = 0; index < estrellas; index++) {
-                comentario += `<i class="bi bi-star-fill estrellaRellena h5 pe-2"></i>`
-            }
-            comentario += `</div>
-                </p>
-                <form action="./verComentarioUsuario.php?idComentario=1" method="POST">
-                <div class="opinionUsuario">
-                <input type="hidden" name="IDTipo" value="${id}">
-                <input type="hidden" name="Tipo" value="3">
-                <button class="text-start" style="
-                	background: none;
-                    color: inherit;
-                    border: none;
-                    padding: 0;
-                    font: inherit;
-                    cursor: pointer;
-                    outline: inherit;
-                ">`
-            //Opinion
-            comentario += `
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem nostrum laboriosam optio veritatis,
-                nobis, facilis autem quibusdam commodi earum saepe corrupti possimus exercitationem sint totam aliquid
-                doloremque porro cupiditate quisquam.
-                </button>
-                </div>
-                </form>
-                </div>
-                </section>`;
-
-            $("#comentariosUsuarios").append(comentario);
-        }
-    }
-
-    /*},
-    error: function (error) {
-        console.log(error);
-        return;
-    }
-});*/
 }
 
 //En caso de haber algun error, se agrega un error 404

@@ -7,6 +7,7 @@
                         <?php
                         echo '<input name="IdUsuario" id="IdUsuario" class="form-control" type="hidden" value="', $_SESSION['id'], '" required>';
                         echo '<input name="IdContenido" id="IdContenido" class="form-control" type="hidden" value="" required>';
+                        echo '<input name="TipoContenido" id="TipoContenido" class="form-control" type="hidden" value="', $Tipo, '" required>';
                         ?>
                         <div class="row">
                             <div class="d-flex justify-content-center border10 pt-1 col" style="background-color: #003344; width: 50%">
