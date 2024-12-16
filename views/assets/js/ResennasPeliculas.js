@@ -22,6 +22,7 @@ function verInfoMedioCompleto(id) {
             document.title = responseInfo.title + " - Reseñas"
             let escribir = $("#infoPeli");
             datos = `
+                z<input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
                 <h4 class="text-center">${responseInfo.original_title}</h4>
                 <h6 class="text-center">(${responseInfo.title})</h6>
                 <h6 class="text-center">Fecha de salida: ${responseInfo.release_date}</h6>
@@ -126,6 +127,7 @@ function verInfoMedioCompletoDesdeBD(pelicula) {
     const fechaFinal = `${year}-${month}-${day}`;
     let escribir = $("#infoPeli");
     datos = `
+                <input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
                 <h4 class="text-center">${pelicula.TituloOriginal}</h4>
                 <h6 class="text-center">(${pelicula.TituloTraducido})</h6>
                 <h6 class="text-center">Fecha de salida: ${fechaFinal}</h6>

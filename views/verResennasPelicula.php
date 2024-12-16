@@ -96,4 +96,7 @@ if (empty($_SESSION['id'])) {
 <script src="./assets/js/ResennasPeliculas.js"></script>
 <script src="./assets/js/ResennasUsuario.js"></script>
 
+<!--Listas -->
+<script src="./assets/js/Listas/SeriesYPelis/Favoritos/AgregarAListaSMFav.js"></script>
+
 </html>

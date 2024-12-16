@@ -115,8 +115,6 @@ var anos = [
   { id: '1950', text: '1950' }
 ];
 
-
-
 $('.genero').select2({
   data : genero
 });

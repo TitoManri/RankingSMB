@@ -23,6 +23,7 @@ function verInfoMedioCompleto(id) {
             let escribir = $("#infoPeli");
             console.log(responseInfo)
             datos = `
+                <input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
                 <h4 class="text-center">${responseInfo.original_name}</h4>
                 <h6 class="text-center">(${responseInfo.name})</h6>
                 <div class="d-flex justify-content-center">
@@ -118,6 +119,7 @@ function verInfoMedioCompletoDesdeBD(serie) {
     document.title = serie.TituloTraducido + " - Reseñas"
     let escribir = $("#infoPeli");
     datos = `
+                <input name="Id_Peli" id="Id_Peli" class="form-control" type="hidden" value="${id}"/>
                 <h4 class="text-center">${serie.TituloOriginal}</h4>
                 <h6 class="text-center">(${serie.TituloTraducido})</h6>
                 <div class="d-flex justify-content-center">

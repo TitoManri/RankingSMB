@@ -25,16 +25,20 @@
                                 <label for="calificacion5" class="me-2"><i class="bi bi-star h3" id="estrella4"></i></label>
                             </div>
                             <div class="d-flex justify-content-center col">
+                                <!--a-->
+                                <!--FavoritoSm-->
                                 <div class="col-3 animate__animated animate__heartBeat">
                                     <button type="button" class="boton-Opciones" name="BotonLista" id="Favorito">
                                         <img src="./assets/img/heart.png" class="rounded" alt="" style="height: auto; width: 3rem;">
                                     </button>
                                 </div>
+                                <!--PorVerSm-->
                                 <div class="col-3 animate__animated animate__heartBeat">
                                     <button type="button" class="boton-Opciones" name="BotonLista" id="PorVer">
                                         <img src="./assets/img/vision (1).png" class="rounded" alt="" style="height: auto; width: 3rem;">
                                     </button>
                                 </div>
+                                <!--VistoSm-->
                                 <div class="col-3  animate__animated animate__heartBeat cuadrado">
                                     <button type="button" class="boton-Opciones" name="BotonLista" id="Visto">
                                         <img src="./assets/img/verified (2).png" class="rounded" alt="" style="height: auto; width: 3rem;">

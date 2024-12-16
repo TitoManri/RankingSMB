@@ -3,7 +3,7 @@
 require_once '../config/Conexion.php'; // Ensure the Conexion class is included
 use Dotenv\Dotenv;
 
-class ListasMySModel extends Conexion
+class ListasFavoritosSM extends Conexion
 {
     private $coleccion;
     private $idUsuario;
@@ -22,7 +22,7 @@ class ListasMySModel extends Conexion
         ];
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
-        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasSM;
+        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasFavoritosSM;
     }
     
     public function getIdUsuario()
@@ -71,8 +71,16 @@ class ListasMySModel extends Conexion
 
     //------Obtener Listas por idUsuario y nombre------//
     //----Lista Favorita de Usuario X----//
-
-       
+    
+        public function insertarListaFav($lista) {
+            try {
+                $resultado = $this->coleccion->insertOne($lista);
+                return $resultado;
+            } catch (Exception $e) {
+                throw new Exception("Error al insertar en la base de datos: " . $e->getMessage());
+            }
+        }
+        
         public function obtenerListaFavPorUsuario($idUsuario,$idPelicula){
             $documento = [ 'idUsuario' => $idUsuario, 'idPelicula' => $idPelicula, 'Estado' => 'favorita'];
             return $this->coleccion->insertOne($documento);
