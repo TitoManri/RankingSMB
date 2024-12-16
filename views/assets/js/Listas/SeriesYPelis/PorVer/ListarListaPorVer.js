@@ -2,17 +2,16 @@ $(document).ready(function () {
     const idUsuario = $("#ID_Usuario").val();
 
     $.ajax({
-        url: '../controllers/listasFavoritasSM.php',
+        url: '../controllers/listasPorVerSM.php',
         type: 'POST',
-        data: { op: 'ListarPeliculasFavoritas', idUsuario: idUsuario },
-        dataType: 'json', // Esta es la clave para que jQuery analice automáticamente la respuesta JSON
-
+        data: { op: 'ListarPeliculasPorVer', idUsuario: idUsuario },
+        dataType: 'json', 
         success: function (response) {
             console.log(response);
             if (response.exito) {
                 console.log(response.data);
                 var peliculas = response.data;
-                var contenedor = $('.container-Fav'); 
+                var contenedor = $('.container-PV'); 
                 contenedor.empty(); 
 
                 peliculas.forEach(function (pelicula) {

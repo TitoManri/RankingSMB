@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    $("#Favorito").click(function () {
+    $("#PorVer").click(function () {
         const idUsuario = $("#ID_Usuario").val(); // Obtenemos el valor de idUsuario
         const idPeliculaSerie = $("#Id_Peli").val(); // Obtenemos el valor de idPeliculaSerie
         
         $.ajax({
-            url: "../controllers/listasFavoritasSM.php", // URL sin parámetros en la URL
+            url: "../controllers/listasPorVerSM.php", // URL sin parámetros en la URL
             type: "POST", // Usamos POST para enviar los datos en el cuerpo
             data: {
-                op: 'AgregarAFavoritosPelicula', // Enviamos la operación como parámetro
+                op: 'AgregarAPorVerPelicula', // Enviamos la operación como parámetro
                 idUsuario: idUsuario, // Enviamos idUsuario como parámetro
                 idPeliculaSerie: idPeliculaSerie // Enviamos idPeliculaSerie como parámetro
             },
