@@ -1,21 +1,26 @@
 body{
-    background-color: #003344 !important;
-}
-
-.contenedor{
-    background-color:#017781;
-    padding-top: 20px;
-    padding-left: 20px;
-    border-radius: 15px 15px 15px 15px;
+    background-color: #003344;
 }
 
 .contenedor {
-    background-color: #017781;
     padding-bottom: 20px;
     padding-top: 20px;
     padding-left: 20px;
     border-radius: 15px 15px 15px 15px;
     margin-bottom: 15px;
+}
+
+
+.container-Fav{
+    background-color: #440004;
+}
+
+.container-PV{
+    background-color: #f09800;
+}
+
+.container-YV{
+    background-color: #1a6a20;
 }
 
 .UnaLinea{
@@ -46,8 +51,8 @@ body{
 }
 
 .filtro{
-    width: 400px;
-    height: 30px;
+    width: 175px;
+    height: 35px;
 }
 
 .space{

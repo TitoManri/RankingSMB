@@ -28,8 +28,8 @@
         <div class="container-fluid row">
             <div class="itemsNavbar">
                 <a href="../views/peliculas.php" class="ps-3 pe-2">Peliculas</a>
-                <a href="" class="ps-3 pe-2">Series</a>
-                <a href="" class="ps-3 pe-2">Libros</a>
+                <a href="../views/series.php" class="ps-3 pe-2">Series</a>
+                <a href="../views/libros.php" class="ps-3 pe-2">Libros</a>
                 <a href="" class="ps-3 pe-2">Listas</a>
             </div>
         </div>
