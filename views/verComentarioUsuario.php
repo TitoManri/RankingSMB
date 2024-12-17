@@ -7,25 +7,15 @@ $dotenv->load();
 
 session_start();
 $iniciado = true;
-if (empty($_SESSION['NombreUsuario'])) {
+if (empty($_SESSION['id'])) {
     $iniciado = false;
-}
-$idTipo = $_POST["IDTipo"];
-$Tipo = $_POST["Tipo"];
-
-$rutaVolver = "";
-if ($Tipo == 1) {
-    $rutaVolver = "./verResennasPelicula.php?id=" . $idTipo;
-} elseif ($Tipo == 2) {
-    $rutaVolver = "./verResennasSeries.php?id=" . $idTipo;
-} elseif ($Tipo == 3) {
-    $rutaVolver = "./verResennasLibros.php?id=" . $idTipo;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <!-- Prueba -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +48,7 @@ if ($Tipo == 1) {
                 <div id="infoPeli" class="text-light">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a href='<?php echo $rutaVolver ?>' class="btn btn-ver">
+                    <a href="" id="VolverAlContenido" class="btn btn-ver">
                         Volver al contenido
                     </a>
                 </div>
@@ -81,8 +71,10 @@ if ($Tipo == 1) {
                         <br>
                         <form class="d-flex justify-content-center" method="post" id="enviarComentario">
                             <div style="width: 85%">
+                                <input type="hidden" name="IdUsuario" id="IdUsuario" class="form-control" value="<?php echo $_SESSION['id'] ?>" required>
+                                <input type="hidden" name="IdReseña" id="IdReseña" class="form-control" value="" required>
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Escribe tu opinion" name="comentario" id="comentario" style="resize: none;" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                                    <textarea class="form-control" placeholder="Escribe tu opinion" name="TextoComentario" id="TextoComentario" style="resize: none;" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                                     <label for="floatingTextarea2" style="color: black !important">Escribe un comentario</label>
                                 </div>
                                 <div id="validarCalificacion">
@@ -94,8 +86,10 @@ if ($Tipo == 1) {
                             </div>
                         </form>
                         <br>
-                        <div class="border10 comentarios" id="comentariosUsuarios">
+                        <div class=" d-flex justify-content-center">
+                            <div class="border10 comentarios" id="comentariosUsuarios" style="width: 50rem;">
 
+                            </div>
                         </div>
                     </section>
                     <br>
@@ -107,74 +101,45 @@ if ($Tipo == 1) {
         ?>
             <section class="col-6 pt-3">
                 <div class="container FondoVerde ms-3 border10" style="color: white;">
-                    <div class="pt-4 ps-5">
+                    <div class="pt-4 ps-5" id="comentarioOriginal">
                         <h5>Calificacion de: </h5>
-                        <div class=" d-flex justify-content-center"">
-                        <div class=" row" style="background-color: #B1B2B5; width: 35rem; border-radius: 15px;">
-                            <br>
-                            <div class="col-1" style="margin-right: 2rem;">
-                                <img src="./assets/img/ImagenPerfil.jpg" alt="" class="imgPerfil">
-                            </div>
-                            <div class="col-3" style="margin-top: 2vh;">
-                                <p style="margin-bottom: 0px !important">
-                                    <span class="FondoVerde border10" style="padding: 5px; margin-bottom: 0px !important" id="nombreUsuario1">Usuario1</span>
-                                    <br>
-                                    <span class="form-text">Hace X tiempo</span>
-                                </p>
-                            </div>
-                            <div class="col-2" style="margin-top: 2vh;">
-                                <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 30vh; height: 5vh;" id="estrellasOpinion">
-                                    <i class="bi bi-star-fill estrellaRellena h3 me-2"></i>
-                                    <i class="bi bi-star-fill estrellaRellena h3 me-2"></i>
-                                    <i class="bi bi-star-fill estrellaRellena h3 me-2"></i>
-                                </div>
-                            </div>
 
-                            <br>
-                            <div style="width: 85%; margin-left: 2rem">
-                                <div class="opinionUsuario">
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas fugiat odit repudiandae expedita molestiae! Itaque voluptate, enim voluptates odit rem, ullam doloribus incidunt sequi, qui dolore aspernatur quia laboriosam aut?</p>
-                                </div>
-                                <br>
-                            </div>
-                            <br>
+                    </div>
+                    <hr>
+                    <section id="opiniones" style="margin-bottom: 15px;">
+                        <h3 class="text-center">Comentarios</h3>
+                        <br>
+                        <br>
+                        <div class="border10 comentarios" id="comentariosUsuarios">
+
                         </div>
-                    </div>
+                    </section>
+                    <br>
                 </div>
-                <hr>
-                <section id="opiniones" style="margin-bottom: 15px;">
-                    <h3 class="text-center">Comentarios</h3>
-                    <br>
-                    <br>
-                    <div class="border10 comentarios" id="comentariosUsuarios">
-
-                    </div>
-                </section>
                 <br>
-    </div>
-    <br>
-    </section>
-<?php
+            </section>
+        <?php
         }
-?>
-</div>
-<div>
+        ?>
+    </div>
+    <div>
 
-    <?php
-    include_once "./templates/Header_Footer/footer.php"
-    ?>
-</div>
+    <div class="fixed-footer">
+            <?php
+            include_once "./templates/Header_Footer/footer.php"
+            ?>
+        </div>
+    </div>
 </body>
 <!--Scripts-->
 <script>
     let tmdbAPI = '<?php echo $_ENV['tmdbAPI'] ?>'
-    let idTipo = '<?php echo $idTipo ?>'
-    let Tipo = '<?php echo $Tipo ?>'
     let googleAPI = '<?php echo $_ENV['googleBooks'] ?>'
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
 <script src="./assets/js/ComentariosUsuarios.js"></script>
 
 </html>

@@ -99,7 +99,7 @@
                                 </div>
 
                                 <div class="mb-3 row">
-                                    
+
                                 </div>
 
                                 <div class="mb-3 row">
@@ -118,6 +118,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-light btn-lg mb-4 hvr-fade">Registrarse</button>
                             </form>
+                            <a href="./inicioSesion.php" class="link-primary px-2">Tienes una cuenta? Inicia sesión acá</a>
                         </div>
                     </section>
                 </div>
@@ -146,11 +147,14 @@
             </div>
         </div>
     </section>-->
-<br><br>
+    <br><br>
     <!-- Footer -->
-    <?php
-    include_once "./templates/Header_Footer/footer.php"
-    ?>
+    <div class="fixed-footer">
+        <?php
+        include_once "./templates/Header_Footer/footer.php"
+        ?>
+    </div>
+
 
 </body>
 <!-- Bootstrap-->
