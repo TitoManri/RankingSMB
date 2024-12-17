@@ -101,6 +101,13 @@ class ListasPorVerL extends Conexion
         }
     }
 
+    /* Obtener la lista de libros por usuario */
+    public function existeLibroEnArray($idUsuario, $idLibroObjectId) {
+        $filtro = ['IdUsuario' => $idUsuario, 'IdContenidosAgregados' => $idLibroObjectId];
+        $resultado = $this->coleccion->findOne($filtro);
+        return $resultado !== null;
+    }
+
 }
 
 ?>

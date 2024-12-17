@@ -101,6 +101,13 @@ class ListasVistosL extends Conexion
         }
     }
 
+    /* Ver si un libro ya esta en la lista */
+    public function existeLibroEnArray($idUsuario, $idLibroObjectId) {
+        $filtro = ['IdUsuario' => $idUsuario, 'IdContenidosAgregados' => $idLibroObjectId];
+        $resultado = $this->coleccion->findOne($filtro);
+        return $resultado !== null;
+    }
+
 }
 
 ?>

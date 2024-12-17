@@ -56,7 +56,7 @@ switch ($op){
                 }
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de favoritos agregada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Agregada a favoritos correctamente"]);
                 exit; 
             }
             // 
@@ -68,10 +68,14 @@ switch ($op){
                 $idUsuarioObjectId = new ObjectId($idUsuario);
                 $idLibroObjectId = new ObjectId($idObjetoLibro);
 
+                if ($favoritosModel->existeLibroEnArray($idUsuarioObjectId, $idLibroObjectId)) {
+                    throw new Exception("El libro ya se encuentra en la lista de favoritos.");
+                }
+
                 $resultado = $favoritosModel->updatearListaFav($idUsuarioObjectId, $idLibroObjectId);
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de favoritos actualizada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Agregada a favoritos correctamente"]);
                 exit;   
             }
                
@@ -82,22 +86,6 @@ switch ($op){
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
             exit;
         }       
-        
-        case 'EliminarDeFavoritosLibro': 
-            try {
-                
-                $resultado = $favoritosModel->eliminarLibroDeListaFav($idUsuario, $idLibroObjectId);
-                if ($resultado->getModifiedCount() > 0) {
-                    $response = ["exito" => true, "msg" => "Libro eliminado de la lista de favoritos"];
-                    exit;
-                } else {
-                    $response = ["exito" => false, "msg" => "No se encontró el libro en la lista de favoritos"];
-                    exit;
-                }
-            } catch (Exception $e) {
-                $response = ["exito" => false, "msg" => $e->getMessage()];
-                exit;
-            }
         
         case 'ListarLibrosFavoritos':
             try {

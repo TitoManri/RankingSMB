@@ -54,7 +54,7 @@ switch ($op){
                 }
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de visto agregada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Agregada a vistos correctamente"]);
                 exit; 
             }
             // 
@@ -66,10 +66,14 @@ switch ($op){
                 $idUsuarioObjectId = new ObjectId($idUsuario);
                 $idPeliculaObjectId = new ObjectId($idObjetoPelicula);
 
+                if ($vistoModel->existePeliculaEnArray($idUsuarioObjectId, $idPeliculaObjectId)) {
+                    throw new Exception("La película ya se encuentra en la lista de vistos.");
+                }
+
                 $resultado = $vistoModel->updatearListaFav($idUsuarioObjectId, $idPeliculaObjectId);
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de visto actualizada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Agregada a vistos correctamente"]);
                 exit;   
             }
                
@@ -80,22 +84,6 @@ switch ($op){
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
             exit;
         }       
-        
-        case 'EliminarDeVistoPelicula': 
-            try {
-                
-                $resultado = $vistoModel->eliminarPeliculaDeListaFav($idUsuario, $idPeliculaObjectId);
-                if ($resultado->getModifiedCount() > 0) {
-                    $response = ["exito" => true, "msg" => "Película eliminada de la lista de visto"];
-                    exit;
-                } else {
-                    $response = ["exito" => false, "msg" => "No se encontró la película en la lista de visto"];
-                    exit;
-                }
-            } catch (Exception $e) {
-                $response = ["exito" => false, "msg" => $e->getMessage()];
-                exit;
-            }
         
         case 'ListarPeliculasVisto':
             try {

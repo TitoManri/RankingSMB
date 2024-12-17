@@ -101,6 +101,13 @@ class ListasFavoritosL extends Conexion
         }
     }
 
+    /* Ver si exsite un libro asosiado con el id del usuario */
+    public function existeLibroEnArray($idUsuario, $idLibroObjectId) {
+        $filtro = ['IdUsuario' => $idUsuario, 'IdContenidosAgregados' => $idLibroObjectId];
+        $resultado = $this->coleccion->findOne($filtro);
+        return $resultado !== null;
+    }
+
 }
 
 ?>

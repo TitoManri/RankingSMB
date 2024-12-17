@@ -65,6 +65,10 @@ switch ($op){
                 // Lo convierte en ObjectId
                 $idLibroObjectId = new ObjectId($idObjetoLibro);
 
+                if ($porVerModel->existeLibroEnArray($idUsuarioObjectId, $idLibroObjectId)) {
+                    throw new Exception("El libro ya se encuentra en la lista de favoritos.");
+                }
+
                 $resultado = $porVerModel->updatearListaFav($idUsuarioObjectId, $idLibroObjectId);
                 // Respuesta exitosa
                 header('Content-Type: application/json');
@@ -79,22 +83,6 @@ switch ($op){
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
             exit;
         }       
-        
-        case 'EliminarDePorVerLibro': 
-            try {
-                
-                $resultado = $porVerModel->eliminarLibroDeListaFav($idUsuario, $idLibroObjectId);
-                if ($resultado->getModifiedCount() > 0) {
-                    $response = ["exito" => true, "msg" => "Libro eliminado de la lista de por ver"];
-                    exit;
-                } else {
-                    $response = ["exito" => false, "msg" => "No se encontró el libro en la lista de por ver"];
-                    exit;
-                }
-            } catch (Exception $e) {
-                $response = ["exito" => false, "msg" => $e->getMessage()];
-                exit;
-            }
         
         case 'ListarLibrosPorVer':
             try {

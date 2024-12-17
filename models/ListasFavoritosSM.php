@@ -101,6 +101,17 @@ class ListasFavoritosSM extends Conexion
         }
     }
 
+    /* Ver si la pelicula ya esta en la lista */
+    public function existePeliculaEnArray($idUsuario, $idPeliculaObjectId) {
+        try {
+            $filtro = ['IdUsuario' => $idUsuario, 'IdContenidosAgregados' => $idPeliculaObjectId];
+            $resultado = $this->coleccion->findOne($filtro);
+            return $resultado !== null;
+        } catch (Exception $e) {
+            throw new Exception("Error al buscar la película en la lista: " . $e->getMessage());
+        }
+    }
+
 }
 
 ?>
