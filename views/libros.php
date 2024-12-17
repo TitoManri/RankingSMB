@@ -2,7 +2,6 @@
 require __DIR__ . '/../vendor/autoload.php';
 Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../')->load();
 
-
 //Inicio de la sesión
 session_start();
 if (!empty($_SESSION['correo'])) {
@@ -23,7 +22,7 @@ if (!empty($_SESSION['correo'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Películas</title>
+    <title>Libros</title>
     <!-- LINKS -->
     <!-- select2-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -38,9 +37,9 @@ if (!empty($_SESSION['correo'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- css personalizado-->
     <link rel="stylesheet" href="./assets/css/catalogo.css">
-    <link rel="stylesheet" href="./assets/css/cards.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/pelicula.css">
+    <link rel="stylesheet" href="./assets/css/cards.css">
 </head>
 
 <body>
@@ -61,7 +60,7 @@ if (!empty($_SESSION['correo'])) {
                             Ranking SMB
                         </a>
                     </h1>
-                    <button id="boton-contenido" class="button is-medium">Películas</button>
+                    <button id="boton-contenido" class="button is-medium">Libros</button>
                 </div>
             </div>
         </div>
@@ -74,10 +73,10 @@ if (!empty($_SESSION['correo'])) {
                 <div class="row w-100 ml-5">
                     <div class="col-md-7"></div>
                     <div class="col-md-4 mt-5 pt-5">
-                        <form class="d-flex" role="search" id="busquedaPelicula" method="post"
-                            action="./busquedaPelicula.php">
+                        <form class="d-flex" role="search" id="busquedaLibro" method="post"
+                            action="./busquedaLibros.php">
                             <input class="form-control me-2 mb-3" type="search" placeholder="Descubre contenido"
-                                aria-label="Buscar" id="busquedaPeliculaText" name="busquedaPeliculaText" required>
+                                aria-label="Buscar" id="busquedaLibroText" name="busquedaLibroText" required>
                             <button class="btn btn-primary" id="boton-busqueda" type="submit">Buscar</button>
                         </form>
                     </div>
@@ -86,9 +85,8 @@ if (!empty($_SESSION['correo'])) {
         </div>
     </nav>
 
-
     <div class="container p-0 last">
-        <div id="peliculas1" class="columns is-multiline ">
+        <div id="libros1" class="columns is-multiline ">
             <div class="column is-full">
                 <h1 class="title is-3 has-text-white">Popular esta semana</h1>
             </div>
@@ -128,8 +126,8 @@ if (!empty($_SESSION['correo'])) {
             </button>
         </div>
 
-        <div id="peliculas2" class="columns last">
-            <!-- se insertan las peliculas por medio de js -->
+        <div id="libros2" class="columns last">
+            <!-- se insertan los libros por medio de js -->
         </div>
     </div>
 
@@ -155,6 +153,6 @@ if (!empty($_SESSION['correo'])) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="./assets/js/peliculas.js"></script>
+<script src="./assets/js/librosA.js"></script>
 
 </html>

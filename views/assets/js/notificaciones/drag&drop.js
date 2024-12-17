@@ -1,4 +1,3 @@
-// Drag and Drop
 const dragAndDropItems = document.getElementById('contenedor-externo');
 
 new Sortable(dragAndDropItems, {
@@ -40,4 +39,3 @@ readAllButton.addEventListener("click", () => {
 
   readAllButton.textContent = allRead ? "Mark all as unread" : "Mark all as read";
 });
-
