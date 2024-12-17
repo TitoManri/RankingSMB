@@ -16,8 +16,6 @@
                         <ul class="dropdown-menu dropdown-menu-end opcionesPerfil">
                             <li class="px-1"><a href="./perfil.php" class="dropdown-item" type="button" style="color:black !important">Perfil</a></li>
                             <hr>
-                            <li><button class="dropdown-item" type="button" style="color:black !important">Notificaciones</button></li>
-                            <hr>
                             <li><a href="./cerrarSesion.php" class="dropdown-item" type="button" style="color:black !important">Cerrar Sesion</a></li>
                         </ul>
                     </div>
@@ -30,7 +28,7 @@
                 <a href="../views/peliculas.php" class="ps-3 pe-2">Peliculas</a>
                 <a href="../views/series.php" class="ps-3 pe-2">Series</a>
                 <a href="../views/libros.php" class="ps-3 pe-2">Libros</a>
-                <a href="" class="ps-3 pe-2">Listas</a>
+                <a href="../views/Listas.php" class="ps-3 pe-2">Listas</a>
             </div>
         </div>
     </nav>

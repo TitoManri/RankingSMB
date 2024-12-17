@@ -22,6 +22,7 @@ function verInfoMedioCompleto(id) {
             //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
             let escribir = $("#infoPeli");
             datos = `
+                        <input name="Id_Libro" id="Id_Libro" class="form-control" type="hidden" value="${id}"/>
                         <h4 class="text-center">${responseInfo.volumeInfo.title}</h4>
                         <div class="d-flex justify-content-center">
                             <img src="https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w400-h600&source=gbs_api" alt="Poster_${responseInfo.volumeInfo.title}" data-fancybox data-caption="Poster de ${responseInfo.volumeInfo.title}" width="275px">
@@ -56,6 +57,7 @@ function verLibroDesdeBD(libro) {
     //Seleccionar donde se escribira, en este caso, el div con ID infoPeli
     let escribir = $("#infoPeli");
     datos = `
+                        <input name="Id_Libro" id="Id_Libro" class="form-control" type="hidden" value="${id}"/>
                         <h4 class="text-center">${libro.Titulo}</h4>
                         <div class="d-flex justify-content-center">
                             <img src="https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w400-h600&source=gbs_api" alt="Poster_${libro.Titulo}" data-fancybox data-caption="Poster de ${libro.Titulo}" width="275px">

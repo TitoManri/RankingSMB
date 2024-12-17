@@ -1,26 +1,27 @@
 <?php
+//Modelos
 require_once '../models/Usuarios.php';
 
-// Capturar valores enviados por el formulario
+//Variables que llegan del Ajax
 $correo = $_POST['correo'] ?? null;
 $contrasenaVerificar = $_POST['contrasena'] ?? null;
 
+//Clases que se utilizan
 $usuarioModel = new UsuarioModel();
 
 try {
-    // Verificar si el usuario ya existe por correo
+    //Obtiene el usuario por correo
     $usuario = $usuarioModel->obtenerUsuarioPorCorreo($correo);
     
+    //Si si encontro al usuario, verifica la contraseña que ingreso con la que esta en la base de datos
     if ($usuario) {
-        //Verificar si la contraseña es correcta con el hash
         if (password_verify($contrasenaVerificar, $usuario->Contraseña)) {
-            // Obtener el usuario con el nivel
+            //Obtiene el usuario con el nivel
             $usuarioConNivel = $usuarioModel->obtenerUsuarioConNivel($usuario->_id);
+            //Si el usuario tiene nivel pasa y envia a la vista todos los datos e inicia la sesion
             if ($usuarioConNivel && isset($usuarioConNivel['nivel'])) {
-                $nivel = $usuarioConNivel['nivel']; // Access the 'nivel' object directly
-                $nombreNivel = $nivel['Nombre']; // Ensure the correct field name is used
-
-                // Iniciar sesión
+                $nivel = $usuarioConNivel['nivel']; 
+                $nombreNivel = $nivel['Nombre']; 
                 session_start();
                 $_SESSION['id'] = (string) $usuario->_id;
                 $_SESSION['nivel'] = $nombreNivel;
