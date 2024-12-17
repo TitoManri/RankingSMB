@@ -7,7 +7,6 @@ class ListasMySModel extends Conexion
 {
     private $coleccion;
     private $idUsuario;
-    private $nombre;
     private $IdContenidoAgregado;
     private $FechaDeCreacion;
     private $FechaDeModificacion;
@@ -34,16 +33,6 @@ class ListasMySModel extends Conexion
     public function setIdUsuario($idUsuario)
     {
         $this->idUsuario = $idUsuario;
-    }
-
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
     }
 
     public function getIdContenidoAgregado()
@@ -76,16 +65,31 @@ class ListasMySModel extends Conexion
         $this->FechaDeModificacion = $FechaDeModificacion;
     }
 
-
     //Funciones 
+
+    //------
 
     //------Obtener Listas por idUsuario y nombre------//
     //----Lista Favorita de Usuario X----//
-    public function obtenerListaFavPorUsuario($idUsuario,$nombre)
-    {
-        $resultado = $this->coleccion->findOne(['IdUsuario' => $idUsuario, 'Nombre' => $nombre]);
-        return $resultado;
-    }
+
+       
+        public function obtenerListaFavPorUsuario($idUsuario,$idPelicula){
+            $documento = [ 'idUsuario' => $idUsuario, 'idPelicula' => $idPelicula, 'Estado' => 'favorita'];
+            return $this->coleccion->insertOne($documento);
+        }
+
+        //----Elimina de la Lista de Favoritos----//
+        public function eliminarDeListaFavoritos($idUsuario, $idPelicula) {
+            $filtro = ['idUsuario' => $idUsuario, 'idPelicula' => $idPelicula, 'Estado' => 'favorita'];
+            return $this->coleccion->deleteOne($filtro);
+        }
+
+        //----Verifica si existe la pelicula en la lista de favoritos
+        public function verificarFavorito($idUsuario, $idPelicula) {
+            $filtro = ['idUsuario' => $idUsuario, 'idPelicula' => $idPelicula, 'Estado' => 'favorita'];
+            return $this->coleccion->findOne($filtro) !== null;
+        }
+
 
     //----Lista Por Ver de Usuario X----//
     public function obtenerListaPorVerPorUsuario($idUsuario,$nombre)
@@ -183,20 +187,39 @@ class ListasMySModel extends Conexion
     }
 }
 
-    public function filtroPorNombre($IdContenidoAgregado,$anio)
+    public function filtroPorNombre($idUsuario, $nombreLista, $orden)
     {
-        //Hacemos un if por si es ASC/DESC
-        //Si es ASC filtramos el find por el nombre de la pelicula ASC
-            //Pasos
-                //Paso 1: Conseguimos la lista de peliculas y series
-                //Paso 2: Filtramos el find por el nombre en ASC
-                //Paso 3: Devolvemos el find ASC
-        //Si es DESC filtramos el find por el nombre de la pelicula DESC
-            //Pasos
-                //Paso 1: Conseguimos la lista de peliculas y series
-                //Paso 2: Filtramos el find por el nombre en DESC
-                //Paso 3: Devolvemos el find DESC
+        // Paso 1: Conseguimos la lista de películas y series según el nombre de la lista
+        if ($nombreLista === 'Favoritos') {
+            $contenido = $this->obtenerListaFavPorUsuario($idUsuario, $nombreLista);
+        } elseif ($nombreLista === 'Por Ver') {
+            $contenido = $this->obtenerListaPorVerPorUsuario($idUsuario, $nombreLista);
+        } elseif ($nombreLista === 'Vistos') {
+            $contenido = $this->obtenerListaVistosPorUsuario($idUsuario, $nombreLista);
+        } else {
+            throw new Exception("Nombre de lista no válido: '$nombreLista'");
+        }
+
+        // Validamos si el orden es ASC o DESC
+        if (strtoupper($orden) === 'ASC') {
+            // Paso 2: Filtramos el contenido por el nombre en ASC
+            usort($contenido, function ($a, $b) {
+                return strcmp($a['nombre'], $b['nombre']);
+            });
+        } elseif (strtoupper($orden) === 'DESC') {
+            // Paso 2: Filtramos el contenido por el nombre en DESC
+            usort($contenido, function ($a, $b) {
+                return strcmp($b['nombre'], $a['nombre']);
+            });
+        } else {
+            // Si el orden no es válido, lanzamos una excepción
+            throw new InvalidArgumentException("El orden debe ser 'ASC' o 'DESC'.");
+        }
+
+        // Paso 3: Devolvemos el contenido ordenado
+        return $contenido;
     }
+
 }
 
 ?>

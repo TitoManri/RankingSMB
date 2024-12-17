@@ -53,6 +53,8 @@
                                 <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
                                 <br>
                                 <br>
+                                <a href="./registro.php" class="link-light fw-bold px-2">No tienes cuenta? Crea una aca</a>
+                                <br>
                             </form>
 
                         </div>
@@ -68,7 +70,7 @@
                             <hr class="hr" />
                             <h2>Bienvenido a RankingSMB, disfruta tu experiencia con nosotros</h2>
                         </div>
-                        </section=>
+                        </section>
                 </div>
                 <div class="col-1 mx-auto"></div>
             </div>
@@ -96,9 +98,11 @@
     </section>-->
 
     <!-- Footer -->
-    <?php
-    include_once "./templates/Header_Footer/footer.php"
-    ?>
+    <div class="fixed-footer">
+        <?php
+        include_once "./templates/Header_Footer/footer.php"
+        ?>
+    </div>
 
 </body>
 <!-- Bootstrap-->

@@ -44,8 +44,8 @@ switch ($op) {
             $Publico = isset($_POST['Publico']) ? $_POST['Publico'] : null;
 
             if (
-                !$ID_Serie || !$TituloOriginal || !$TituloTraducido || !$GenerosOriginal || !$Lanzamiento ||
-                !$Sinopsis || !$CapitulosTotales || !$Temporadas || !$CalificacionGeneral || !$Publico
+                !$ID_Serie || !$TituloOriginal || !$TituloTraducido 
+                || !$GenerosOriginal || !$Lanzamiento || !$Publico
             ) {
                 $response = ["exito" => false, "msg" => "Hubo un error al conseguir la información de la serie."];
                 echo json_encode($response);
@@ -77,13 +77,34 @@ switch ($op) {
 
                 $confirmarInsertado = $serie->insertarSerie($serieInsertar);
                 if ($confirmarInsertado) {
-                    $response = ["exito" => true, "msg" => "Se subió la serie por primera vez."];
+                    $response = ["exito" => true, "msg" => "Se subió la serie por primera vez.", "object" => $confirmarInsertado];
                 } else {
                     $response = ["exito" => false, "msg" => "Sucedió algo mal al insertar la serie."];
                 }
             } catch (Exception $e) {
                 $response = //$serieInsertar;
                     ["exito" => false, "msg" => "Un error sucedió al subir la serie: " . $e->getMessage()];
+            }
+            echo json_encode($response);
+            break;
+        }
+
+    case 'obtenerSerieDeOID': {
+            $id = isset($_POST['id']) ? $_POST['id'] : null;
+            if (!$id) {
+                $response = ["exito" => false, "msg" => "Hubo un error al conseguir la información de la serie."];
+                echo json_encode($response);
+                exit;
+            }
+            try {
+                $resultado = $serie->obtenerSerieDeOID($id);
+                if ($resultado) {
+                    $response = ["exito" => true, "msg" => "Serie obtenida con éxito.", "object" => $resultado];
+                } else {
+                    $response = ["exito" => false, "msg" => "Hubo un error al obtener la serie."];
+                }
+            } catch (Exception $e) {
+                $response = ["exito" => false, "msg" => "Un error sucedió al obtener la serie: " . $e->getMessage()];
             }
             echo json_encode($response);
             break;

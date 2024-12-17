@@ -31,7 +31,7 @@ if (!$Nombre || !$PrimerApellido || !$SegundoApellido || !$NombredeUsuario || !$
 }
 
 //Agregamos el nivel noob 1 al usuario
-$id_nivel = new MongoObjectId('67358c5f4d4777c9edc955e3');
+$id_nivel = new MongoObjectId('6746776c0845a114f268f8b3');
 
 //Llamamos al modelo
 $usuarioModel = new UsuarioModel();
@@ -61,7 +61,7 @@ try {
             'Correo' => $Correo,
             'Telefono' => $Telefono,
             'Contraseña' => $Contraseña,
-            'FotodePerfil' => 'default.jpg', 
+            'FotodePerfil' => 'https://i.pinimg.com/736x/18/b5/b5/18b5b599bb873285bd4def283c0d3c09.jpg', 
             'FechadeCreacion' => $fechadeCreacion,
             'fecha_modificacion' => $fechaModificacion
         ];

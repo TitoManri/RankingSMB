@@ -14,15 +14,15 @@ switch ($op) {
                 echo json_encode($response);
                 exit;
             }
-            try{
+            try {
                 $ID_Pelicula = intval($ID_Pelicula);
-                $buscarPelicula = $pelicula -> getPeliculaID($ID_Pelicula);
-                if($buscarPelicula){
+                $buscarPelicula = $pelicula->getPeliculaID($ID_Pelicula);
+                if ($buscarPelicula) {
                     $response = ["exito" => true, "msg" => "La película existe en la base de datos.", "object" => $buscarPelicula];
-                }else{
+                } else {
                     $response = ["exito" => false, "msg" => "La película no existe en la base de datos."];
                 }
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 $response = ["exito" => false, "msg" => "Un error sucedió al buscar la película: " . $e->getMessage()];
             }
             echo json_encode($response);
@@ -45,8 +45,8 @@ switch ($op) {
             $Publico = isset($_POST['Publico']) ? $_POST['Publico'] : null;
 
             if (
-                !$ID_Pelicula || !$TituloOriginal || !$TituloTraducido || !$GenerosOriginal || !$Lanzamiento ||
-                !$Sinopsis || !$CostoPelicula || !$RecaudacionPelicula || !$CalificacionGeneral || !$Publico
+                !$ID_Pelicula || !$TituloOriginal || !$TituloTraducido 
+                || !$GenerosOriginal || !$Lanzamiento || !$Publico
             ) {
                 $response = ["exito" => false, "msg" => "Hubo un error al conseguir la información de la película."];
                 echo json_encode($response);
@@ -79,13 +79,34 @@ switch ($op) {
 
                 $confirmarInsertado = $pelicula->insertarPelicula($peliculaInsertar);
                 if ($confirmarInsertado) {
-                    $response = ["exito" => true, "msg" => "Se subió la película por primera vez."];
+                    $response = ["exito" => true, "msg" => "Se subió la película por primera vez.", "object" => $confirmarInsertado];
                 } else {
                     $response = ["exito" => false, "msg" => "Sucedió algo mal al insertar la película."];
                 }
             } catch (Exception $e) {
                 $response = //$peliculaInsertar;
-                ["exito" => false, "msg" => "Un error sucedió al subir la película: " . $e->getMessage()];
+                    ["exito" => false, "msg" => "Un error sucedió al subir la película: " . $e->getMessage()];
+            }
+            echo json_encode($response);
+            break;
+        }
+
+    case 'obtenerPeliculaDeOID': {
+            $id = isset($_POST['id']) ? $_POST['id'] : null;
+            if (!$id) {
+                $response = ["exito" => false, "msg" => "Hubo un error al conseguir la información de la película."];
+                echo json_encode($response);
+                exit;
+            }
+            try {
+                $resultado = $pelicula->obtenerPeliculaDeOID($id);
+                if ($resultado) {
+                    $response = ["exito" => true, "msg" => "Película obtenida con éxito.", "object" => $resultado];
+                } else {
+                    $response = ["exito" => false, "msg" => "Hubo un error al obtener la película."];
+                }
+            } catch (Exception $e) {
+                $response = ["exito" => false, "msg" => "Un error sucedió al obtener la película: " . $e->getMessage()];
             }
             echo json_encode($response);
             break;
