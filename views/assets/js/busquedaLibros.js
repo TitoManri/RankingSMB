@@ -104,11 +104,13 @@ async function busquedaLibro(paramBusqueda) {
             //crear el HTML con la información del libro
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasLibros.php?id=${book.id}">
                     <img src="${imagen}" alt="${titulo}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${titulo}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
@@ -126,11 +128,13 @@ async function busquedaLibro(paramBusqueda) {
             //crear el HTML con la información del libro
             let datos = `
                 <div class="column is-one-quarter">
+                <a href="verResennasLibros.php?id=${book.id}">
                     <img src="${imagen}" alt="${titulo}" class="img-ajustada">
                     <br>
                     <div class="column is-full">
                         <h1 class="has-text-white">${titulo}</h1>
                     </div>
+                    </a>
                 </div>
             `;
 
