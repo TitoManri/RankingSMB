@@ -57,7 +57,7 @@ switch ($op){
                 echo json_encode(["status" => "success", "message" => "Lista de por ver agregada correctamente"]);
                 exit; 
             }
-            // 
+            // Sino actualiza el array
             else {
                 // Agarra el id de la base de datos
                 $idObjetoPelicula = $buscarPelicula->_id;
@@ -67,7 +67,6 @@ switch ($op){
                 $idPeliculaObjectId = new ObjectId($idObjetoPelicula);
 
                 $resultado = $porVerModel->updatearListaFav($idUsuarioObjectId, $idPeliculaObjectId);
-                // Respuesta exitosa
                 header('Content-Type: application/json');
                 echo json_encode(["status" => "success", "message" => "Lista de por ver actualizada correctamente"]);
                 exit;   

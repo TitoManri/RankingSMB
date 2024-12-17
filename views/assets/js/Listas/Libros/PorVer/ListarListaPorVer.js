@@ -4,7 +4,7 @@ $(document).ready(function () {
     $.ajax({
         url: '../controllers/listasPorVerL.php',
         type: 'POST',
-        data: { op: 'ListarLibrosVistos', idUsuario: idUsuario },
+        data: { op: 'ListarLibrosPorVer', idUsuario: idUsuario },
         dataType: 'json', 
         success: function (response) {
             console.log(response);
@@ -24,7 +24,7 @@ $(document).ready(function () {
                                     </a>
                                     <div class="todoBlanco">
                                         <p><strong>${pelicula.Titulo}</strong></p>
-                                        <p>${pelicula.Sinopsis}</p>
+                                        <p>Autor: ${pelicula.Autor}</p>
                                     </div>
                                 </div>
                             </div>

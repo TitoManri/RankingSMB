@@ -41,20 +41,8 @@ if (!empty($_SESSION['correo'])) {
     <input type="hidden" id="ID_Usuario" value="<?php echo $id ?>">
     <article class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <h1 class="text-center Nombre_Grande">Peliculas y Series Por Ver</h1>
-      </div>
-
-      <div class="col-6 d-flex align-items-center">
-        <label for="genero" style="margin: 5px;">
-          <select class="genero js-states form-control filtro" id="genero"></select>
-        </label>
-        <label for="anos" style="margin: 5px;">
-          <select class="anos js-states form-control filtro" id="anos"></select>
-        </label>
-        <label for="general" style="margin: 5px;">
-          <select class="general js-states form-control filtro" id="general"></select>
-        </label>
       </div>
     </div>
   </article>
@@ -64,6 +52,7 @@ if (!empty($_SESSION['correo'])) {
   </ul>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

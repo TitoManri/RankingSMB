@@ -2,7 +2,7 @@ $(document).ready(function () {
     const idUsuario = $("#ID_Usuario").val();
 
     $.ajax({
-        url: '../controllers/listasVistoL.php',
+        url: '../controllers/listasVistosL.php',
         type: 'POST',
         data: { op: 'ListarLibrosVistos', idUsuario: idUsuario },
         dataType: 'json', 
@@ -25,7 +25,7 @@ $(document).ready(function () {
                                     </a>
                                     <div class="todoBlanco">
                                         <p><strong>${pelicula.Titulo}</strong></p>
-                                        <p>${pelicula.Sinopsis}</p>
+                                        <p>Autor: ${pelicula.Autor}</p>
                                     </div>
                                 </div>
                             </div>

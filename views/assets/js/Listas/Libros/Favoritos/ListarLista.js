@@ -25,7 +25,7 @@ $(document).ready(function () {
                                     </a>
                                     <div class="todoBlanco">
                                         <p><strong>${pelicula.Titulo}</strong></p>
-                                        <p>${pelicula.Sinopsis}</p>
+                                        <p>Autor: ${pelicula.Autor}</p>
                                     </div>
                                 </div>
                             </div>

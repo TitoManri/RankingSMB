@@ -65,7 +65,7 @@ switch ($op){
                 // Lo convierte en ObjectId
                 $idLibroObjectId = new ObjectId($idObjetoLibro);
 
-                $resultado = $porVerModel.updatearListaFav($idUsuarioObjectId, $idLibroObjectId);
+                $resultado = $porVerModel->updatearListaFav($idUsuarioObjectId, $idLibroObjectId);
                 // Respuesta exitosa
                 header('Content-Type: application/json');
                 echo json_encode(["status" => "success", "message" => "Lista de por ver actualizada correctamente"]);

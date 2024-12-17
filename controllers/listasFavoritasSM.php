@@ -1,21 +1,25 @@
 <?php
+//Modelos
 require_once '../models/ListasFavoritosSM.php';
 require_once '../models/Peliculas.php';
 require_once '../vendor/autoload.php';
 
-
+//Funcones de la libreria de mongo para php
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
+//Variables que llegan del Ajax
 $op = isset($_POST['op']) ? $_POST['op'] : '';
 $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : null;
 $idPelicula = isset($_POST['idPeliculaSerie']) ? intval($_POST['idPeliculaSerie']) : null;
 
+//Clases
 $fechadeCreacion = new UTCDateTime();
 $fechaModificacion = new UTCDateTime();
 $favoritosModel = new ListasFavoritosSM();
 $pelicula = new Peliculas();
 
+//Switch para las opciones que llegan del Ajax
 switch ($op){
     case 'AgregarAFavoritosPelicula':
         try {
