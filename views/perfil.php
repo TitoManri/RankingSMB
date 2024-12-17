@@ -118,17 +118,17 @@ if (!empty($_SESSION['correo'])) {
                         <div class="container">
                             <div class="row ">
                                 <div class="col-4 animate__animated animate__heartBeat">
-                                    <a href="./listaFavoritosMyS.php" class="libros-listas hvr-radial-in-L-Favorito hvr-round-corners">
+                                    <a href="./listaFavoritosL.php" class="libros-listas hvr-radial-in-L-Favorito hvr-round-corners">
                                         <img src="./assets/img/heart.png" class="rounded  cuadrado-L" alt="">
                                     </a>
                                 </div>
                                 <div class="col-4 animate__animated animate__heartBeat">
-                                    <a href="./listaPorVerMyS.php" class="libros-listas hvr-radial-in-L-PorVer hvr-round-corners">
+                                    <a href="./listaPorVerL.php" class="libros-listas hvr-radial-in-L-PorVer hvr-round-corners">
                                         <img src="./assets/img/vision (1).png" class="rounded  cuadrado-L" alt="">
                                     </a>
                                 </div>
                                 <div class="col-4 animate__animated animate__heartBeat">
-                                    <a href="./listaVistoMyS.php" class="libros-listas hvr-radial-in-L-Visto hvr-round-corners">
+                                    <a href="./listaVistoL.php" class="libros-listas hvr-radial-in-L-Visto hvr-round-corners">
                                         <img src="./assets/img/verified (2).png" class="rounded  cuadrado-L" alt="">
                                     </a>
                                 </div>

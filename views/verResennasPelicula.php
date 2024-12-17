@@ -102,5 +102,6 @@ $Tipo = 1;
 <!--Listas -->
 <script src="./assets/js/Listas/SeriesYPelis/Favoritos/AgregarAListaSMFav.js"></script>
 <script src="./assets/js/Listas/SeriesYPelis/PorVer/AgregarAListaPorVer.js"></script>
+<script src="./assets/js/Listas/SeriesYPelis/Visto/AgregarAListaVisto.js"></script>
 
 </html>

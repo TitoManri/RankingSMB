@@ -42,4 +42,33 @@ class Libros extends Conexion{
         $resultado = $this->coleccion->findOne(['_id' => $objectId]);
         return $resultado;
     }
+
+    public function obtenerDetallesLibros($idsLibros) {
+        try {
+            if (empty($idsLibros)) {
+                throw new Exception("La lista de IDs de libros está vacía.");
+            }
+    
+            // Iterar sobre el BSONArray directamente
+            $objectIds = array_map(fn($id) => new MongoDB\BSON\ObjectId((string)$id), iterator_to_array($idsLibros));
+    
+            // Consulta en lote
+            $libros = $this->coleccion->find(['_id' => ['$in' => $objectIds]]);
+    
+            $detallesLibros = [];
+            foreach ($libros as $libro) {
+                $detallesLibros[] = [
+                    'idContenido' => (string) $libro['_id'],
+                    'Titulo' => $libro['Titulo'] ?? 'Título no disponible',
+                    'Autor' => $libro['Autor'] ?? 'Autor no disponible',
+                    'Poster' => $libro['Poster'] ?? 'Poster no disponible',
+                    'Sinopsis' => $libro['Sinopsis'] ?? 'Sinopsis no disponible',
+                ];
+            }
+    
+            return $detallesLibros;
+        } catch (Exception $e) {
+            throw new Exception("Error al obtener los detalles de los libros: " . $e->getMessage());
+        }
+    }
 }

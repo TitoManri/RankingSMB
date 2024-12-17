@@ -106,4 +106,8 @@ $Tipo = 3;
 <script src="./assets/js/ResennasLibros.js"></script>
 <script src="./assets/js/ResennasUsuario.js"></script>
 
+<script src="./assets/js/Listas/Libros/Favoritos/AgregarAListaLFav.js"></script>
+<script src="./assets/js/Listas/Libros/PorVer/AgregarAListaPorVer.js"></script>
+<script src="./assets/js/Listas/Libros/Visto/AgregarAListaVisto.js"></script>
+
 </html>

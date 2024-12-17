@@ -2,9 +2,9 @@ $(document).ready(function () {
     const idUsuario = $("#ID_Usuario").val();
 
     $.ajax({
-        url: '../controllers/listasVistoSM.php',
+        url: '../controllers/listasVistoL.php',
         type: 'POST',
-        data: { op: 'ListarPeliculasVisto', idUsuario: idUsuario },
+        data: { op: 'ListarLibrosVistos', idUsuario: idUsuario },
         dataType: 'json', 
 
         success: function (response) {
@@ -20,11 +20,11 @@ $(document).ready(function () {
                         <div class="row">
                             <div class="col-12">
                                 <div class="UnaLinea">
-                                    <a data-fancybox class="imagen-1" href="${pelicula.Poster}" data-caption="${pelicula.TituloTraducido}">
-                                        <img class="imagen-2" src="${pelicula.Poster}" width="153" height="247" alt="${pelicula.TituloTraducido}" />
+                                    <a data-fancybox class="imagen-1" href="${pelicula.Poster}" data-caption="${pelicula.Titulo}">
+                                        <img class="imagen-2" src="${pelicula.Poster}" width="153" height="247" alt="${pelicula.Titulo}" />
                                     </a>
                                     <div class="todoBlanco">
-                                        <p><strong>${pelicula.TituloTraducido}</strong></p>
+                                        <p><strong>${pelicula.Titulo}</strong></p>
                                         <p>${pelicula.Sinopsis}</p>
                                     </div>
                                 </div>

@@ -3,7 +3,7 @@
 require_once '../config/Conexion.php'; // Ensure the Conexion class is included
 use Dotenv\Dotenv;
 
-class ListasVistosSM extends Conexion
+class ListasVistosL extends Conexion
 {
     private $coleccion;
     private $idUsuario;
@@ -18,7 +18,7 @@ class ListasVistosSM extends Conexion
         ];
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
-        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasVistosSM;
+        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasVistosL;
     }
 
 
@@ -41,8 +41,8 @@ class ListasVistosSM extends Conexion
         }
     }
 
-     /* Actualizar la lista para insertar una pelicula */
-    public function updatearListaFav($idUsuario, $idPeliculaObjectId) {
+     /* Actualizar la lista para insertar un libro */
+    public function updatearListaFav($idUsuario, $idLibroObjectId) {
         try {
             $filtro = ['IdUsuario' => $idUsuario];
     
@@ -51,7 +51,7 @@ class ListasVistosSM extends Conexion
                     'FechaModificacion' => new MongoDB\BSON\UTCDateTime()
                 ],
                 '$push' => [
-                    'IdContenidosAgregados' => $idPeliculaObjectId
+                    'IdContenidosAgregados' => $idLibroObjectId
                 ]
             ];
     
@@ -63,8 +63,8 @@ class ListasVistosSM extends Conexion
         }
     }
 
-    /* Eliminar Pelicula de la Lista */
-    public function eliminarPeliculaDeListaFav($idUsuario, $idPeliculaObjectId) {
+    /* Eliminar Libro de la Lista */
+    public function eliminarLibroDeListaFav($idUsuario, $idLibroObjectId) {
         try {
             $filtro = ['IdUsuario' => $idUsuario];
             
@@ -73,7 +73,7 @@ class ListasVistosSM extends Conexion
                     'FechaModificacion' => new MongoDB\BSON\UTCDateTime()
                 ],
                 '$pull' => [
-                    'IdContenidosAgregados' => $idPeliculaObjectId
+                    'IdContenidosAgregados' => $idLibroObjectId
                 ]
             ];
             
@@ -81,12 +81,12 @@ class ListasVistosSM extends Conexion
             
             return $resultado;
         } catch (Exception $e) {
-            throw new Exception("Error al eliminar la película de la lista: " . $e->getMessage());
+            throw new Exception("Error al eliminar el libro de la lista: " . $e->getMessage());
         }
     }
 
-    /* Lista de Todas las peliculas*/
-    public function obtenerPeliculasPorUsuario($idUsuario) {
+    /* Lista de Todos los libros */
+    public function obtenerLibrosPorUsuario($idUsuario) {
         try {
             $filtro = ['IdUsuario' => $idUsuario];
             $resultado = $this->coleccion->findOne($filtro);
@@ -97,7 +97,7 @@ class ListasVistosSM extends Conexion
                 throw new Exception("No se encontró la lista de favoritos para el usuario.");
             }
         } catch (Exception $e) {
-            throw new Exception("Error al obtener la lista de películas: " . $e->getMessage());
+            throw new Exception("Error al obtener la lista de libros: " . $e->getMessage());
         }
     }
 

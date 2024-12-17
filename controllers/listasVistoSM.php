@@ -25,9 +25,8 @@ switch ($op){
             if (!$buscarPelicula) {
                 throw new Exception("Película no encontrada con el ID proporcionado." . $idPelicula);
             }
-            
             $idUsuarioObjectId = new ObjectId($idUsuario);
-            $existeEnBaseDeDatos = $vistoModel->existeUsuarioEnLista($idUsuario);
+            $existeEnBaseDeDatos = $vistoModel->existeUsuarioEnLista($idUsuarioObjectId);
             // Verifica si el usuario ya tiene una lista de visto
             // Si no existe la lista de visto, se crea una nueva
             if (!$existeEnBaseDeDatos) {

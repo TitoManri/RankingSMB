@@ -1,3 +1,23 @@
+<?php
+//Inicio de la sesión
+session_start();
+if (!empty($_SESSION['correo'])) {
+    //Variables del usuario
+    $id = $_SESSION['id'];
+    $nivel = $_SESSION['nivel'];
+    $nombre = $_SESSION['nombre'];
+    $primerApellido = $_SESSION['primerApellido'];
+    $SegundoApellido = $_SESSION['segundoApellido'];
+    $nombreUsuario = $_SESSION['nombreUsuario'];
+    $correo = $_SESSION['correo'];
+    $telefono = $_SESSION['telefono'];
+    $fotoPerfil = $_SESSION['fotoPerfil'];
+
+}else{
+    //Lo manda si la intenta acceder sin haber iniciado sesión
+    header('Location: ./inicioSesion.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
