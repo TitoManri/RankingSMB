@@ -54,7 +54,6 @@ class Resennas extends Conexion{
                         'usuarioInfo.FotodePerfil' => 1,
                         //Aqui se puede agregar mas campos del usuario
                         //O mejor dicho, se proyectan los campos que se quieren mostrar
-                        //Ojala el profe este orgulloso de mi :')
                     ]
                 ]
             ];

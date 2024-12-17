@@ -204,7 +204,7 @@ function verLibroDesdeBD(OID) {
             //Agregar FancyBox para poder ver la imagen en grande
             Fancybox.bind("[data-fancybox]")
             escribir.append(datos);
-            $("#VolverAlContenido").attr("href", `./verResennasLibro.php?id=${libro.ID_Libro}`);
+            $("#VolverAlContenido").attr("href", `./verResennasLibros.php?id=${libro.ID_Libro}`);
         }, error: function (error) {
             console.log(error)
         }
@@ -282,7 +282,7 @@ function verSerieDesdeBD(OID) {
             //Agregar FancyBox para poder ver la imagen en grande
             Fancybox.bind("[data-fancybox]")
             escribir.append(datos);
-            $("#VolverAlContenido").attr("href", `./verResennasSerie.php?id=${serie.ID_Serie}`);
+            $("#VolverAlContenido").attr("href", `./verResennasSeries.php?id=${serie.ID_Serie}`);
         }, error: function (error) {
             console.log(error)
         }
