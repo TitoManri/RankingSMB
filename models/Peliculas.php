@@ -4,7 +4,6 @@ require_once '../config/Conexion.php';
 use Dotenv\Dotenv;
 use MongoDB\BSON\ObjectId;
 
-use MongoDB\BSON\ObjectId;
 
 class Peliculas extends Conexion{
 

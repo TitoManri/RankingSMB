@@ -3,7 +3,7 @@
 require_once '../config/Conexion.php'; // Ensure the Conexion class is included
 use Dotenv\Dotenv;
 
-class ListasFavoritosSM extends Conexion
+class ListasVistosSM extends Conexion
 {
     private $coleccion;
     private $idUsuario;
@@ -18,7 +18,7 @@ class ListasFavoritosSM extends Conexion
         ];
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
-        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasFavoritosSM;
+        $this->coleccion = $this->conectarBaseMongo($datosmongo)->ListasVistosSM;
     }
 
 

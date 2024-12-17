@@ -1,5 +1,5 @@
 <?php
-require_once '../models/ListaPorVerSM.php';
+require_once '../models/ListasVistoSM.php';
 require_once '../models/Peliculas.php';
 require_once '../vendor/autoload.php';
 
@@ -12,11 +12,11 @@ $idPelicula = isset($_POST['idPeliculaSerie']) ? intval($_POST['idPeliculaSerie'
 
 $fechadeCreacion = new UTCDateTime();
 $fechaModificacion = new UTCDateTime();
-$porVerModel = new ListasPorVerSM();
+$vistoModel = new ListasVistosSM();
 $pelicula = new Peliculas();
 
 switch ($op){
-    case 'AgregarAPorVerPelicula':
+    case 'AgregarAVistoPelicula':
         try {
             // Busca la película por el id del API
             $buscarPelicula = $pelicula->getPeliculaID($idPelicula);
@@ -25,19 +25,21 @@ switch ($op){
             if (!$buscarPelicula) {
                 throw new Exception("Película no encontrada con el ID proporcionado." . $idPelicula);
             }
+            
             $idUsuarioObjectId = new ObjectId($idUsuario);
-            $existeEnBaseDeDatos = $porVerModel->existeUsuarioEnLista($idUsuario);
-            // Verifica si el usuario ya tiene una lista de por ver
-            // Si no existe la lista de por ver, se crea una nueva
+            $existeEnBaseDeDatos = $vistoModel->existeUsuarioEnLista($idUsuario);
+            // Verifica si el usuario ya tiene una lista de visto
+            // Si no existe la lista de visto, se crea una nueva
             if (!$existeEnBaseDeDatos) {
                 // Agarra el id de la base de datos
                 $idObjetoPelicula = $buscarPelicula->_id;
             
                 // Lo convierte en ObjectId
+                $idUsuarioObjectId = new ObjectId($idUsuario);
                 $idPeliculaObjectId = new ObjectId($idObjetoPelicula);
             
-                // Crear la estructura de la lista de por ver
-                $listaPorVer = [
+                // Crear la estructura de la lista de visto
+                $listaVisto = [
                     'IdUsuario' => $idUsuarioObjectId,
                     'IdContenidosAgregados' => [$idPeliculaObjectId],
                     'FechaCreacion' => $fechadeCreacion,
@@ -45,15 +47,15 @@ switch ($op){
                 ];
             
                 // Llamar al método insertarListaFav
-                $resultado = $porVerModel->insertarListaFav($listaPorVer);
+                $resultado = $vistoModel->insertarListaFav($listaVisto);
             
                 // Verifica si el resultado está vacío
                 if (empty($resultado)) {
-                    throw new Exception("Error al insertar la lista de por ver.");
+                    throw new Exception("Error al insertar la lista de visto.");
                 }
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de por ver agregada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Lista de visto agregada correctamente"]);
                 exit; 
             }
             // 
@@ -65,29 +67,30 @@ switch ($op){
                 $idUsuarioObjectId = new ObjectId($idUsuario);
                 $idPeliculaObjectId = new ObjectId($idObjetoPelicula);
 
-                $resultado = $porVerModel->updatearListaFav($idUsuarioObjectId, $idPeliculaObjectId);
+                $resultado = $vistoModel->updatearListaFav($idUsuarioObjectId, $idPeliculaObjectId);
                 // Respuesta exitosa
                 header('Content-Type: application/json');
-                echo json_encode(["status" => "success", "message" => "Lista de por ver actualizada correctamente"]);
+                echo json_encode(["status" => "success", "message" => "Lista de visto actualizada correctamente"]);
                 exit;   
             }
                
         } catch (Exception $e) {
             // Manejo de excepciones
+            error_log("Error: " . $e->getMessage());
             header('Content-Type: application/json');
             echo json_encode(["status" => "error", "message" => $e->getMessage()]);
             exit;
         }       
         
-        case 'EliminarDePorVerPelicula': 
+        case 'EliminarDeVistoPelicula': 
             try {
                 
-                $resultado = $porVerModel->eliminarPeliculaDeListaFav($idUsuario, $idPeliculaObjectId);
+                $resultado = $vistoModel->eliminarPeliculaDeListaFav($idUsuario, $idPeliculaObjectId);
                 if ($resultado->getModifiedCount() > 0) {
-                    $response = ["exito" => true, "msg" => "Película eliminada de la lista de por ver"];
+                    $response = ["exito" => true, "msg" => "Película eliminada de la lista de visto"];
                     exit;
                 } else {
-                    $response = ["exito" => false, "msg" => "No se encontró la película en la lista de por ver"];
+                    $response = ["exito" => false, "msg" => "No se encontró la película en la lista de visto"];
                     exit;
                 }
             } catch (Exception $e) {
@@ -95,10 +98,10 @@ switch ($op){
                 exit;
             }
         
-        case 'ListarPeliculasPorVer':
+        case 'ListarPeliculasVisto':
             try {
                 $idUsuarioObjectId = new ObjectId($idUsuario);
-                $peliculas = $porVerModel->obtenerPeliculasPorUsuario($idUsuarioObjectId);
+                $peliculas = $vistoModel->obtenerPeliculasPorUsuario($idUsuarioObjectId);
                 $detallesPeliculas = $pelicula->obtenerDetallesPeliculas($peliculas);
                 if (empty($detallesPeliculas)) {
                     throw new Exception("No se encontraron detalles de las películas.");

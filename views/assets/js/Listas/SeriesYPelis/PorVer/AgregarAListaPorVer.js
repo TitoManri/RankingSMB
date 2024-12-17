@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#PorVer").click(function () {
-        const idUsuario = $("#ID_Usuario").val(); // Obtenemos el valor de idUsuario
+        const idUsuario = $("#IdUsuario").val(); // Obtenemos el valor de idUsuario
         const idPeliculaSerie = $("#Id_Peli").val(); // Obtenemos el valor de idPeliculaSerie
         
         $.ajax({

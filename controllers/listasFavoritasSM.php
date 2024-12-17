@@ -26,8 +26,9 @@ switch ($op){
             if (!$buscarPelicula) {
                 throw new Exception("Película no encontrada con el ID proporcionado." . $idPelicula);
             }
+            $idUsuarioObjectId = new ObjectId($idUsuario);
             
-            $existeEnBaseDeDatos = $favoritosModel->existeUsuarioEnLista();
+            $existeEnBaseDeDatos = $favoritosModel->existeUsuarioEnLista($idUsuarioObjectId);
             // Verifica si el usuario ya tiene una lista de favoritos
             //Si no existe la lista de favoritos, se crea una nueva
             if (!$existeEnBaseDeDatos) {
@@ -35,7 +36,7 @@ switch ($op){
                 $idObjetoPelicula = $buscarPelicula->_id;
             
                 // Lo convierte en ObjectId
-                $idUsuarioObjectId = new ObjectId($idUsuario);
+                
                 $idPeliculaObjectId = new ObjectId($idObjetoPelicula);
             
                 // Crear la estructura de la lista de favoritos

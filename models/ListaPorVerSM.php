@@ -25,8 +25,8 @@ class ListasPorVerSM extends Conexion
     //Funciones 
 
     /* Ver si exsite una lista asosiada con el id del usuario */
-    public function existeUsuarioEnLista() {
-        $filtro = ['id_usuario' => $this->idUsuario];
+    public function existeUsuarioEnLista($idUsuario) {
+        $filtro = ['IdUsuario' => $idUsuario];
         $resultado = $this->coleccion->findOne($filtro);
         return $resultado !== null;
     }
