@@ -27,7 +27,7 @@ function agregarComentariosDeOpinion(OID) {
                     let comentarioPegar = `
                     <section class="row" style="width: 100%; margin-bottom: 25px">
                     <div class="col-1" style="width: 6rem;">
-                    <img src="./assets/img/default.jpg" alt="" class="imgPerfil">
+                    <img src="${comentario.usuarioInfo.FotodePerfil}" alt="" class="imgPerfil">
                     </div>
                     </div>
                     <div class="col" style="margin-top: 15px;">
@@ -128,7 +128,7 @@ function agregarOpinion(id) {
                             <div class=" row" style="background-color: #B1B2B5; width: 35rem; border-radius: 15px;">
                                 <br>
                                 <div class="col-1" style="margin-right: 2rem;">
-                                    <img src="./assets/img/${opinion.usuarioInfo.FotodePerfil}" alt="FotoDePerfil_Usuario" class="imgPerfil">
+                                    <img src="${opinion.usuarioInfo.FotodePerfil}" alt="FotoDePerfil_Usuario" class="imgPerfil">
                                 </div>
                                 <div class="col-3" style="margin-top: 2vh;">
                                     <p style="margin-bottom: 0px !important">
@@ -139,7 +139,7 @@ function agregarOpinion(id) {
                                 </div>
                                 <div class="col-2" style="margin-top: 2vh;">
                                 
-                                    <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 30vh; height: 5vh;" id="estrellasOpinion">`
+                                    <div class="d-flex justify-content-center border10" style="background-color: #003344; width: 25vh; height: 5vh;" id="estrellasOpinion">`
             for (let index = 0; index < opinion.Calificacion; index++) {
                 resenna += `<i class="bi bi-star-fill estrellaRellena h3 me-2"></i>`
             }
