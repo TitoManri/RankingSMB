@@ -9,6 +9,7 @@ async function buscarDetallesSerie(idSerie) {
                 Authorization: `Bearer ${tmdbAPI}`
             }
         });
+        //devuelve los detalles de la serie 
         return response;
     } catch (error) {
         console.error('Error al buscar detalles de la serie:', error);
@@ -18,6 +19,7 @@ async function buscarDetallesSerie(idSerie) {
 
 // Función para guardar detalles de una serie en la base de datos
 async function guardarSerieEnBD(serie, id) {
+    //valida los datos de la serie para evitar errores en el insert
     let generos = serie.genres ?? [];
     let estado = "";
     if (serie.status == "Returning Series") estado = "Serie de regreso";
@@ -31,6 +33,7 @@ async function guardarSerieEnBD(serie, id) {
         sipnosis = serie.overview;
     }
 
+    //crea un objeto con los datos de la serie
     let nuevaSerie = {
         ID_Serie: id,
         TituloOriginal: serie.original_name ?? "No encontrado",
@@ -53,6 +56,7 @@ async function guardarSerieEnBD(serie, id) {
             data: nuevaSerie, 
             dataType: 'json'
         });
+        //devuelve la serie guardada
         return nuevaSerie;
 
     } catch (error) {
@@ -105,15 +109,15 @@ async function busquedaSerie(paramBusqueda) {
         let divSeries1 = $("#series1");
         let divSeries2 = $("#series2");
 
-        //limitar los resultados a las primeras 8 películas
+        //limitar los resultados a las primeras 8 series
         const series = response.results;
 
-        //agregar las primeras 4 películas al div superior
+        //agregar las primeras 4 series al div superior
         for (const serie of series.slice(0, 4)) {
             //verificar existencia en la base de datos
             const serieEnBD = await BuscarSerieEnBD(serie.id);
 
-            //crear el HTML con la información de la película
+            //crear el HTML con la información de la serie
             let datos = `
                 <div class="column is-one-quarter">
                 <a href="verResennasSeries.php?id=${serie.id}">
@@ -130,7 +134,7 @@ async function busquedaSerie(paramBusqueda) {
             divSeries1.append(datos);
         }
 
-        //agregar las primeras 4 películas al div superior
+        //agregar las primeras 4 series al div superior
         for (const serie of series.slice(4, 8)) {
             //verificar existencia en la base de datos
             const serieEnBD = await BuscarSerieEnBD(serie.id);

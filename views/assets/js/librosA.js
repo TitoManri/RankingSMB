@@ -18,6 +18,7 @@ async function buscarDetallesLibro(idLibro) {
             url: `https://www.googleapis.com/books/v1/volumes/${idLibro}?key=${googleAPI}&langRestrict=es-CR`,
             type: 'GET'
         });
+        //devuelve los detalles del libro
         return response;
     } catch (error) {
         console.error('Error al buscar detalles del libro:', error);
@@ -54,6 +55,7 @@ async function BuscarLibroEnBD(id) {
 
 //guardar libro en la bd
 async function guardarLibroEnBD(libro, id) {
+    //valida los datos de los libros
     let adulto = "Error";
     if (libro.volumeInfo.maturityRating == "NOT_MATURE") adulto = "Para todo mundo"
     else adulto = "Para mayores de edad";
@@ -65,6 +67,7 @@ async function guardarLibroEnBD(libro, id) {
     let publicante = libro.volumeInfo.publisher || "No disponible";
     let titulo = libro.volumeInfo.title || "No disponible";
 
+    //Guarda los datos en un objeto
     let libroNuevo = {
         ID_Libro: id,
         Titulo: titulo,
@@ -85,6 +88,7 @@ async function guardarLibroEnBD(libro, id) {
             data: libroNuevo,
             dataType: 'json'
         });
+        //devuelve los datos guardados
         return libroNuevo;
     } catch (error) {
         console.error('Error al guardar el libro en BD:', error);
@@ -107,7 +111,7 @@ async function cargarLibrosArriba() {
         //limitar los resultados a los primeros 8 libros
         const libros = response.items;
 
-        //agregar las primeras 4 películas al div superior
+        //agregar los primeros 4 libros al div superior
         for (const book of libros.slice(0, 4)) {
             //verificar existencia en la base de datos
             const libroEnBD = await BuscarLibroEnBD(book.id);
@@ -131,7 +135,7 @@ async function cargarLibrosArriba() {
             divLibrosArriba.append(datos);
         }
 
-        //agregar las últimas 4 películas al div inferior
+        //agregar los últimos 4 libros al div inferior
         for (const book of libros.slice(4, 8)) {
             //verificar existencia en la base de datos
             const libroEnBD = await BuscarLibroEnBD(book.id);
@@ -181,6 +185,7 @@ async function cargarLibrosAbajo() {
             const libroEnBD = await BuscarLibroEnBD(libro.id);
             // Truncar texto y formatear fecha
             const sinopsisTruncada = truncarTexto(libroEnBD.Sinopsis);
+            //devuelve la fecha en formato legible
             const timestamp = libroEnBD.Lanzamiento?.$date?.$numberLong || Date.now();
             const fechaLanzamiento = new Date(parseInt(timestamp));
             const fechaFormateada = fechaLanzamiento.toLocaleDateString('es-CR', {

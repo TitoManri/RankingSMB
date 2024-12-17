@@ -14,6 +14,7 @@ async function buscarDetallesPelícula(idPelicula) {
                 Authorization: `Bearer ${tmdbAPI}`
             }
         });
+        //devuelve los detalles de la película
         return response;
     } catch (error) {
         console.error('Error al buscar detalles de la película:', error);
@@ -173,6 +174,7 @@ async function BuscarLibroEnBD(id) {
 
 //guardar libro en la bd
 async function guardarLibroEnBD(libro, id) {
+    //valida los datos del libro antes del insert
     let adulto = "Error";
     if (libro.volumeInfo.maturityRating == "NOT_MATURE") adulto = "Para todo mundo"
     else adulto = "Para mayores de edad";
@@ -184,6 +186,7 @@ async function guardarLibroEnBD(libro, id) {
     let publicante = libro.volumeInfo.publisher || "No disponible";
     let titulo = libro.volumeInfo.title || "No disponible";
 
+    //crea un elemento de libro con los datos obtenidos
     let libroNuevo = {
         ID_Libro: id,
         Titulo: titulo,
@@ -204,6 +207,7 @@ async function guardarLibroEnBD(libro, id) {
             data: libroNuevo,
             dataType: 'json'
         });
+        //devuelve le libro guardado
         return libroNuevo;
     } catch (error) {
         console.error('Error al guardar el libro en BD:', error);
@@ -224,7 +228,7 @@ async function cargarLibros() {
         //limitar los resultados a los primeros 8 libros
         const libros = response.items;
 
-        //agregar las primeras 4 películas al div superior
+        //agregar los primeros 4 libros al div superior
         for (const book of libros.slice(0, 4)) {
             //verificar existencia en la base de datos
             const libroEnBD = await BuscarLibroEnBD(book.id);
@@ -263,6 +267,7 @@ async function buscarDetallesSerie(idSerie) {
                 Authorization: `Bearer ${tmdbAPI}`
             }
         });
+        // Devuelve los detalles de la serie
         return response;
     } catch (error) {
         console.error('Error al buscar detalles de la serie:', error);
@@ -272,6 +277,7 @@ async function buscarDetallesSerie(idSerie) {
 
 // Función para guardar detalles de una serie en la base de datos
 async function guardarSerieEnBD(serie, id) {
+    //Valida los datos de la serie antes del insert
     let generos = serie.genres ?? [];
     let estado = "";
     if (serie.status == "Returning Series") estado = "Serie de regreso";
@@ -285,6 +291,7 @@ async function guardarSerieEnBD(serie, id) {
         sipnosis = serie.overview;
     }
 
+    //Guarda los datos de la serie en un objeto
     let nuevaSerie = {
         ID_Serie: id,
         TituloOriginal: serie.original_name ?? "No encontrado",
@@ -307,6 +314,7 @@ async function guardarSerieEnBD(serie, id) {
             data: nuevaSerie, 
             dataType: 'json'
         });
+        //devuelve los datos de la serie guardada
         return nuevaSerie;
 
     } catch (error) {

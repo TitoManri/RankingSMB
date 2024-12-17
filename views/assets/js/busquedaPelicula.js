@@ -9,8 +9,10 @@ async function buscarDetallesPelícula(idPelicula) {
                 Authorization: `Bearer ${tmdbAPI}`
             }
         });
+        //devuelve los detalles de la película
         return response;
     } catch (error) {
+        //muestra en caso de error
         console.error('Error al buscar detalles de la película:', error);
         throw error;
     }
@@ -41,14 +43,16 @@ async function BuscarPeliculaEnBD(idPelicula) {
     }
 }
 
-// Función para guardar una película en la base de datos
+//función para guardar una película en la base de datos
 async function guardarPeliculaEnBD(pelicula, id) {
+    //valida los datos de la película para evitar errores en la inserción
     const generos = pelicula.genres || [{ name: "No disponible" }];
     const estado =
         pelicula.status === "Released" ? "Lanzada" :
             pelicula.status === "In Production" ? "En producción" :
                 "Estado desconocido";
 
+    //crea un atributo con los datos de la película
     let nuevaPelicula = {
         ID_Pelicula: id,
         TituloOriginal: pelicula.original_title || "No disponible",
@@ -72,8 +76,10 @@ async function guardarPeliculaEnBD(pelicula, id) {
             data: nuevaPelicula,
             dataType: 'json'
         });
+        //devuelve la película guardada
         return nuevaPelicula; 
     } catch (error) {
+        //muestra en caso de error
         console.error('Error al guardar la película en BD:', error);
         throw error;
     }
@@ -95,13 +101,14 @@ async function busqueda(paramBusqueda) {
         let divPeliculas1 = $("#peliculas1");
         let divPeliculas2 = $("#peliculas2");
 
-        //limitar los resultados a las primeras 8 películas
+        //Seleccionar las películas de la respuesta
         const peliculas = response.results;
 
         //agregar las primeras 4 películas al div superior
         for (const movie of peliculas.slice(0, 4)) {
             //verificar existencia en la base de datos
             const peliculaEnBD = await BuscarPeliculaEnBD(movie.id);
+            //si se encuentra en la base de datos, se toman los datos de ahí
             const poster = peliculaEnBD ? peliculaEnBD.Poster : movie.poster_path;
             const titulo = peliculaEnBD ? peliculaEnBD.TituloTraducido : movie.title;
 
