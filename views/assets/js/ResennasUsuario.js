@@ -139,7 +139,7 @@ function agregarComentarios() {
                 <div class="col-2">`
                     //Imagen
                     comentario += `
-                <img src="./assets/img/${opinion.usuarioInfo.FotodePerfil}" alt="" class="imgPerfil">
+                <img src="${opinion.usuarioInfo.FotodePerfil}" alt="" class="imgPerfil">
                 </div>
                 <div class="col" style="margin-top: 15px;">
                 <p style="margin-bottom: 0px !important">`
