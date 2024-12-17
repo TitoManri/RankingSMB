@@ -82,9 +82,11 @@ $Tipo = 2;
     </div>
     <div>
 
-        <?php
-        include_once "./templates/Header_Footer/footer.php"
-        ?>
+    <div class="fixed-footer">
+            <?php
+            include_once "./templates/Header_Footer/footer.php"
+            ?>
+        </div>
     </div>
 </body>
 <!--Scripts-->

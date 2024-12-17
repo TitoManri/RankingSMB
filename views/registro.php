@@ -99,7 +99,7 @@
                                 </div>
 
                                 <div class="mb-3 row">
-                                    
+
                                 </div>
 
                                 <div class="mb-3 row">
@@ -147,11 +147,14 @@
             </div>
         </div>
     </section>-->
-<br><br>
+    <br><br>
     <!-- Footer -->
-    <?php
-    include_once "./templates/Header_Footer/footer.php"
-    ?>
+    <div class="fixed-footer">
+        <?php
+        include_once "./templates/Header_Footer/footer.php"
+        ?>
+    </div>
+
 
 </body>
 <!-- Bootstrap-->
