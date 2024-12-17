@@ -101,11 +101,6 @@ if (!empty($_SESSION['correo'])) {
                 <div class="carousel-item active">
                     <img src="https://64.media.tumblr.com/4ebc3f285254cf7b0d2733124afe6dc6/47f19caee3f7dca9-54/s2048x3072/3141d20fe645f4130c71e73d93ccf0faadcc4c19.jpg"
                         class="d-block w-100" alt="..." height="400px">
-                    <!-- 
-                <div class="carousel-caption d-none d-md-block">
-                    <h1>Ranking SMB</h1>
-                    <h6>Comunidad donde podrá compartir todas tus opiniones de películas, series y libros</h6>
-                </div> -->
                 </div>
                 <div class="carousel-item">
                     <img src="https://64.media.tumblr.com/e5816b70956eeb24543e54a61a2a2ad4/65bab2b77e54edcb-0d/s2048x3072/a3ad94eaf23ef902736dfda9605215bad205c5d8.pnj"

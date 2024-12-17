@@ -23,6 +23,7 @@ async function buscarDetallesSerie(idSerie) {
 
 // Función para guardar detalles de una serie en la base de datos
 async function guardarSerieEnBD(serie, id) {
+    //valida los datos antes del insert
     let generos = serie.genres ?? [];
     let estado = "";
     if (serie.status == "Returning Series") estado = "Serie de regreso";
@@ -36,6 +37,7 @@ async function guardarSerieEnBD(serie, id) {
         sipnosis = serie.overview;
     }
 
+    //Guarda los datos en un objeto
     let nuevaSerie = {
         ID_Serie: id,
         TituloOriginal: serie.original_name ?? "No encontrado",
@@ -58,6 +60,7 @@ async function guardarSerieEnBD(serie, id) {
             data: nuevaSerie, 
             dataType: 'json'
         });
+        //devuelve los datos guardados
         return nuevaSerie;
 
     } catch (error) {
@@ -110,15 +113,15 @@ async function cargarSeriesArriba() {
         let divSeriesArriba = $("#series1");
         let divSeriesAbajo = $("#series2");
 
-        //limitar los resultados a las primeras 8 películas
+        //guarda el resultado de la respuesta
         const series = response.results;
 
-        //agregar las primeras 4 películas al div superior
+        //agregar las primeras 4 series al div superior
         for (const serie of series.slice(0, 4)) {
             //verificar existencia en la base de datos
             const serieEnBD = await BuscarSerieEnBD(serie.id);
 
-            //crear el HTML con la información de la película
+            //crear el HTML con la información de la serie
             let datos = `
                 <div class="column is-one-quarter">
                 <a href="verResennasSeries.php?id=${serie.id}">
@@ -135,7 +138,7 @@ async function cargarSeriesArriba() {
             divSeriesArriba.append(datos);
         }
 
-        //agregar las primeras 4 películas al div superior
+        //agregar las segundas 4 series al div superior
         for (const serie of series.slice(4, 8)) {
             //verificar existencia en la base de datos
             const serieEnBD = await BuscarSerieEnBD(serie.id);
@@ -180,8 +183,11 @@ async function cargarSeriesAbajo() {
         for (const serie of series) {
             // Verificar existencia en la base de datos
             const serieEnBD = await BuscarSerieEnBD(serie.id);
+            //muestra los géneros en texto
             const generos = serieEnBD.Generos.map(genero => genero.name).join(", ");
+            //trunca la sinopsis si excede un límite de caracteres
             const sinopsisTruncada = truncarTexto(serieEnBD.Sinopsis);
+            //devuelve la fecha de lanzamiento en formato legible
             let timestamp = serieEnBD.Lanzamiento.$date.$numberLong;
             let fechaLanzamiento = new Date(parseInt(timestamp));
             let fechaFormateada = fechaLanzamiento.toLocaleDateString('es-CR', {
@@ -190,7 +196,7 @@ async function cargarSeriesAbajo() {
                 day: 'numeric'
             });
 
-            // Crear HTML con la información de cada película
+            // Crear HTML con la información de cada serie
             let datos = `
                     <div class="movie_card" id="peliculaCard">
                     <a href="verResennasSeries.php?id=${serie.id}">

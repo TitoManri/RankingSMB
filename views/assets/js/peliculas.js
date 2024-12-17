@@ -48,12 +48,14 @@ async function BuscarPeliculaEnBD(idPelicula) {
 
 // Función para guardar una película en la base de datos
 async function guardarPeliculaEnBD(pelicula, id) {
+    //Valida los datos antes del insert
     const generos = pelicula.genres || [{ name: "No disponible" }];
     const estado =
         pelicula.status === "Released" ? "Lanzada" :
             pelicula.status === "In Production" ? "En producción" :
                 "Estado desconocido";
 
+    //guarda los datos en un objeto
     let nuevaPelicula = {
         ID_Pelicula: id,
         TituloOriginal: pelicula.original_title || "No disponible",
@@ -77,6 +79,7 @@ async function guardarPeliculaEnBD(pelicula, id) {
             data: nuevaPelicula,
             dataType: 'json'
         });
+        //devueñve la película guardada
         return nuevaPelicula; 
     } catch (error) {
         console.error('Error al guardar la película en BD:', error);
@@ -225,11 +228,13 @@ async function cargarPeliculasAbajo() {
 
 // Ejecutar prueba al cargar la página
 $(function () {
+    //refresca la página
     let refreshCount = localStorage.getItem('refreshCount') || 0;
     if (refreshCount < 3) {
         localStorage.setItem('refreshCount', ++refreshCount);
         location.reload();
     } else {
+        //después de refrescar carga las películas y series
         localStorage.removeItem('refreshCount');
         cargarPelículasArriba();
         cargarPeliculasAbajo();

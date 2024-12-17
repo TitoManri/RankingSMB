@@ -73,11 +73,11 @@ if (!empty($_SESSION['correo'])) {
         </div>
 
         <div id="peliculas2" class="columns is-multiline">
-            <!-- se insertan los libros por medio de js -->
+            <!-- se insertan las películas por medio de js -->
         </div>
 
         <div id="peliculas3" class="columns last">
-            <!-- se insertan los libros por medio de js -->
+            <!-- se insertan las películas por medio de js -->
         </div>
     </div>
 

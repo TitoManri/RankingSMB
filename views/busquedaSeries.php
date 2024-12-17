@@ -75,15 +75,15 @@ if (!empty($_SESSION['correo'])) {
             <div class="column is-full">
                 <h1 class="title is-3 has-text-white">Resultado de la búsqueda</h1>
             </div>
-            <!-- se insertan las películas usando js-->
+            <!-- se insertan las series usando js-->
         </div>
 
         <div id="series2" class="columns is-multiline">
-            <!-- se insertan los libros por medio de js -->
+            <!-- se insertan las series por medio de js -->
         </div>
 
         <div id="series3" class="columns last">
-            <!-- se insertan los libros por medio de js -->
+            <!-- se insertan las series por medio de js -->
         </div>
     </div>
 
