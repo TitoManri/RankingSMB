@@ -58,6 +58,7 @@ if (!empty($_SESSION['correo'])) {
                     </div>
 
                     <div class="col-5">
+
                         <h1 class="caja-perfil-datos p-3 mt-3" id="nombreCompleto" name="nombreCompleto"><?php echo $nombre." ".$primerApellido." ".$SegundoApellido?></h1>
                         <br>
                         <br>

@@ -22,7 +22,6 @@ try {
             if ($usuarioConNivel && isset($usuarioConNivel['nivel'])) {
                 $nivel = $usuarioConNivel['nivel']; 
                 $nombreNivel = $nivel['Nombre']; 
-
                 session_start();
                 $_SESSION['id'] = (string) $usuario->_id;
                 $_SESSION['nivel'] = $nombreNivel;
